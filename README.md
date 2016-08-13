@@ -1,33 +1,43 @@
-# ![./NMessenger](https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/nmessenger.png)
-[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.corp.ebay.com/N/NMessenger/blob/master/LICENSE.txt)
+# ![./NMessenger](https://github.com/eBay/NMessenger/blob/master/Assets/nmessenger.png)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/eBay/NMessenger/blob/master/LICENSE)
 
 NMessenger is a fast, lightweight messenger component built on [AsyncDisplaykit](https://github.com/facebook/AsyncDisplayKit) and written in [Swift](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/). Developers can inherently achieve 60FPS scrolling and smooth transitions with rich content components.
 
 <p align="center">
-  <img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/NMessenger-Overview.png" alt="NMessenger" width="300"/>
+  <img src="https://github.com/eBay/NMessenger/blob/master/Assets/NMessenger-Overview.png" alt="NMessenger" width="300"/>
 </p>
 
 ## Features
 
 Built-in support for:
-- [Text](https://github.corp.ebay.com/N/NMessenger#posting-messages)
-- [Images (network and local)](https://github.corp.ebay.com/N/NMessenger#posting-messages)
-- [Collection Views](https://github.corp.ebay.com/N/NMessenger#posting-messages)
-- [Rich Content](https://github.corp.ebay.com/N/NMessenger#posting-messages)
-- [Typing Indicators](https://github.corp.ebay.com/N/NMessenger#typing-indicators)
-- [Avatars](https://github.corp.ebay.com/N/NMessenger#avatars)
-- [Custom and Layer Masked Bubbles](https://github.corp.ebay.com/N/NMessenger#message-bubbles)
-- [Bubble Configurations](https://github.corp.ebay.com/N/NMessenger#bubble-configuration)
-- [Extendable Components](https://github.corp.ebay.com/N/NMessenger#content-nodes-and-custom-components)
-- [Async Head Prefetching](https://github.corp.ebay.com/N/NMessenger#head-prefetching)
-- [Message Groups](https://github.corp.ebay.com/N/NMessenger#message-groups)
-- [Adding, Removing, and Updating Messages (with animations)](https://github.corp.ebay.com/N/NMessenger#adding-removing-and-updating)
+- [Text](https://github.com/eBay/NMessenger#posting-messages)
+- [Images (network and local)](https://github.com/eBay/NMessenger#posting-messages)
+- [Collection Views](https://github.com/eBay/NMessenger#posting-messages)
+- [Rich Content](https://github.com/eBay/NMessenger#posting-messages)
+- [Typing Indicators](https://github.com/eBay/NMessenger#typing-indicators)
+- [Avatars](https://github.com/eBay/NMessenger#avatars)
+- [Custom and Layer Masked Bubbles](https://github.com/eBay/NMessenger#message-bubbles)
+- [Bubble Configurations](https://github.com/eBay/NMessenger#bubble-configuration)
+- [Extendable Components](https://github.com/eBay/NMessenger#content-nodes-and-custom-components)
+- [Async Head Prefetching](https://github.com/eBay/NMessenger#head-prefetching)
+- [Message Groups](https://github.com/eBay/NMessenger#message-groups)
+- [Adding, Removing, and Updating Messages (with animations)](https://github.com/eBay/NMessenger#adding-removing-and-updating)
 
 ## Version Information
 * 1.0.0
 
 ## Requirements
 * iOS 8.2+
+
+## Installation
+*Note: We are working on making a cocoapod for this project. This is a temporary solution.*
+
+In the NMessenger directory
+```
+pod install
+```
+Open `nMessenger.xcworkspace` 
+
 
 ## Getting Started
 
@@ -45,7 +55,7 @@ Send a text message.
 func sendText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/Text-Message.png" alt="Text Message" width="400"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/Text-Message.png" alt="Text Message" width="400"/>
 </p>
 ---
 
@@ -58,7 +68,7 @@ Send a message with a network image. (Uses AsyncDisplayKit with PINCache to lazy
 func sendNetworkImage(imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/Image-Message.png" alt="Image Message" width="400"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/Image-Message.png" alt="Image Message" width="400"/>
 </p>
 ---
 
@@ -72,13 +82,13 @@ func sendCollectionViewWithNodes(nodes: [ASDisplayNode], numberOfRows:CGFloat, i
 One line CollectionView
 
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/CollectionSingle-Message.png" alt="One line CollectionView" width="400"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/CollectionSingle-Message.png" alt="One line CollectionView" width="400"/>
 </p>
 
 Multi line CollectionView
 
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/CollectionMulti-Message.png" alt="Multi line CollectionView" width="400"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/CollectionMulti-Message.png" alt="Multi line CollectionView" width="400"/>
 </p>
 ---
 
@@ -89,7 +99,7 @@ func sendCustomView(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCel
 func sendCustomNode(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/Custom-Message.png" alt="Custom Message" width="400"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/Custom-Message.png" alt="Custom Message" width="400"/>
 </p>
 
 These functions are meant to be overridden for network calls and other controller logic.
@@ -104,7 +114,7 @@ func showTypingIndicator(avatar: ASDisplayNode) -> GeneralMessengerCell
 func removeTypingIndicator(indicator: GeneralMessengerCell)
 ```
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/TypingIndicator.png" alt="Typing Indicator" width="400"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/TypingIndicator.png" alt="Typing Indicator" width="400"/>
 </p>
 
 ### NMessenger
@@ -134,19 +144,19 @@ NMessenger comes with a few prebuilt bubble types. `bubble` can also easily be s
 
 `SimpleBubble`
 
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/SimpleBubble.png" alt="Simple Bubble" width="200"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/SimpleBubble.png" alt="Simple Bubble" width="200"/>
 
 `DefaultBubble`
 
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/DefaultBubble.png" alt="Default Bubble" width="200"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/DefaultBubble.png" alt="Default Bubble" width="200"/>
 
 `StackedBubble`
 
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/StackedBubble.png" alt="Stacked Bubble" width="200"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/StackedBubble.png" alt="Stacked Bubble" width="200"/>
 
 `ImageBubble` - Can be used with any [9 Patch Image](https://github.com/chrislondon/9-Patch-Image-for-Websites/wiki/What-Are-9-Patch-Images)
 
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/ImageBubble.png" alt="Image Bubble" width="200"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/ImageBubble.png" alt="Image Bubble" width="200"/>
 
 By setting `hasLayerMask = true`, bubbles will mask their content. This is relevant for images and other rich content components. 
 
@@ -177,7 +187,7 @@ This protocol is meant to provide a new instance of the bubble class for primary
 A Content Node holds message content in a `MessageNode` (everything inside of the bubble).
 
 <p align="center">
-  <img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/ContentNode.png" alt="Content Node" width="500"/>
+  <img src="https://github.com/eBay/NMessenger/blob/master/Assets/ContentNode.png" alt="Content Node" width="500"/>
 </p>
 
 Subclassing `ContentNode` gives you the ability to define your own content. This is particularly useful for creating rich content components that are not in our stock message kit. Alternatively, you can initialize a 'CustomContentNode' with your own view or node. 
@@ -235,7 +245,7 @@ Message Groups can be used to stack messages and animate avatars. Like `MessageN
 Additionally, `MessageGroup` determines the bubble type of the `MessageNode`'s content based on the position in the table. The first message's content will have a primary bubble, the rest will have a secondary bubble. Typically, the avatar will be disabled on any `MessagesNode` in the group, but kept for the `MessageGroup`.
 
 <p align="center">
-  <img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/MessageGroup.png" alt="Message Group" width="300"/>
+  <img src="https://github.com/eBay/NMessenger/blob/master/Assets/MessageGroup.png" alt="Message Group" width="300"/>
 </p>
 
 #### Adding, Removing, and Updating
@@ -250,7 +260,7 @@ To add a `MessageNode`.
 messageGroup.addMessageToGroup(message: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
-  <img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/Mg-Add.gif" alt="Message Group Add Animation" width="200"/>
+  <img src="https://github.com/eBay/NMessenger/blob/master/Assets/Mg-Add.gif" alt="Message Group Add Animation" width="200"/>
 </p>
 
 ##### Removing
@@ -259,7 +269,7 @@ To remove a `MessageNode`.
 messageGroup.replaceMessage(message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
-  <img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/Mg-Delete.gif" alt="Message Group Remove Animation" width="200"/>
+  <img src="https://github.com/eBay/NMessenger/blob/master/Assets/Mg-Delete.gif" alt="Message Group Remove Animation" width="200"/>
 </p>
 
 ##### Updating
@@ -268,7 +278,7 @@ To update an existing `MessageNode` with a new `MessageNode`.
 messageGroup.removeMessageFromGroup(message: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
-<img src="https://github.corp.ebay.com/N/NMessenger/blob/master/Assets/Mg-Replace.gif" alt="Message Group Update Animation" width="200"/>
+<img src="https://github.com/eBay/NMessenger/blob/master/Assets/Mg-Replace.gif" alt="Message Group Update Animation" width="200"/>
 </p>
 
 ## Authors
