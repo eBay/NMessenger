@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "NMessenger"
-  s.version      = "1.0.4"
+  s.version      = "1.0.5"
   s.summary      = "A fast, lightweight messenger component built on AsyncDisplaykit and written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -80,7 +80,7 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/eBay/NMessenger.git", :tag => "1.0.4" }
+  s.source       = { :git => "https://github.com/eBay/NMessenger.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -91,7 +91,7 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "nMessenger","nMessenger/**/*.{h,m}"
+  s.source_files  = "nMessenger/**/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -106,7 +106,7 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   #
 
   # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
+  s.resources = ['nMessenger/Assets.xcassets', 'nMessenger/**/*.{xib,storyboard}']
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
