@@ -29,7 +29,7 @@ Built-in support for:
 ## Requirements
 * iOS 8.2+
 
-## Installation for Cocoapods(https://cocoapods.org)
+## Installation for [Cocoapods](https://cocoapods.org)
 
 In the NMessenger directory
 ```
