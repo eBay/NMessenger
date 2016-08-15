@@ -29,12 +29,12 @@ Built-in support for:
 ## Requirements
 * iOS 8.2+
 
-## Installation
-*Note: We are working on making a cocoapod for this project. This is a temporary solution.*
+## Installation for Cocoapods(https://cocoapods.org)
 
 In the NMessenger directory
 ```
-pod install
+# For latest release in cocoapods
+pod 'NMessenger'
 ```
 Open `nMessenger.xcworkspace` 
 
