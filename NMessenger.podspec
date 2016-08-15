@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "NMessenger"
-  s.version      = "1.0.0"
+  s.version      = "1.0.2"
   s.summary      = "A fast, lightweight messenger component built on AsyncDisplaykit and written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -80,7 +80,7 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/eBay/NMessenger.git", :tag => “1.0.1” }
+  s.source       = { :git => "https://github.com/eBay/NMessenger.git", :tag => "1.0.2" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
