@@ -106,7 +106,7 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   #
 
   # s.resource  = "icon.png"
-  s.resources = ['nMessenger/Assets.xcassets', 'nMessenger/**/*.{xib,storyboard}']
+  s.resources = ['nMessenger/Assets.xcassets', 'nMessenger/**/*.{png,jpeg,jpg,storyboard,xib}']
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
