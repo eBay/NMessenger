@@ -16,17 +16,17 @@ import AsyncDisplayKit
  Custom View Message class for NMessenger. Extends ContentNode.
  Defines content that is a custom. Content can be a view or a node.
  */
-class CustomContentNode: ContentNode {
+public class CustomContentNode: ContentNode {
     
     // MARK: Public Variables
     /** Insets for the node */
-    var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
+    public var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
             setNeedsLayout()
         }
     }
     /**Should the bubble be masked or not*/
-    var maskedBubble = true {
+    public var maskedBubble = true {
         didSet {
             self.updateBubbleConfig(self.bubbleConfiguration)
             self.setNeedsLayout()
@@ -49,7 +49,7 @@ class CustomContentNode: ContentNode {
      - parameter customView: Must be UIView. Sets view for the cell.
      Calls helper methond to setup cell
      */
-    init(withCustomView customView: UIView, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
+    public init(withCustomView customView: UIView, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.setupCustomView(customView)
     }
@@ -59,14 +59,14 @@ class CustomContentNode: ContentNode {
      - parameter customNode: Must be ASDisplayNode. Sets view for the cell.
      Calls helper methond to setup cell
      */
-    init(withCustomNode customNode: ASDisplayNode, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
+    public init(withCustomNode customNode: ASDisplayNode, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.setupCustomNode(customNode)
     }
     
     // MARK: Initialiser helper methods
      /** Override updateBubbleConfig to set bubble mask */
-    override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    public override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
         var maskedBubbleConfig = newValue
         maskedBubbleConfig.isMasked = self.maskedBubble
         super.updateBubbleConfig(maskedBubbleConfig)
@@ -104,7 +104,7 @@ class CustomContentNode: ContentNode {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = constrainedSize.max.width
         let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSizeZero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))

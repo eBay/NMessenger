@@ -12,28 +12,28 @@ import Foundation
 import UIKit
 
 /** Uses a default bubble as primary and a stacked bubble as secondary. Incoming color is pale grey and outgoing is blue */
-class StandardBubbleConfiguration: BubbleConfigurationProtocol {
+public class StandardBubbleConfiguration: BubbleConfigurationProtocol {
 
-    var isMasked = false
+    public var isMasked = false
     
-    func getIncomingColor() -> UIColor
+    public func getIncomingColor() -> UIColor
     {
         return UIColor.n1PaleGreyColor()
     }
     
-    func getOutgoingColor() -> UIColor
+    public func getOutgoingColor() -> UIColor
     {
         return UIColor.n1ActionBlueColor()
     }
     
-    func getBubble() -> Bubble
+    public func getBubble() -> Bubble
     {
         let newBubble = DefaultBubble()
         newBubble.hasLayerMask = isMasked
         return newBubble
     }
     
-    func getSecondaryBubble() -> Bubble
+    public func getSecondaryBubble() -> Bubble
     {
         let newBubble = StackedBubble()
         newBubble.hasLayerMask = isMasked

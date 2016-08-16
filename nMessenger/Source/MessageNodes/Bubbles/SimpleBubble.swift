@@ -15,15 +15,15 @@ import UIKit
 /**
  Simple bubble with no layer effects which is the bounds of the content it holds
  */
-class SimpleBubble: Bubble {
+public class SimpleBubble: Bubble {
     
     //MARK: Public Variables
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    var bubbleBorderColor : UIColor = UIColor.clearColor()
+    public var bubbleBorderColor : UIColor = UIColor.clearColor()
     /** Path used to cutout the bubble*/
     private(set) var path: CGMutablePath = CGPathCreateMutable()
     
-    override init() {
+    public override init() {
         super.init()
     }
     
@@ -33,7 +33,7 @@ class SimpleBubble: Bubble {
      Overriding sizeToBounds from super class
      -parameter bounds: The bounds of the content
      */
-    override func sizeToBounds(bounds: CGRect) {
+    public override func sizeToBounds(bounds: CGRect) {
         super.sizeToBounds(bounds)
         
         let rect = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
@@ -50,7 +50,7 @@ class SimpleBubble: Bubble {
     /**
      Overriding createLayer from super class
      */
-    override func createLayer() {
+    public override func createLayer() {
         super.createLayer()
         
         CATransaction.begin()

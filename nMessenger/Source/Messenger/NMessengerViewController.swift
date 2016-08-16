@@ -15,13 +15,13 @@ import AVFoundation
 import Photos
 import AsyncDisplayKit
 
-class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate {
+public class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate {
     
     //MARK: IBOutlets
     //@IBOutlet that is messanger view
-    @IBOutlet var messengerView: NMessenger!
+    @IBOutlet public var messengerView: NMessenger!
     //@IBOutlet that is input view
-    @IBOutlet var inputBarView: InputBarView!
+    @IBOutlet public var inputBarView: InputBarView!
     
     //MARK: Private Variables
     //Bool to idicate if the keyboard is open
@@ -32,9 +32,9 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     private var messengerBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
     //MARK: Public Variables
     //UIEdgeInsets for padding for each message
-    var messagePadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+    public var messagePadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     /** A shared bubble configuration to use for new messages. Defaults to **SharedBubbleConfiguration***/
-    var sharedBubbleConfiguration: BubbleConfigurationProtocol = StandardBubbleConfiguration()
+    public var sharedBubbleConfiguration: BubbleConfigurationProtocol = StandardBubbleConfiguration()
     
     // MARK: Initialisers
     
@@ -42,7 +42,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      Initialiser for the controller.
      Adds observers
      */
-    init() {
+    public init() {
         super.init(nibName: nil, bundle: nil)
         self.addObservers()
     }
@@ -54,7 +54,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      - parameter nibBundleOrNil: Can be NSBundle
      Adds observers
      */
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.addObservers()
     }
@@ -62,7 +62,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      Initialiser from xib
      Adds observers
      */
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.addObservers()
     }
@@ -79,13 +79,13 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Adds observer for UIKeyboardWillChangeFrameNotification
      */
-    func addObservers() {
+    private func addObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NMessengerViewController.keyboardNotification(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     /**
      Removes observer for UIKeyboardWillChangeFrameNotification
      */
-    func removeObservers() {
+    private func removeObservers() {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -94,7 +94,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      Overriding viewDidLoad to setup the view contoller
      Calls helper methods
      */
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         //load views
         loadMessengerView()
@@ -106,7 +106,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
         self.inputBarView.textInputAreaView.addGestureRecognizer(swipeDown)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     }
     
@@ -189,19 +189,19 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Called when adding a text to the meesenger. Override this function to add your message to the VC
      */
-    func sendText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func sendText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postText(text,isIncomingMessage: isIncomingMessage)
     }
     /**
      Called  when adding an image to the meesenger. Override this function to add your message to the VC
      */
-    func sendImage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func sendImage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postImage(image,isIncomingMessage: isIncomingMessage)
     }
     /**
      Called when adding a network image to the meesenger. Override this function to add your message to the VC
      */
-    func sendNetworkImage(imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell
+    public func sendNetworkImage(imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
         return self.postNetworkImage(imageURL,isIncomingMessage: isIncomingMessage)
     }
@@ -209,7 +209,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Called when adding a collection view with views to the meesenger. Override this function to add your message to the VC
      */
-    func sendCollectionViewWithViews(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
+    public func sendCollectionViewWithViews(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
         return self.postCollectionView(views, numberOfRows: numberOfRows, isIncomingMessage: isIncomingMessage)
     }
@@ -217,7 +217,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Called when adding a collection view with nodes to the meesenger. Override this function to add your message to the VC
      */
-    func sendCollectionViewWithNodes(nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
+    public func sendCollectionViewWithNodes(nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
         return self.postCollectionView(nodes, numberOfRows: numberOfRows, isIncomingMessage: isIncomingMessage)
     }
@@ -226,7 +226,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Called when adding a a custom view to the meesenger. Override this function to add your message to the VC
      */
-    func sendCustomView(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell
+    public func sendCustomView(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
         return self.postCustomContent(view, isIncomingMessage: isIncomingMessage)
     }
@@ -234,7 +234,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Called when adding a a custom node to the meesenger. Override this function to add your message to the VC
      */
-    func sendCustomNode(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell
+    public func sendCustomNode(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
         return self.postCustomContent(node, isIncomingMessage: isIncomingMessage)
     }
@@ -245,7 +245,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      Adds a message to the messanger
      - parameter message: MessageNode
      */
-    func addMessgeToMessenger(message:MessageNode)
+    public func addMessgeToMessenger(message:MessageNode)
     {
         message.currentViewController = self
         if message.isIncomingMessage == false
@@ -262,7 +262,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      Adds a message group to the messanger
      - parameter messageGroup: MessageGroup
      */
-    func addMessageGroupToMessenger(messageGroup:MessageGroup)
+    public func addMessageGroupToMessenger(messageGroup:MessageGroup)
     {
         messageGroup.currentViewController = self
         if messageGroup.isIncomingMessage == false
@@ -279,7 +279,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
      Adds a general message to the messanger. Default animation is fade.
      - parameter messageGroup: MessageGroup
      */
-    func addGeneralMessengeToMessenger(message: GeneralMessengerCell) {
+    public func addGeneralMessengeToMessenger(message: GeneralMessengerCell) {
         message.currentViewController = self
         self.messengerView.addMessage(message, scrollsToMessage: false, withAnimation: .Fade)
     }
@@ -287,7 +287,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      Adds an incoming typing indicator to the messenger
      */
-    func showTypingIndicator(avatar: ASDisplayNode?) -> GeneralMessengerCell
+    public func showTypingIndicator(avatar: ASDisplayNode?) -> GeneralMessengerCell
     {
         let typing = TypingIndicatorContent(bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: typing)
@@ -299,7 +299,7 @@ class NMessengerViewController: UIViewController, UITextViewDelegate, NMessenger
     /**
      removes a typing indicator from the messenger
      */
-    func removeTypingIndicator(indicator: GeneralMessengerCell) {
+    public func removeTypingIndicator(indicator: GeneralMessengerCell) {
         messengerView.removeTypingIndicator(indicator, scrollsToLast: false, animated: true)
     }
     

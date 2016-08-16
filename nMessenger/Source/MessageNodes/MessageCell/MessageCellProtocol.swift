@@ -9,7 +9,7 @@
 import Foundation
 
 /** Protocol used by a message cell to handle various message related actions */
-@objc protocol MessageCellProtocol {
+@objc public protocol MessageCellProtocol {
     /**
      Called when the avatar is clicked. Notifies the delegate of the message cell whose avatar is clicked
      */

@@ -15,19 +15,19 @@ import UIKit
 /**
  Spinning loading indicator class. Used by the NMessenger prefetch.
  */
-class HeadLoadingIndicator: GeneralMessengerCell {
+public class HeadLoadingIndicator: GeneralMessengerCell {
     /** Horizontal spacing between text and spinner. Defaults to 20.*/
-    var contentPadding:CGFloat = 20 {
+    public var contentPadding:CGFloat = 20 {
         didSet {
             self.setNeedsLayout()
         }
     }
     /** Animated spinner node*/
-    let spinner = SpinnerNode()
+    public let spinner = SpinnerNode()
     /** Loading text node*/
-    let text = ASTextNode()
+    public let text = ASTextNode()
     /** Sets the loading attributed text for the spinner. Defaults to *"Loading..."* */
-    var loadingAttributedText:NSAttributedString? {
+    public var loadingAttributedText:NSAttributedString? {
         set {
             text.attributedString = newValue
             self.setNeedsLayout()
@@ -36,7 +36,7 @@ class HeadLoadingIndicator: GeneralMessengerCell {
         }
     }
     
-    override init() {
+    public override init() {
         super.init()
         addSubnode(text)
         text.attributedString = NSAttributedString(
@@ -49,7 +49,7 @@ class HeadLoadingIndicator: GeneralMessengerCell {
         addSubnode(spinner)
     }
 
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let stackLayout = ASStackLayoutSpec(
             direction: .Horizontal,
             spacing: contentPadding,
@@ -65,17 +65,17 @@ class HeadLoadingIndicator: GeneralMessengerCell {
 /**
  Animated spinner. Used by HeadLoadingIndicator. Defaults to *preferredFrameSize.height=32*
  */
-class SpinnerNode: ASDisplayNode {
-    var activityIndicatorView: UIActivityIndicatorView {
+public class SpinnerNode: ASDisplayNode {
+    public var activityIndicatorView: UIActivityIndicatorView {
         return view as! UIActivityIndicatorView
     }
 
-    override init() {
+    public override init() {
         super.init(viewBlock: { UIActivityIndicatorView(activityIndicatorStyle: .Gray) }, didLoadBlock: nil)
         preferredFrameSize.height = 32
     }
     
-    override func didLoad() {
+    override public func didLoad() {
         super.didLoad()
         activityIndicatorView.startAnimating()
     }

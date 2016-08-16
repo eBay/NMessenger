@@ -16,7 +16,7 @@ import AVFoundation
  CameraViewDelegate protocol for NMessaenger.
  Defines methods to be implemented inorder to use the CameraViewController
  */
-protocol CameraViewDelegate {
+public protocol CameraViewDelegate {
     /**
      Should define behavior when a photo is selected
      */
@@ -31,7 +31,7 @@ protocol CameraViewDelegate {
  SelectionType enum for NMessaenger.
  Defines type of selection the user is making - camera of photo library
  */
-enum SelectionType {
+public enum SelectionType {
     case Camera
     case Library
 }
@@ -40,16 +40,16 @@ enum SelectionType {
  CameraViewController class for NMessaenger.
  Defines the camera view for NMessaenger. This is where the user will take photos or select them from the library.
  */
-class CameraViewController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+public class CameraViewController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK: Public Parameters
     //CameraViewDelegate that implemets the delegate methods
-    var cameraDelegate: CameraViewDelegate!
+    public var cameraDelegate: CameraViewDelegate!
     //SelectionType type of selection the user is making  - defualt is camera
-    var selection = SelectionType.Camera
+    public var selection = SelectionType.Camera
     //AVAuthorizationStatus authorization status for the camera
-    var cameraAuthStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+    public var cameraAuthStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
     //PHAuthorizationStatus authorization status for the library
-    var photoLibAuthStatus = PHPhotoLibrary.authorizationStatus()
+    public var photoLibAuthStatus = PHPhotoLibrary.authorizationStatus()
     //MARK: Private Parameters
     //UIButton to change to gallery mode
     private var gallery: UIButton!
@@ -78,7 +78,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
      Ovreriding viewDidLoad to setup the controller
      Calls helper method
      */
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         self.allowsEditing = true
         self.delegate = self
@@ -88,7 +88,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Ovreriding viewDidAppear to setup the camera view if there are permissions for the camera
      */
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         
         if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
             if (self.sourceType == UIImagePickerControllerSourceType.Camera) {
@@ -102,7 +102,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Initialise the view and request for permissions if necessary
      */
-    func initView() {
+    private func initView() {
         //check if the camera is available
         if ((UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) && (cameraAuthStatus == AVAuthorizationStatus.Authorized)){
             self.sourceType = UIImagePickerControllerSourceType.Camera
@@ -139,7 +139,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds all the buttons for the custom camera view
      */
-    func renderCameraElements() {
+    private func renderCameraElements() {
         addGalleryButton()
         //set gallery image thumbnail
         if(photoLibAuthStatus != PHAuthorizationStatus.Authorized) {
@@ -173,7 +173,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds the gallery button for the custom camera view
      */
-    func addGalleryButton() {
+    private func addGalleryButton() {
         //GALLERY BUTTON
         gallery = UIButton(frame: CGRectMake(self.view.frame.width - sideButtonSize - bottomPadding, self.view.frame.height - sideButtonSize - bottomPadding, sideButtonSize, sideButtonSize))
         gallery.addTarget(self, action: #selector(CameraViewController.changePictureMode), forControlEvents: UIControlEvents.TouchUpInside)
@@ -187,7 +187,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds the gallery thumbnail for the custom camera view
      */
-    func getGalleryThumbnail() {
+    private func getGalleryThumbnail() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors =  [NSSortDescriptor(key: "creationDate", ascending: true)]
         let fetchResult = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: fetchOptions)
@@ -204,7 +204,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds the capture button for the custom camera view
      */
-    func addCaptureButton() {
+    private func addCaptureButton() {
         
         //CAPTURE BUTTON
         capturePictureButton = UIButton(frame: CGRectMake(self.view.frame.width/2 - bottomPadding, self.view.frame.height - captureButtonSize - bottomPadding, captureButtonSize, captureButtonSize))
@@ -218,7 +218,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds the flip button for the custom camera view
      */
-    func addFlipCameraButton() {
+    private func addFlipCameraButton() {
         //FLIP CAMERA BUTTON
         flipCamera = UIButton(frame: CGRectMake(bottomPadding, self.view.frame.height - sideButtonSize - bottomPadding, sideButtonSize, sideButtonSize))
         flipCamera.addTarget(self, action: #selector(CameraViewController.flipCamera(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -228,7 +228,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds the toolbar for the custom camera view
      */
-    func addCameraToolBar() {
+    private func addCameraToolBar() {
         //CAMERA TOOLBAR
         cameraToolbar = UIToolbar(frame: CGRectMake(0, 0, self.view.frame.width, 60))
         cameraToolbar.barStyle = UIBarStyle.BlackTranslucent
@@ -243,7 +243,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds the flash button for the custom camera view
      */
-    func addFlashButton() {
+    public func addFlashButton() {
         //Flash Button
         flashButton = UIButton(frame: CGRectMake(self.view.frame.width - 60, 10, 40, 40))
         flashButton.setImage(UIImage(named: "flashIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
@@ -257,7 +257,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Implementing didFinishPickingMediaWithInfo to send the selected image to the cameraDelegate
      */
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    public func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         var myImage = info[UIImagePickerControllerEditedImage] as? UIImage
         
         if myImage == nil {
@@ -277,7 +277,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Implementing imagePickerControllerDidCancel to go back to camera view or close the view
      */
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         
         switch selection {
         case .Camera where !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) :
@@ -293,7 +293,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Changes between camera view and gallery view
      */
-    func changePictureMode() {
+    public func changePictureMode() {
         
         switch selection {
         case .Camera:
@@ -313,7 +313,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Adds buttons for the camera view
      */
-    func addCameraElements() {
+    private func addCameraElements() {
         if (self.selection == SelectionType.Camera) {
             self.view.addSubview(galleryImage)
             self.view.addSubview(gallery)
@@ -325,7 +325,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Removes from the camera view
      */
-    func removeCameraElements() {
+    private func removeCameraElements() {
         if (self.selection != SelectionType.Camera) {
             galleryImage.removeFromSuperview()
             gallery.removeFromSuperview()
@@ -337,19 +337,19 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Closes the view
      */
-    func exitButtonPressed() {
+    public func exitButtonPressed() {
         cameraDelegate.cameraCancelSelection()
     }
     /**
      Takes a photo
      */
-    func capture(sender: UIButton) {
+    public func capture(sender: UIButton) {
         self.takePicture()
     }
     /**
      Enables/disables flash
      */
-    func toggleFlash(sender: UIButton) {
+    public func toggleFlash(sender: UIButton) {
         if (sender.selected == false) {
             sender.tintColor = UIColor.n1ActionBlueColor()
             sender.selected = true
@@ -362,7 +362,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Enables/disables flash
      */
-    func setFlash(sender: UIButton) {
+    private func setFlash(sender: UIButton) {
         if (sender.selected == true) {
             self.cameraFlashMode = UIImagePickerControllerCameraFlashMode.On
         } else {
@@ -372,7 +372,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Changes the camera from front to back
      */
-    func flipCamera(sender: UIButton) {
+    public func flipCamera(sender: UIButton) {
         if (sender.selected == false) {
             sender.tintColor = UIColor.n1ActionBlueColor()
             sender.selected = true
@@ -385,7 +385,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
     /**
      Changes the camera from front to back
      */
-    func orientCamera(sender:UIButton) {
+    private func orientCamera(sender:UIButton) {
         if (sender.selected == true) {
             self.cameraDevice = UIImagePickerControllerCameraDevice.Front
         } else {
@@ -398,7 +398,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
      Requests access for the camera and calls completion block
      - parameter completion: Must be (granted : Bool) -> Void
      */
-    func isCameraPermissionGranted(completion:(granted : Bool) -> Void) {
+    public func isCameraPermissionGranted(completion:(granted : Bool) -> Void) {
         requestAccessForCamera({ (granted) in
             completion(granted: granted)
         })
@@ -407,7 +407,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
      Requests access for the camera and calls completion block
      - parameter completion: Must be (granted : Bool) -> Void
      */
-    func requestAccessForCamera(completion:(granted : Bool) -> Void) {
+    public func requestAccessForCamera(completion:(granted : Bool) -> Void) {
         AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { (granted) in
             completion(granted: granted)
         }
@@ -418,7 +418,7 @@ class CameraViewController: UIImagePickerController, UIImagePickerControllerDele
      Requests access for the library and calls completion block
      - parameter completion: Must be (granted : Bool) -> Void
      */
-    func requestPhotoLibraryPermissions(completion: (granted : Bool) -> Void) {
+    public func requestPhotoLibraryPermissions(completion: (granted : Bool) -> Void) {
         PHPhotoLibrary.requestAuthorization { status in
             switch status {
                 case .Authorized: completion(granted : true)

@@ -17,10 +17,10 @@ import AsyncDisplayKit
  Define content that is a collection view. The collection view can have 1 row or multiple row.
  Cells can be either views or nodes.
  */
-class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDataSource, UICollectionViewDelegateFlowLayout {
+public class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDataSource, UICollectionViewDelegateFlowLayout {
     
     /**Should the bubble be masked or not*/
-    var maskedBubble = true {
+    public var maskedBubble = true {
         didSet {
             self.updateBubbleConfig(self.bubbleConfiguration)
             self.setNeedsLayout()
@@ -54,7 +54,7 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
      - parameter rows: Must be CGFloat. Sets number of rows for the cell.
      Calls helper methond to setup cell
      */
-    init(withCustomViews customViews: [UIView], andNumberOfRows rows:CGFloat, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
+    public init(withCustomViews customViews: [UIView], andNumberOfRows rows:CGFloat, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.setupCustomViews(customViews,numberOfRows: rows)
     }
@@ -65,14 +65,14 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
      - parameter rows: Must be CGFloat. Sets number of rows for the cell.
      Calls helper methond to setup cell
      */
-    init(withCustomNodes customNodes:[ASDisplayNode], andNumberOfRows rows:CGFloat, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
+    public init(withCustomNodes customNodes:[ASDisplayNode], andNumberOfRows rows:CGFloat, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.setupCustomNodes(customNodes,numberOfRows: rows)
     }
     
     // MARK: Initialiser helper methods
     /** Override updateBubbleConfig to set bubble mask */
-    override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    public override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
         var maskedBubbleConfig = newValue
         maskedBubbleConfig.isMasked = self.maskedBubble
         super.updateBubbleConfig(maskedBubbleConfig)
@@ -153,7 +153,7 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
     /**
      Overriding didLoad to set asyncDataSource and asyncDelegate for collection view
      */
-    override func didLoad() {
+    override public func didLoad() {
         
         super.didLoad()
         
@@ -166,7 +166,7 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
 
         let tmpConstrainedSize = ASSizeRange(min: constrainedSize.min, max: CGSizeMake(constrainedSize.max.width, constrainedSize.max.height))
         
@@ -245,14 +245,14 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
     /**
      Implementing numberOfSectionsInCollectionView to define number of sections
      */
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
     /**
      Implementing numberOfItemsInSection to define number of items in section
      */
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let viewDataSource = self.collectionViewsDataSource
         {
             return viewDataSource.count
@@ -268,7 +268,7 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
     /**
      Implementing nodeForItemAtIndexPath to define node at index path
      */
-    func collectionView(collectionView: ASCollectionView, nodeForItemAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
+    public func collectionView(collectionView: ASCollectionView, nodeForItemAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
         var cellNode: ASCellNode = ASCellNode()
         if let nodeDataSource = self.collectionNodesDataSource
         {
@@ -284,7 +284,7 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
     /**
      Implementing constrainedSizeForNodeAtIndexPath the size of each cell
      */
-    func collectionView(collectionView: ASCollectionView, constrainedSizeForNodeAtIndexPath indexPath: NSIndexPath) -> ASSizeRange {
+    public func collectionView(collectionView: ASCollectionView, constrainedSizeForNodeAtIndexPath indexPath: NSIndexPath) -> ASSizeRange {
         return ASSizeRangeMake(cellSize, cellSize);
     }
     
@@ -294,7 +294,7 @@ class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollectionDa
     /**
      Implementing insetForSectionAtIndex to define space between colums
      */
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         if self.collectionViewNumberOfRows != 1
         {
             return UIEdgeInsetsMake(0, 0, 0, 0)

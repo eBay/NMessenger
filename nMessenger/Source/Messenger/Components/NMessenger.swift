@@ -11,7 +11,7 @@
 import Foundation
 import AsyncDisplayKit
 
-@objc protocol NMessengerDelegate {
+@objc public protocol NMessengerDelegate {
     /**
      Triggered when a load batch content should be called. This method is called on a background thread.
      Make sure to add prefetched content with *endBatchFetchWithMessages(messages: [GeneralMessengerCell])*
@@ -25,7 +25,7 @@ import AsyncDisplayKit
 /**
  N Messenger Framework. Works in a multithreaded environment + implements prefetching at the head
  */
-class NMessenger: UIView {
+public class NMessenger: UIView {
     
     //MARK: Messenger enum
     private enum NMessengerSection: Int {
@@ -57,7 +57,7 @@ class NMessenger: UIView {
     //MARK: Private variables
     
     /** ASTableView for messages*/
-    var messengerNode = ASTableNode()
+    public var messengerNode = ASTableNode()
     /** Holds a state for the amount of content and if the messenger is fetching or not */
     private var state: NMessengerState = .initialState
     /** Used internally to prevent unwrapping for every usage*/
@@ -80,29 +80,29 @@ class NMessenger: UIView {
     //MARK: Public variables
     
     /**Delegate*/
-    var delegate: NMessengerDelegate?
+    public var delegate: NMessengerDelegate?
     /**Triggers the delegate batch fetch function when NMessenger determines a batch fetch is needed. Defaults to true. **Note** *batchFetchContent()* must also be implemented */
-    var doesBatchFetch: Bool = false
+    public var doesBatchFetch: Bool = false
     
     //MARK: Initializers
     
-    init() {
+    public init() {
         super.init(frame: CGRectZero)
         setupView()
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupView()
     }
     
     /** Creates the messenger tableview and sets defaults*/
-    func setupView() {
+    private func setupView() {
         
         self.messengerNode.view.keyboardDismissMode = .OnDrag
         self.addSubview(messengerNode.view)
@@ -121,7 +121,7 @@ class NMessenger: UIView {
     //MARK: Public functions
     
     /** Override layoutSubviews to update messenger table frame*/
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         //update frame
         messengerNode.frame = self.bounds
@@ -135,7 +135,7 @@ class NMessenger: UIView {
      - parameter scrollsToMessage: If marked true, the tableview will scroll to the newly added
      message
      */
-    func addMessage(message: GeneralMessengerCell, scrollsToMessage: Bool) {
+    public func addMessage(message: GeneralMessengerCell, scrollsToMessage: Bool) {
          self.addMessages([message], scrollsToMessage: scrollsToMessage, withAnimation: .None)
     }
     
@@ -146,7 +146,7 @@ class NMessenger: UIView {
      message
      - parameter animation: An animation for newly added cell
      */
-    func addMessage(message: GeneralMessengerCell, scrollsToMessage: Bool, withAnimation animation: UITableViewRowAnimation) {
+    public func addMessage(message: GeneralMessengerCell, scrollsToMessage: Bool, withAnimation animation: UITableViewRowAnimation) {
         self.addMessages([message], scrollsToMessage: scrollsToMessage, withAnimation: animation)
     }
     
@@ -156,7 +156,7 @@ class NMessenger: UIView {
      - parameter scrollsToMessage: If marked true, the tableview will scroll to the newly added
      message
      */
-    func addMessages(messages: [GeneralMessengerCell], scrollsToMessage: Bool) {
+    public func addMessages(messages: [GeneralMessengerCell], scrollsToMessage: Bool) {
         self.waitForMessageLock {
             self.addMessages(messages, atIndex: self.state.itemCount, scrollsToMessage: scrollsToMessage, animation: .None, completion:  nil)
         }
@@ -169,7 +169,7 @@ class NMessenger: UIView {
      - parameter animation: An animation for newly added cell
      message
      */
-    func addMessages(messages: [GeneralMessengerCell], scrollsToMessage: Bool, withAnimation animation: UITableViewRowAnimation) {
+    public func addMessages(messages: [GeneralMessengerCell], scrollsToMessage: Bool, withAnimation animation: UITableViewRowAnimation) {
         self.waitForMessageLock {
             self.addMessages(messages, atIndex: self.state.itemCount, scrollsToMessage: scrollsToMessage, animation: animation, completion:  nil)
         }
@@ -183,7 +183,7 @@ class NMessenger: UIView {
      message
      - parameter completion: A completion handler
      */
-    func addMessagesWithBlock(messages: [GeneralMessengerCell], scrollsToMessage: Bool, withAnimation animation: UITableViewRowAnimation, completion: (()->Void)?) {
+    public func addMessagesWithBlock(messages: [GeneralMessengerCell], scrollsToMessage: Bool, withAnimation animation: UITableViewRowAnimation, completion: (()->Void)?) {
         self.waitForMessageLock {
             self.addMessages(messages, atIndex: self.state.itemCount, scrollsToMessage: scrollsToMessage, animation: animation, completion:  completion)
         }
@@ -195,7 +195,7 @@ class NMessenger: UIView {
      
      - parameter messages: messages to add to the head of the tableview
      */
-    func endBatchFetchWithMessages(messages: [GeneralMessengerCell]) {
+    public func endBatchFetchWithMessages(messages: [GeneralMessengerCell]) {
         //make sure we are in the process of a batch fetch
         if self.state.batchFetchLock.isFetching() {
             self.waitForMessageLock {
@@ -212,7 +212,7 @@ class NMessenger: UIView {
     /**
      Clears all messages in the messenger. (Fire and forget)
      */
-    func clearALLMessages() {
+    public func clearALLMessages() {
         self.waitForMessageLock {
             dispatch_async(dispatch_get_main_queue()) {
                 let oldState = self.state
@@ -231,7 +231,7 @@ class NMessenger: UIView {
      - parameter message: the message that should be deleted
      - parameter animation: a row animation for deleting the cell
      */
-    func removeMessage(message: GeneralMessengerCell, animation: UITableViewRowAnimation) {
+    public func removeMessage(message: GeneralMessengerCell, animation: UITableViewRowAnimation) {
         self.removeMessages([message], animation: animation)
     }
     
@@ -241,7 +241,7 @@ class NMessenger: UIView {
      - parameter messages: the messages that should be deleted
      - parameter animation: a row animation for deleting the cell
      */
-    func removeMessages(messages: [GeneralMessengerCell], animation: UITableViewRowAnimation) {
+    public func removeMessages(messages: [GeneralMessengerCell], animation: UITableViewRowAnimation) {
         self.removeMessagesWithBlock(messages, animation: animation, completion: nil)
     }
     
@@ -251,7 +251,7 @@ class NMessenger: UIView {
      - parameter messages: the messages that should be deleted
      - parameter animation: a row animation for deleting the cell
      */
-    func removeMessagesWithBlock(messages: [GeneralMessengerCell], animation: UITableViewRowAnimation, completion: (()->Void)?) {
+    public func removeMessagesWithBlock(messages: [GeneralMessengerCell], animation: UITableViewRowAnimation, completion: (()->Void)?) {
         self.waitForMessageLock {
             dispatch_async(dispatch_get_main_queue()) {
                 var indexPaths = [NSIndexPath]()
@@ -276,7 +276,7 @@ class NMessenger: UIView {
      Scrolls to the last message in the messenger. (Fire and forget)
      - parameter animated: The move is animated or not
      */
-    func scrollToLastMessage(animated: Bool) {
+    public func scrollToLastMessage(animated: Bool) {
         waitForMessageLock {
             dispatch_async(dispatch_get_main_queue()) {
                 if let indexPath = self.pickLastIndexPath() {
@@ -294,7 +294,7 @@ class NMessenger: UIView {
      - parameter atPosition: The location to scroll to
      - parameter animated: The move is animated or not
      */
-    func scrollToMessage(message: GeneralMessengerCell, atPosition position: UITableViewScrollPosition, animated: Bool) {
+    public func scrollToMessage(message: GeneralMessengerCell, atPosition position: UITableViewScrollPosition, animated: Bool) {
         waitForMessageLock {
             dispatch_async(dispatch_get_main_queue()) {
                 if let indexPath = self.messengerNode.view.indexPathForNode(message) {
@@ -313,7 +313,7 @@ class NMessenger: UIView {
      - parameter scrollsToLast: should the messenger scroll to the bottom
      - parameter animated: If the scroll is animated
      */
-    func addTypingIndicator(indicator: GeneralMessengerCell, scrollsToLast: Bool, animated: Bool, completion: (()->Void)?) {
+    public func addTypingIndicator(indicator: GeneralMessengerCell, scrollsToLast: Bool, animated: Bool, completion: (()->Void)?) {
         waitForMessageLock {
             dispatch_async(dispatch_get_main_queue()) {
                 self.state.typingIndicators.append(indicator)
@@ -342,7 +342,7 @@ class NMessenger: UIView {
      - parameter scrollsToLast: should the messenger scroll to the bottom
      - parameter animated: If the scroll is animated
      */
-    func removeTypingIndicator(indicator: GeneralMessengerCell, scrollsToLast: Bool, animated: Bool) {
+    public func removeTypingIndicator(indicator: GeneralMessengerCell, scrollsToLast: Bool, animated: Bool) {
         self.removeTypingIndicator(indicator, scrollsToLast: scrollsToLast, animated: animated, completion: nil)
     }
     
@@ -352,7 +352,7 @@ class NMessenger: UIView {
      - parameter scrollsToLast: should the messenger scroll to the bottom
      - parameter animated: If the scroll is animated
      */
-    func removeTypingIndicator(indicator: GeneralMessengerCell, scrollsToLast: Bool, animated: Bool, completion: (()->Void)?) {
+    public func removeTypingIndicator(indicator: GeneralMessengerCell, scrollsToLast: Bool, animated: Bool, completion: (()->Void)?) {
         waitForMessageLock {
             dispatch_async(dispatch_get_main_queue()) {
                 if let index = self.state.typingIndicators.indexOf(indicator){
@@ -382,7 +382,7 @@ class NMessenger: UIView {
     /**
      - returns: true if the messenger contains the loading indicator
      */
-    func hasIndicator(indicator: GeneralMessengerCell) -> Bool {
+    public func hasIndicator(indicator: GeneralMessengerCell) -> Bool {
         return self.state.typingIndicators.contains(indicator)
     }
     
@@ -393,7 +393,7 @@ class NMessenger: UIView {
      - parameter message: A GeneralMessengerCell that could or could not exist in the messenger
      - returns: A Bool indicating whether or not the cell exists in the messenger
      */
-    func hasMessage(message: GeneralMessengerCell) -> Bool {
+    public func hasMessage(message: GeneralMessengerCell) -> Bool {
         let hasNode = (self.messengerNode.view.indexPathForNode(message) != nil)
         return hasNode
     }
@@ -403,7 +403,7 @@ class NMessenger: UIView {
      
      - returns: An array containing all of the messages in the messager. These are in order as they appear.
      */
-    func allMessages() -> [GeneralMessengerCell] {
+    public func allMessages() -> [GeneralMessengerCell] {
         var retArray = [GeneralMessengerCell]()
         for index in 0..<self.state.itemCount {
             let indexPath = NSIndexPath(forRow: index, inSection: NMessengerSection.Messenger.rawValue)
@@ -639,7 +639,7 @@ extension NMessenger {
      - parameter scrollsToLastMessage: A that indicates whether the tableview should scroll to the last message in the group
      - paramter toPosition: the position to scroll to
      */
-    func addMessageToMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool) {
+    public func addMessageToMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool) {
         self.addMessageToMessageGroup(message, messageGroup: messageGroup, scrollsToLastMessage: scrollsToLastMessage,  completion: nil)
     }
     
@@ -651,7 +651,7 @@ extension NMessenger {
      - paramter toPosition: the position to scroll to
      - parameter completion: a block to be called after the content has been added
      */
-    func addMessageToMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, completion: (()->Void)?) {
+    public func addMessageToMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, completion: (()->Void)?) {
         messageGroup.addMessageToGroup(message, completion: {
                 if scrollsToLastMessage {
                     self.scrollToLastMessage(true)
@@ -668,7 +668,7 @@ extension NMessenger {
      - paramter toPosition: the position to scroll to
      - parameter completion: a block to be called after the content has been added
      */
-    func addMessageToMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToMessage: Bool, toPosition position: UITableViewScrollPosition?, completion: (()->Void)?) {
+    public func addMessageToMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToMessage: Bool, toPosition position: UITableViewScrollPosition?, completion: (()->Void)?) {
          messageGroup.addMessageToGroup(message, completion: {
             if scrollsToMessage {
                 if let position = position {
@@ -689,7 +689,7 @@ extension NMessenger {
      - parameter scrollsToLastMessage: A that indicates whether the tableview should scroll to the last message in the group
      - paramter toPosition: the position to scroll to
      */
-    func removeMessageFromMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, toPosition position: UITableViewScrollPosition?) {
+    public func removeMessageFromMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, toPosition position: UITableViewScrollPosition?) {
         self.removeMessageFromMessageGroup(message, messageGroup: messageGroup, scrollsToLastMessage: scrollsToLastMessage, toPosition: position, completion: nil)
     }
     
@@ -701,7 +701,7 @@ extension NMessenger {
      - paramter toPosition: the position to scroll to
      - parameter completion: a block to be called after the content has been removed
      */
-    func removeMessageFromMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, toPosition position: UITableViewScrollPosition?, completion: (()->Void)?) {
+    public func removeMessageFromMessageGroup(message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, toPosition position: UITableViewScrollPosition?, completion: (()->Void)?) {
         
         //If it is the last message, remove it
         if self.hasMessage(messageGroup) {
@@ -732,11 +732,11 @@ extension NMessenger {
 extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
     
     //MARK: footer
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == NMessengerSection.Messenger.rawValue {
             return 5
         }
@@ -745,11 +745,11 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
     }
     
     //MARK: header
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == NMessengerSection.Messenger.rawValue {
             return 5
         }
@@ -758,11 +758,11 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
     }
     
     //MARK: ASTableNode
-    func shouldBatchFetchForTableView(tableView: ASTableView) -> Bool {
+    public func shouldBatchFetchForTableView(tableView: ASTableView) -> Bool {
         return false
     }
     
-    func tableView(tableView: ASTableView, nodeForRowAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
+    public func tableView(tableView: ASTableView, nodeForRowAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
         
         switch indexPath.section {
         case NMessengerSection.Messenger.rawValue:
@@ -777,11 +777,11 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return self.state.itemCount
         } else {
@@ -794,7 +794,7 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
     /**
      When this is triggered, we decide if a prefetch is needed
      */
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if targetContentOffset != nil {
             shouldHandleBatchFetch(targetContentOffset.memory)
         }
@@ -804,7 +804,7 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
      Keeps track of the current scroll direction. This state can be obtained
      by accessing the scrollDirection property
      */
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
         //is scrolling down
         if self.state.lastContentOffset < scrollView.contentOffset.y {
             self.state.scrollDirection = .Down

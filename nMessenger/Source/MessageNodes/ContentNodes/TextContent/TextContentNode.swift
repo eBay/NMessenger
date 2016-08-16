@@ -16,41 +16,41 @@ import AsyncDisplayKit
  TextMessageNode class for N Messanger. Extends MessageNode.
  Defines content that is a text.
  */
-class TextContentNode: ContentNode,ASTextNodeDelegate {
+public class TextContentNode: ContentNode,ASTextNodeDelegate {
 
     // MARK: Public Variables
     /** Insets for the node */
-    var insets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10) {
+    public var insets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10) {
         didSet {
             setNeedsLayout()
         }
     }
     /** UIFont for incoming text messages*/
-    var incomingTextFont = UIFont.n1B1Font() {
+    public var incomingTextFont = UIFont.n1B1Font() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** UIFont for outgoinf text messages*/
-    var outgoingTextFont = UIFont.n1B1Font() {
+    public var outgoingTextFont = UIFont.n1B1Font() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** UIColor for incoming text messages*/
-    var incomingTextColor = UIColor.n1DarkestGreyColor() {
+    public var incomingTextColor = UIColor.n1DarkestGreyColor() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** UIColor for outgoinf text messages*/
-    var outgoingTextColor = UIColor.n1WhiteColor() {
+    public var outgoingTextColor = UIColor.n1WhiteColor() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** String to present as the content of the cell*/
-    var textMessegeString: NSAttributedString? {
+    public var textMessegeString: NSAttributedString? {
         get {
             return self.textMessegeNode.attributedString
         } set {
@@ -60,7 +60,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /** Overriding from super class
      Set backgroundBubble.bubbleColor and the text color when valus is set
      */
-    override var isIncomingMessage: Bool
+    public override var isIncomingMessage: Bool
         {
         didSet {
             if isIncomingMessage
@@ -88,7 +88,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
      - parameter textMessegeString: Must be String. Sets text for cell.
      Calls helper methond to setup cell
      */
-    init(textMessegeString: String, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
+    public init(textMessegeString: String, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.setupTextNode(textMessegeString)
@@ -99,7 +99,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
      - parameter currentViewController: Must be an UIViewController. Set current view controller holding the cell.
      Calls helper methond to setup cell
      */
-    init(textMessegeString: String, currentViewController: UIViewController, bubbleConfiguration: BubbleConfigurationProtocol? = nil)
+    public init(textMessegeString: String, currentViewController: UIViewController, bubbleConfiguration: BubbleConfigurationProtocol? = nil)
     {
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.currentViewController = currentViewController
@@ -158,7 +158,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let width = constrainedSize.max.width * 0.90 - self.insets.left - self.insets.right
         
         let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSizeZero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
@@ -176,7 +176,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Implementing shouldHighlightLinkAttribute - returning true for both link and phone numbers
      */
-    func textNode(textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint) -> Bool {
+    public func textNode(textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint) -> Bool {
         if attribute == "LinkAttribute"
         {
             return true
@@ -191,7 +191,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Implementing tappedLinkAttribute - handle tap event on links and phone numbers
      */
-    func textNode(textNode: ASTextNode, tappedLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint, textRange: NSRange) {
+    public func textNode(textNode: ASTextNode, tappedLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint, textRange: NSRange) {
         if attribute == "LinkAttribute"
         {
             if !self.lockKey
@@ -223,7 +223,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Implementing shouldLongPressLinkAttribute - returning true for both link and phone numbers
      */
-    func textNode(textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint) -> Bool {
+    public func textNode(textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint) -> Bool {
         if attribute == "LinkAttribute"
         {
             return true
@@ -238,7 +238,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Implementing longPressedLinkAttribute - handles long tap event on links and phone numbers
      */
-    func textNode(textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint, textRange: NSRange) {
+    public func textNode(textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint, textRange: NSRange) {
         if attribute == "LinkAttribute"
         {
             self.lockKey = true
@@ -366,20 +366,20 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Overriding canBecomeFirstResponder to make cell first responder
      */
-    override func canBecomeFirstResponder() -> Bool {
+    override public func canBecomeFirstResponder() -> Bool {
         return true
     }
     /**
      Overriding resignFirstResponder to resign responder
      */
-    override func resignFirstResponder() -> Bool {
+    override public func resignFirstResponder() -> Bool {
         return view.resignFirstResponder()
     }
     
     /**
      Override method from superclass
      */
-    override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
+    public override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
         if recognizer.state == UIGestureRecognizerState.Began {
             let touchLocation = recognizer.locationInView(view)
             if CGRectContainsPoint(self.textMessegeNode.frame, touchLocation) {
@@ -397,7 +397,7 @@ class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Copy Selector for UIMenuController
      */
-    func copySelector() {
+    public func copySelector() {
         UIPasteboard.generalPasteboard().string = self.textMessegeNode.attributedString!.string
     }
     

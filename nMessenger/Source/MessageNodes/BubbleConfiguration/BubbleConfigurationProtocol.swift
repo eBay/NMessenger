@@ -12,7 +12,7 @@ import Foundation
 import UIKit
 
 /** Configures a bubble for a ContentNode. Implement this to create your own bubble configuration */
-protocol BubbleConfigurationProtocol {
+public protocol BubbleConfigurationProtocol {
     var isMasked: Bool {get set}
     
     /** Create and return a UI color representing an incoming message */

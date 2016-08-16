@@ -18,10 +18,10 @@ import AsyncDisplayKit
 public class MessageNode: GeneralMessengerCell {
     
     // MARK: Public Variables
-    var delegate: MessageCellProtocol?
+    public var delegate: MessageCellProtocol?
     
     /** ASDisplayNode as the content of the cell*/
-    var contentNode: ContentNode?
+    public var contentNode: ContentNode?
         {
         willSet{
             if let contentNode = newValue {
@@ -40,7 +40,7 @@ public class MessageNode: GeneralMessengerCell {
     }
     
     /** ASDisplayNode as the avatar of the cell*/
-    var avatarNode: ASDisplayNode?
+    public var avatarNode: ASDisplayNode?
         {
         willSet{
             if let avatarNode = newValue {
@@ -59,7 +59,7 @@ public class MessageNode: GeneralMessengerCell {
     }
     
     /** ASDisplayNode as the header of the cell*/
-    var headerNode: ASDisplayNode?
+    public var headerNode: ASDisplayNode?
         {
         willSet{
             if let headerNode = newValue {
@@ -77,7 +77,7 @@ public class MessageNode: GeneralMessengerCell {
     }
     
     /** ASDisplayNode as the footer of the cell*/
-    var footerNode: ASDisplayNode? {
+    public var footerNode: ASDisplayNode? {
             willSet{
                 if let footerNode = newValue {
                     if let oldFooter = self.footerNode {
@@ -96,35 +96,35 @@ public class MessageNode: GeneralMessengerCell {
     /**
      Spacing around the avatar. Defaults to UIEdgeInsetsMake(0, 0, 0, 10)
      */
-    var avatarInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10) {
+    public var avatarInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10) {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /** Message offset from edge (edge->offset->message content). Defaults to 10*/
-    var messageOffset: CGFloat = 10 {
+    public var messageOffset: CGFloat = 10 {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /** Spacing under the header. Defaults to 10*/
-    var headerSpacing: CGFloat = 10 {
+    public var headerSpacing: CGFloat = 10 {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /** Spacing above the footer. Defaults to 10*/
-    var footerSpacing: CGFloat = 10 {
+    public var footerSpacing: CGFloat = 10 {
         didSet {
             self.setNeedsLayout()
         }
     }
 
     /** Bool if the cell is an incoming or out going message cell*/
-    override var isIncomingMessage:Bool {
+    public override var isIncomingMessage:Bool {
         didSet {
             self.contentNode?.isIncomingMessage = isIncomingMessage
         }
@@ -139,7 +139,7 @@ public class MessageNode: GeneralMessengerCell {
     /**
      Initialiser for the cell
      */
-    init(content: ContentNode) {
+    public init(content: ContentNode) {
         super.init()
         self.setupMessageNode(withContent: content)
     }
@@ -165,7 +165,7 @@ public class MessageNode: GeneralMessengerCell {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    public override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         var layoutSpecs: ASLayoutSpec!
         let spacer = ASLayoutSpec()
         
@@ -237,7 +237,7 @@ public class MessageNode: GeneralMessengerCell {
     /**
      Overriding touchesBegan to make to close UIMenuController
      */
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         if UIMenuController.sharedMenuController().menuVisible == true {
             UIMenuController.sharedMenuController().setMenuVisible(false, animated: true)
@@ -247,7 +247,7 @@ public class MessageNode: GeneralMessengerCell {
     /**
      Overriding touchesEnded to make to handle events with UIMenuController
      */
-    public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
         if UIMenuController.sharedMenuController().menuVisible == false {
             
@@ -256,7 +256,7 @@ public class MessageNode: GeneralMessengerCell {
     /**
      Overriding touchesCancelled to make to handle events with UIMenuController
      */
-    public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+    override public func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
         
         if UIMenuController.sharedMenuController().menuVisible == false {
@@ -272,7 +272,7 @@ public class MessageNode: GeneralMessengerCell {
      - parameter recognizer: Must be an UITapGestureRecognizer.
      Can be be overritten when subclassed
      */
-    func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
+    public func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
         contentNode?.messageNodeLongPressSelector(recognizer)
     }
 }
@@ -282,7 +282,7 @@ extension MessageNode {
     /**
      Notifies the delegate that the avatar was clicked
      */
-    func avatarClicked()
+    public func avatarClicked()
     {
         self.delegate?.avatarClicked?(self)
     }

@@ -16,11 +16,11 @@ import AsyncDisplayKit
  CustomContentCellNode class for N Messanger.
  Define the cell for CollectionViewContentNode
  */
-class CustomContentCellNode: ASCellNode {
+public class CustomContentCellNode: ASCellNode {
     
     // MARK: Public Variables
     /** ASDisplayNode as the content of the cell*/
-    var customContent:ASDisplayNode = ASDisplayNode()
+    public var customContent:ASDisplayNode = ASDisplayNode()
     
     // MARK: Initialisers
     
@@ -28,7 +28,7 @@ class CustomContentCellNode: ASCellNode {
      Initialiser for the cell.
      - parameter withCustomNode: Must be ASDisplayNode. Sets content for the cell.
      */
-    init(withCustomNode node:ASDisplayNode)
+    public init(withCustomNode node:ASDisplayNode)
     {
         super.init()
         self.customContent = node
@@ -40,7 +40,7 @@ class CustomContentCellNode: ASCellNode {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let customContetntSpec = ASStaticLayoutSpec(children: [customContent])
         return customContetntSpec
     }    

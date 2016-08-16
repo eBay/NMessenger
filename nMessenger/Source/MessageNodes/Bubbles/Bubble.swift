@@ -16,35 +16,35 @@ import AsyncDisplayKit
 /**
  'Abstract' Bubble class. Subclass for creating a custom bubble
  */
-class Bubble {
+public class Bubble {
     
     // MARK: Public Parameters
-    var bubbleColor : UIColor = UIColor.n1PaleGreyColor()
+    public var bubbleColor : UIColor = UIColor.n1PaleGreyColor()
     
     /** When this is set, the layer mask will mask the ContentNode.*/
-    var hasLayerMask = false
+    public var hasLayerMask = false
     
     /**
      A layer for the bubble. Make sure this property is first accessed on the main thread.
      */
-    internal(set) lazy var layer: CAShapeLayer = CAShapeLayer()
+    public lazy var layer: CAShapeLayer = CAShapeLayer()
     /**
      A layer that holds a mask which is the same shape as the bubble. This can be used to mask anything in the ContentNode to the same shape as the bubble.
      */
-    internal(set) lazy var maskLayer: CAShapeLayer = CAShapeLayer()
+    public lazy var maskLayer: CAShapeLayer = CAShapeLayer()
         
     /** Bounds of the bubble*/
-    internal(set) var calculatedBounds = CGRectZero
+    public var calculatedBounds = CGRectZero
     
     // MARK: Initialisers
-    init() {}
+    public init() {}
     
     // MARK: Class methods
     /**
      Sizes the layer accordingly. This function should **always** be thread safe.
      -parameter bounds: The bounds of the content
      */
-    func sizeToBounds(bounds: CGRect) {
+    public func sizeToBounds(bounds: CGRect) {
         self.calculatedBounds = bounds
     }
     
@@ -52,7 +52,7 @@ class Bubble {
     /**
      This function should be called on the  main thread. It makes creates the layer with the calculated values from *sizeToBounds*
      */
-    func createLayer() {
+    public func createLayer() {
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.mainScreen().scale
         

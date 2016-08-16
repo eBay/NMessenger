@@ -12,28 +12,28 @@ import Foundation
 import UIKit
 
 /** Uses a simple bubble as primary and a simple bubble as secondary. Incoming color is pale grey and outgoing is mid grey */
-class SimpleBubbleConfiguration: BubbleConfigurationProtocol {
+public class SimpleBubbleConfiguration: BubbleConfigurationProtocol {
     
-    var isMasked = false
+    public var isMasked = false
     
-    func getIncomingColor() -> UIColor
+    public func getIncomingColor() -> UIColor
     {
         return UIColor.n1PaleGreyColor()
     }
     
-    func getOutgoingColor() -> UIColor
+    public func getOutgoingColor() -> UIColor
     {
         return UIColor.n1MidGreyColor()
     }
     
-    func getBubble() -> Bubble
+    public func getBubble() -> Bubble
     {
         let newBubble = SimpleBubble()
         newBubble.hasLayerMask = isMasked
         return newBubble
     }
     
-    func getSecondaryBubble() -> Bubble
+    public func getSecondaryBubble() -> Bubble
     {
         let newBubble = SimpleBubble()
         newBubble.hasLayerMask = isMasked

@@ -20,20 +20,20 @@ public class GeneralMessengerCell: ASCellNode {
     
     // MARK: Public Variables
     /** UIEdgeInsets for cell*/
-    var cellPadding: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+    public var cellPadding: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
     /** UIViewController that holds the cell. Allows the cell the present View Controllers*/
-    var currentViewController: UIViewController?
+    public var currentViewController: UIViewController?
     /** The current table in which this node resides*/
-    var currentTableNode: ASTableNode?
+    public var currentTableNode: ASTableNode?
     /** message incoming/outgoing */
-    var isIncomingMessage:Bool = true
+    public var isIncomingMessage:Bool = true
     
     // MARK: Initialisers
     /**
      Default Init
      Sets cellPadding to 0 and selectionStyle to None
      */
-    override init() {
+    public override init() {
         super.init()
         selectionStyle = .None
         cellPadding = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
@@ -43,7 +43,7 @@ public class GeneralMessengerCell: ASCellNode {
      - parameter cellPadding: Can be UIEdgeInsets. Sets padding for cell.
      - parameter currentViewController: Can be an UIViewController. Set current view controller holding the cell.
      */
-    convenience init(cellPadding: UIEdgeInsets?, currentViewController: UIViewController?) {
+    public convenience init(cellPadding: UIEdgeInsets?, currentViewController: UIViewController?) {
         self.init()
         
         //set cell padding

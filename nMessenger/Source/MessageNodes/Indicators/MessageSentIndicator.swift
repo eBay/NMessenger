@@ -15,17 +15,17 @@ import UIKit
 /**
  Spinning loading indicator class. Used by the NMessenger prefetch.
  */
-class MessageSentIndicator: GeneralMessengerCell {
+public class MessageSentIndicator: GeneralMessengerCell {
     /** Horizontal spacing between text and spinner. Defaults to 20.*/
-    var contentPadding:CGFloat = 20 {
+    public var contentPadding:CGFloat = 20 {
         didSet {
             self.setNeedsLayout()
         }
     }
     /** Loading text node*/
-    let text = ASTextNode()
+    public let text = ASTextNode()
     /** Sets the loading attributed text for the spinner. Defaults to *"Loading..."* */
-    var messageSentAttributedText:NSAttributedString? {
+    public var messageSentAttributedText:NSAttributedString? {
         set {
             text.attributedString = newValue
             self.setNeedsLayout()
@@ -33,7 +33,7 @@ class MessageSentIndicator: GeneralMessengerCell {
             return text.attributedText
         }
     }
-    var messageSentText: String? {
+    public var messageSentText: String? {
         set {
             text.attributedString = NSAttributedString(
                 string: newValue != nil ? newValue! : "",
@@ -48,12 +48,12 @@ class MessageSentIndicator: GeneralMessengerCell {
         }
     }
     
-    override init() {
+    public override init() {
         super.init()
         addSubnode(text)
     }
     
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let stackLayout = ASStackLayoutSpec(
             direction: .Horizontal,
             spacing: contentPadding,

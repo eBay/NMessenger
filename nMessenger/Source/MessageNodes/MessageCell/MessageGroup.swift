@@ -15,10 +15,10 @@ import AsyncDisplayKit
 /**
  Holds a group of messages. Extends GeneralMessengerCell.
  */
-class MessageGroup: GeneralMessengerCell {
+public class MessageGroup: GeneralMessengerCell {
     
     /** Used for current state of new/old messages*/
-    enum MessageGroupState {
+    public enum MessageGroupState {
         case Added
         case Removed
         case Replaced
@@ -26,7 +26,7 @@ class MessageGroup: GeneralMessengerCell {
     }
     
     // MARK: Public Variables
-    var delegate: MessageCellProtocol?
+    public var delegate: MessageCellProtocol?
     /** Holds a table of GeneralMessengerCells*/
     private(set) var messageTable = ASTableNode(style: .Plain)
     /** Set to true when the after the component has laid out for the first time*/
@@ -34,14 +34,14 @@ class MessageGroup: GeneralMessengerCell {
     /** Data set for messages in the group */
     private(set) var messages = [GeneralMessengerCell]()
     /** Delay before add/remove animation begins*/
-    var animationDelay: NSTimeInterval = 0
+    public var animationDelay: NSTimeInterval = 0
     /** Avatar new message animation speed */
-    var avatarAnimationSpeed: NSTimeInterval = 0.15
+    public var avatarAnimationSpeed: NSTimeInterval = 0.15
     
     /**
      Spacing around the avatar
      */
-    var avatarInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10) {
+    public var avatarInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10) {
         didSet {
             self.setNeedsLayout()
         }
@@ -50,14 +50,14 @@ class MessageGroup: GeneralMessengerCell {
     /**
      Message offset spacing from the edge (avatar or messenger bounds)
      */
-    var messageOffset: CGFloat = 10 {
+    public var messageOffset: CGFloat = 10 {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /** ASDisplayNode as the avatar of the cell*/
-    var avatarNode: ASDisplayNode?
+    public var avatarNode: ASDisplayNode?
         {
         willSet{
             if let avatarNode = newValue {
@@ -78,7 +78,7 @@ class MessageGroup: GeneralMessengerCell {
     }
     
     /** Bool if the cell is an incoming or out going message cell*/
-    override var isIncomingMessage:Bool {
+    public override var isIncomingMessage:Bool {
         didSet {
             for message in messages {
                 if let message = message as? MessageNode {
@@ -100,7 +100,7 @@ class MessageGroup: GeneralMessengerCell {
     
     //MARK: Initializers
     
-    override init() {
+    public override init() {
         super.init()
         self.setupTable()
         self.setupAvatarButton()
@@ -129,7 +129,7 @@ class MessageGroup: GeneralMessengerCell {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         var tableWidth:CGFloat = 0
         
         let justifyLocation = isIncomingMessage ? ASStackLayoutJustifyContent.Start : ASStackLayoutJustifyContent.End
@@ -185,7 +185,7 @@ class MessageGroup: GeneralMessengerCell {
     /**
      Overriding animateLayoutTransition to animate add/remove transitions
      */
-    override func animateLayoutTransition(context: ASContextTransitioning) {
+    override public func animateLayoutTransition(context: ASContextTransitioning) {
         if let state = self.state {
             switch(state) {
             case .Added:
@@ -264,7 +264,7 @@ class MessageGroup: GeneralMessengerCell {
     /**
      Overriding layoutDidFinish to flag first layout
      */
-    override func layoutDidFinish() {
+    override public func layoutDidFinish() {
         super.layoutDidFinish()
         self.hasLaidOut = true
     }
@@ -276,7 +276,7 @@ class MessageGroup: GeneralMessengerCell {
      - parameter message: the message to add
      - parameter layoutCompletionBlock: The block to be called once the new node has been added
      */
-    func addMessageToGroup(message: GeneralMessengerCell, completion: (()->Void)?) {
+    public func addMessageToGroup(message: GeneralMessengerCell, completion: (()->Void)?) {
         self.updateMessage(message)
         self.layoutCompletionBlock = completion
         
@@ -303,7 +303,7 @@ class MessageGroup: GeneralMessengerCell {
      - parameter withMessage: The message that will replace the old one
      - parameter layoutCompletionBlock: The block to be called once the old node has been replaced
      */
-    func replaceMessage(message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?) {
+    public func replaceMessage(message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?) {
         if self.messages.contains(message) {
             if let index = self.messages.indexOf(message) {
                 self.updateMessage(newMessage)
@@ -340,7 +340,7 @@ class MessageGroup: GeneralMessengerCell {
      - parameter message: the message to remove
      - parameter layoutCompletionBlock: The block to be called once the new node has been removed
      */
-    func removeMessageFromGroup(message: GeneralMessengerCell, completion: (()->Void)?) {
+    public func removeMessageFromGroup(message: GeneralMessengerCell, completion: (()->Void)?) {
         
         if self.messages.contains(message) {
             if let index = self.messages.indexOf(message) {
@@ -428,22 +428,22 @@ extension MessageGroup {
     /**
      Notifies the delegate that the avatar was clicked
      */
-    func avatarClicked() {
+    public func avatarClicked() {
         self.delegate?.avatarClicked?(self)
     }
 }
 
 /** TableView functions extension */
 extension MessageGroup: ASTableDelegate, ASTableDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
-    func tableView(tableView: ASTableView, nodeForRowAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
+    public func tableView(tableView: ASTableView, nodeForRowAtIndexPath indexPath: NSIndexPath) -> ASCellNode {
         return messages[indexPath.row]
     }
 }

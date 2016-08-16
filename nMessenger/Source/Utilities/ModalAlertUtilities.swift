@@ -15,7 +15,7 @@ import UIKit
 /**
  Custom alerts for NMessenger
  */
-class ModalAlertUtilities {
+public class ModalAlertUtilities {
     /**
      Genreal error alert message
      - parameter controller: Must be UIViewController. Where to present to alert.

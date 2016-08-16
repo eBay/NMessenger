@@ -16,11 +16,11 @@ import AsyncDisplayKit
  NetworkImageContentNode class for N Messanger. Extends MessageNode.
  Defines content that is a network image (An image that is provided via url).
  */
-class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
+public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     
     // MARK: Public Variables
     /** NSURL for the image*/
-    var url: NSURL? {
+    public var url: NSURL? {
         get {
             return networkImageMessegeNode.URL
         } set {
@@ -39,14 +39,14 @@ class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
      - parameter imageURL: Must be String. Sets url for the image in the cell.
      Calls helper methond to setup cell
      */
-    init(imageURL: String, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
+    public init(imageURL: String, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
         self.setupNetworkImageNode(imageURL)
     }
     
     // MARK: Initialiser helper method
     /** Override updateBubbleConfig to set bubble mask */
-    override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    public override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
         var maskedBubbleConfig = newValue
         maskedBubbleConfig.isMasked = true
         super.updateBubbleConfig(maskedBubbleConfig)
@@ -70,7 +70,7 @@ class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = UIScreen.mainScreen().bounds.width/3*2
         self.networkImageMessegeNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
@@ -81,7 +81,7 @@ class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Overriding didLoadImage to layout the node once the image is loaded
      */
-    func imageNode(imageNode: ASNetworkImageNode, didLoadImage image: UIImage) {
+    public func imageNode(imageNode: ASNetworkImageNode, didLoadImage image: UIImage) {
         self.setNeedsLayout()
     }
     
@@ -90,14 +90,14 @@ class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Overriding canBecomeFirstResponder to make cell first responder
      */
-    override func canBecomeFirstResponder() -> Bool {
+    override public func canBecomeFirstResponder() -> Bool {
         return true
     }
     
     /**
      Override method from superclass
      */
-    override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
+    public override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
         if recognizer.state == UIGestureRecognizerState.Began {
             
             let touchLocation = recognizer.locationInView(view)
@@ -119,7 +119,7 @@ class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
      Copy Selector for UIMenuController
      Puts the node's image on UIPasteboard
      */
-    func copySelector() {
+    public func copySelector() {
         if let image = self.networkImageMessegeNode.image {
             UIPasteboard.generalPasteboard().image = image
         }

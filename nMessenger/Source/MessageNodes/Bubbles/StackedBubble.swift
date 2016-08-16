@@ -15,20 +15,20 @@ import UIKit
 /**
  Bubble when stacked for succeeding messages. The two outmost corners are rounded.
  */
-class StackedBubble: Bubble {
+public class StackedBubble: Bubble {
     
     //MARK: Public Variables
     
     /** Radius of the corners for the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    var radius : CGFloat = 16
+    public var radius : CGFloat = 16
     /** Should be less or equal to the *radius* property. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    var borderWidth : CGFloat = 0
+    public var borderWidth : CGFloat = 0
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    var bubbleBorderColor : UIColor = UIColor.clearColor()
+    public var bubbleBorderColor : UIColor = UIColor.clearColor()
     /** Path used to cutout the bubble*/
     private(set) var path: CGMutablePath = CGPathCreateMutable()
 
-    override init() {
+    public override init() {
         super.init()
     }
     
@@ -38,7 +38,7 @@ class StackedBubble: Bubble {
      Overriding sizeToBounds from super class
      -parameter bounds: The bounds of the content
      */
-    override func sizeToBounds(bounds: CGRect) {
+    public override func sizeToBounds(bounds: CGRect) {
         super.sizeToBounds(bounds)
         var rect = CGRectZero
         var radius2: CGFloat = 0
@@ -71,7 +71,7 @@ class StackedBubble: Bubble {
     /**
      Overriding createLayer from super class
      */
-    override func createLayer() {
+    public override func createLayer() {
         super.createLayer()
       
         CATransaction.begin()
