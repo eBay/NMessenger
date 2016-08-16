@@ -25,7 +25,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     
     //MARK: Private Variables
     //Bool to idicate if the keyboard is open
-    private(set) var isKeyboardIsShown : Bool = false
+    public private(set) var isKeyboardIsShown : Bool = false
     //NSLayoutConstraint for the input bar spacing from the bottom
     private var inputBarBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
     //NSLayoutConstraint for the messenger spacing from the input bar

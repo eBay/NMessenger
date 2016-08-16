@@ -21,7 +21,7 @@ public class TypingIndicatorContent: ContentNode {
     
     // MARK: Private Variables
     /** gifNode holds the animated typing indicator*/
-    private(set) var gifNode = ASDisplayNode()
+    public private(set) var gifNode = ASDisplayNode()
     
     override public func didLoad() {
         super.didLoad()

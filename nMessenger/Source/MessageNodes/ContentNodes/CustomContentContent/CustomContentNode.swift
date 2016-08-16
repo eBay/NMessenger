@@ -35,7 +35,7 @@ public class CustomContentNode: ContentNode {
     
     // MARK: Private Variables
     /** ASCollectionNode as the content of the cell*/
-    private(set) var customContentMessegeNode:ASDisplayNode = ASDisplayNode()
+    public private(set) var customContentMessegeNode:ASDisplayNode = ASDisplayNode()
     /** UIView as the posiible view of the cell*/
     private var customView:UIView?
     /** ASDisplayNode as the posiible view of the cell*/

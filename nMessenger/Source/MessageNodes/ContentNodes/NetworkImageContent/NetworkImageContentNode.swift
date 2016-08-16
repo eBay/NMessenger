@@ -30,7 +30,7 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     
     // MARK: Private Variables
     /** ASNetworkImageNode as the content of the cell*/
-    private(set) var networkImageMessegeNode:ASNetworkImageNode = ASNetworkImageNode()
+    public private(set) var networkImageMessegeNode:ASNetworkImageNode = ASNetworkImageNode()
 
     
     // MARK: Initialisers

@@ -76,7 +76,7 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     
     // MARK: Private Variables
     /** ASTextNode as the content of the cell*/
-    private(set) var textMessegeNode:ASTextNode = ASTextNode()
+    public private(set) var textMessegeNode:ASTextNode = ASTextNode()
     /** Bool as mutex for handling attributed link long presses*/
     private var lockKey: Bool = false
     

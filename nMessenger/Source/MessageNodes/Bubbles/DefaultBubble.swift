@@ -26,7 +26,7 @@ public class DefaultBubble: Bubble {
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
     public var bubbleBorderColor : UIColor = UIColor.clearColor()
     /** Path used to cutout the bubble*/
-    private(set) var path: CGMutablePath = CGPathCreateMutable()
+    public private(set) var path: CGMutablePath = CGPathCreateMutable()
     
     // MARK: Initialisers
     

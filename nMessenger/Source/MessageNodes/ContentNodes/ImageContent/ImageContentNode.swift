@@ -30,7 +30,7 @@ public class ImageContentNode: ContentNode {
     
     // MARK: Private Variables
     /** ASImageNode as the content of the cell*/
-    private(set) var imageMessegeNode:ASImageNode = ASImageNode()
+    public private(set) var imageMessegeNode:ASImageNode = ASImageNode()
     
     // MARK: Initialisers
     

@@ -28,11 +28,11 @@ public class MessageGroup: GeneralMessengerCell {
     // MARK: Public Variables
     public var delegate: MessageCellProtocol?
     /** Holds a table of GeneralMessengerCells*/
-    private(set) var messageTable = ASTableNode(style: .Plain)
+    public private(set) var messageTable = ASTableNode(style: .Plain)
     /** Set to true when the after the component has laid out for the first time*/
-    private(set) var hasLaidOut = false
+    public private(set) var hasLaidOut = false
     /** Data set for messages in the group */
-    private(set) var messages = [GeneralMessengerCell]()
+    public private(set) var messages = [GeneralMessengerCell]()
     /** Delay before add/remove animation begins*/
     public var animationDelay: NSTimeInterval = 0
     /** Avatar new message animation speed */
