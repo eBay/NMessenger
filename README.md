@@ -31,12 +31,10 @@ Built-in support for:
 
 ## Installation for [Cocoapods](https://cocoapods.org)
 
-In the NMessenger directory
 ```
 # For latest release in cocoapods
 pod 'NMessenger'
 ```
-Open `nMessenger.xcworkspace` 
 
 
 ## Getting Started
