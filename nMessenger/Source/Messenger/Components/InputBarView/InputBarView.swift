@@ -89,7 +89,7 @@ public class InputBarView: UIView,UITextViewDelegate,CameraViewDelegate {
      Loads the view from nib file InputBarView and does intial setup.
      */
     private func loadFromBundle() {
-        NSBundle.mainBundle().loadNibNamed("InputBarView", owner: self, options: nil)[0] as! UIView
+        NSBundle(forClass: NMessengerViewController.self).loadNibNamed("InputBarView", owner: self, options: nil)[0] as! UIView
         self.addSubview(InputBarView)
         InputBarView.frame = self.bounds
         textInputView.delegate = self
