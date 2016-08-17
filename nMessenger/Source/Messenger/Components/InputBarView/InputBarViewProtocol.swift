@@ -11,17 +11,12 @@ import UIKit
 
 @objc public protocol InputBarViewProtocol
 {
-    /* IBOutlet for superview of textInputView */
+    /* Superview of textInputView - can hold send button and/or attachment button*/
     var textInputAreaView: UIView! {get set}
-    /* IBOutlet the view where the user input the text*/
+    /* UITextView where the user will input the text*/
     var textInputView: UITextView! {get set}
     /*init method for the class with passing in NMessengerViewController*/
     init(controller:NMessengerViewController)
      /*init method for the class with passing in NMessengerViewController and a frame*/
     init(controller:NMessengerViewController,frame: CGRect)
-}
-
-// we can constrain the shake method to only UIViews!
-extension InputBarViewProtocol where Self: UIView {
-    
 }
