@@ -167,7 +167,15 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
                 self.inputBarBottomSpacing.constant = 0
                 self.isKeyboardIsShown = false
             } else {
-                self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
+                if self.inputBarBottomSpacing.constant==0
+                {
+                    self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
+                }
+                else
+                {
+                    self.inputBarBottomSpacing.constant = 0
+                    self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
+                }
                 self.isKeyboardIsShown = true
             }
             UIView.animateWithDuration(duration,
