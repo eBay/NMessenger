@@ -21,7 +21,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     //@IBOutlet that is messanger view
     @IBOutlet public var messengerView: NMessenger!
     //@IBOutlet that is input view
-    @IBOutlet public var inputBarView: InputBarView!
+    @IBOutlet public var inputBarView: InputBarViewProtocol!
     
     //MARK: Private Variables
     //Bool to idicate if the keyboard is open
@@ -125,14 +125,20 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     private func loadInputView()
     {
         self.inputBarView = InputBarView(controller: self)
-        self.view.addSubview(self.inputBarView)
+        if let inputBarView = self.inputBarView as? UIView
+        {
+            self.view.addSubview(inputBarView)
+        }
     }
     /**
      Adds auto layout constraints for NMessenger and InputBarView
      */
     private func setUpConstriantsForViews()
     {
-        self.inputBarView.translatesAutoresizingMaskIntoConstraints = false
+        if let inputBarView = self.inputBarView as? UIView
+        {
+            inputBarView.translatesAutoresizingMaskIntoConstraints = false
+        }
         self.inputBarBottomSpacing = NSLayoutConstraint(item: self.inputBarView, attribute: .Bottom, relatedBy: .Equal, toItem: self.bottomLayoutGuide, attribute: .Top, multiplier: 1, constant: 0)
         self.view.addConstraint(self.inputBarBottomSpacing)
         self.view.addConstraint(NSLayoutConstraint(item: self.inputBarView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))

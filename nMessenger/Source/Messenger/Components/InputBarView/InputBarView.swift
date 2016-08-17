@@ -17,7 +17,7 @@ import Photos
  InputBarView class for NMessaenger.
  Define the input bar for NMessaenger. This is where the user would type text and open the camera or photo library.
  */
-public class InputBarView: UIView,UITextViewDelegate,CameraViewDelegate {
+public class InputBarView: UIView, InputBarViewProtocol,UITextViewDelegate,CameraViewDelegate {
     
     //MARK: IBOutlets
     //@IBOutlet for InputBarView
@@ -59,7 +59,7 @@ public class InputBarView: UIView,UITextViewDelegate,CameraViewDelegate {
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
      Calls helper methond to setup the view
      */
-    public init(controller:NMessengerViewController) {
+    public required init(controller:NMessengerViewController) {
         super.init(frame: CGRectZero)
         self.controller = controller
         loadFromBundle()
@@ -70,7 +70,7 @@ public class InputBarView: UIView,UITextViewDelegate,CameraViewDelegate {
      - parameter controller: Must be CGRect. Sets frame for the view.
      Calls helper methond to setup the view
      */
-    public init(controller:NMessengerViewController,frame: CGRect) {
+    public required init(controller:NMessengerViewController,frame: CGRect) {
         super.init(frame: frame)
         self.controller = controller
         loadFromBundle()
