@@ -264,7 +264,7 @@ messageGroup.addMessageToGroup(message: GeneralMessengerCell, completion: (()->V
 ##### Removing
 To remove a `MessageNode`.
 ```
-messageGroup.replaceMessage(message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?)
+messageGroup.removeMessageFromGroup(message: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
   <img src="https://github.com/eBay/NMessenger/blob/master/Assets/Mg-Delete.gif" alt="Message Group Remove Animation" width="200"/>
@@ -273,7 +273,7 @@ messageGroup.replaceMessage(message: GeneralMessengerCell, withMessage newMessag
 ##### Updating
 To update an existing `MessageNode` with a new `MessageNode`.
 ```
-messageGroup.removeMessageFromGroup(message: GeneralMessengerCell, completion: (()->Void)?)
+messageGroup.replaceMessage(message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
 <img src="https://github.com/eBay/NMessenger/blob/master/Assets/Mg-Replace.gif" alt="Message Group Update Animation" width="200"/>
