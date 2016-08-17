@@ -3,7 +3,7 @@ build/
 DerivedData/
 Pods/
 Podfile.lock
-nMessenger.xcworkspace
+*.xcworkspace
 
 ## Various settings
 *.pbxuser
