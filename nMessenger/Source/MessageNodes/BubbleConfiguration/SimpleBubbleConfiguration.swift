@@ -16,6 +16,8 @@ public class SimpleBubbleConfiguration: BubbleConfigurationProtocol {
     
     public var isMasked = false
     
+    public init() {}
+    
     public func getIncomingColor() -> UIColor
     {
         return UIColor.n1PaleGreyColor()
