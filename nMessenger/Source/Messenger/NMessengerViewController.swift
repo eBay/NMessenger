@@ -21,7 +21,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     //@IBOutlet that is messanger view
     public var messengerView: NMessenger!
     //@IBOutlet that is input view
-    public var inputBarView: BaseInputBarView!
+    public var inputBarView: InputBarView!
     
     //MARK: Private Variables
     //Bool to idicate if the keyboard is open
@@ -132,9 +132,9 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
      Methods sbould be ovverride if creating a custom input bar
      - Returns: A view that extends BaseInputBarView
      */
-    public func customInputBar() -> BaseInputBarView
+    public func customInputBar() -> InputBarView
     {
-        return InputBarView(controller: self)
+        return NMessengerBarView(controller: self)
     }
     /**
      Adds auto layout constraints for NMessenger and InputBarView

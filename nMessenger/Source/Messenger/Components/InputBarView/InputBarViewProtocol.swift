@@ -23,4 +23,6 @@ import UIKit
     init(controller:NMessengerViewController)
      /*init method for the class with passing in NMessengerViewController and a frame*/
     init(controller:NMessengerViewController,frame: CGRect)
+    //NMessengerViewController where to input is sent to
+    var controller:NMessengerViewController! {get set}
 }
