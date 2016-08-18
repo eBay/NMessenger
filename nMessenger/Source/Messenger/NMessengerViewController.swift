@@ -17,14 +17,14 @@ import AsyncDisplayKit
 
 public class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate {
     
-    //MARK: IBOutlets
-    //@IBOutlet that is messanger view
-    @IBOutlet public var messengerView: NMessenger!
-    //@IBOutlet that is input view
-    @IBOutlet public var inputBarView: InputBarViewProtocol!
+    //MARK: Views
+    //This is messanger view
+    public var messengerView: NMessenger!
+    //This is input view
+    public var inputBarView: InputBarView!
     
     //MARK: Private Variables
-    //Bool to idicate if the keyboard is open
+    //Bool to indicate if the keyboard is open
     public private(set) var isKeyboardIsShown : Bool = false
     //NSLayoutConstraint for the input bar spacing from the bottom
     private var inputBarBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
@@ -120,30 +120,33 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         self.view.addSubview(self.messengerView)
     }
     /**
-     Creates InputBarView view and adds it to the view
+     Adds BaseInputBarView to the view
      */
     private func loadInputView()
     {
-        self.inputBarView = InputBarView(controller: self)
-        if let inputBarView = self.inputBarView as? UIView
-        {
-            self.view.addSubview(inputBarView)
-        }
+        self.inputBarView = self.customInputBar()
+        self.view.addSubview(inputBarView)
+    }
+    
+    /**
+     Override this method to create your own custom InputBarView
+     - Returns: A view that extends BaseInputBarView
+     */
+    public func customInputBar() -> InputBarView
+    {
+        return NMessengerBarView(controller: self)
     }
     /**
      Adds auto layout constraints for NMessenger and InputBarView
      */
     private func setUpConstriantsForViews()
     {
-        if let inputBarView = self.inputBarView as? UIView
-        {
-            inputBarView.translatesAutoresizingMaskIntoConstraints = false
-        }
+        inputBarView.translatesAutoresizingMaskIntoConstraints = false
         self.inputBarBottomSpacing = NSLayoutConstraint(item: self.inputBarView, attribute: .Bottom, relatedBy: .Equal, toItem: self.bottomLayoutGuide, attribute: .Top, multiplier: 1, constant: 0)
         self.view.addConstraint(self.inputBarBottomSpacing)
         self.view.addConstraint(NSLayoutConstraint(item: self.inputBarView, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: self.inputBarView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 43))
+        self.view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: self.inputBarView.frame.size.height))
         self.messengerView.translatesAutoresizingMaskIntoConstraints = false
         self.messengerBottomSpacing = NSLayoutConstraint(item: self.messengerView, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputBarView, attribute: .Top, multiplier: 1, constant: 0)
         self.view.addConstraint(self.messengerBottomSpacing)
