@@ -17,12 +17,6 @@ import UIKit
     var textInputAreaView: UIView! {get set}
     /* UITextView where the user will input the text*/
     var textInputView: UITextView! {get set}
-    /*init method for the class*/
-    init()
-    /*init method for the class with passing in NMessengerViewController*/
-    init(controller:NMessengerViewController)
-     /*init method for the class with passing in NMessengerViewController and a frame*/
-    init(controller:NMessengerViewController,frame: CGRect)
     //NMessengerViewController where to input is sent to
     var controller:NMessengerViewController! {get set}
 }
