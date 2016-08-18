@@ -17,14 +17,14 @@ import AsyncDisplayKit
 
 public class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate {
     
-    //MARK: IBOutlets
-    //@IBOutlet that is messanger view
+    //MARK: Views
+    //This is messanger view
     public var messengerView: NMessenger!
-    //@IBOutlet that is input view
+    //This is input view
     public var inputBarView: InputBarView!
     
     //MARK: Private Variables
-    //Bool to idicate if the keyboard is open
+    //Bool to indicate if the keyboard is open
     public private(set) var isKeyboardIsShown : Bool = false
     //NSLayoutConstraint for the input bar spacing from the bottom
     private var inputBarBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
@@ -129,7 +129,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     /**
-     Methods sbould be ovverride if creating a custom input bar
+     Override this method to create your own custom InputBarView
      - Returns: A view that extends BaseInputBarView
      */
     public func customInputBar() -> InputBarView
