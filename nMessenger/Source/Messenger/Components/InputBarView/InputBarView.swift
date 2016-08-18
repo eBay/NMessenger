@@ -17,15 +17,11 @@ import Photos
  InputBarView class for NMessaenger.
  Define the input bar for NMessaenger. This is where the user would type text and open the camera or photo library.
  */
-public class InputBarView: UIView, InputBarViewProtocol,UITextViewDelegate,CameraViewDelegate {
+public class InputBarView: BaseInputBarView,UITextViewDelegate,CameraViewDelegate {
     
     //MARK: IBOutlets
     //@IBOutlet for InputBarView
     @IBOutlet public var InputBarView: UIView!
-    //@IBOutlets for input area view
-    @IBOutlet public weak var textInputAreaView: UIView!
-    //@IBOutlets for input view
-    @IBOutlet public weak var textInputView: UITextView!
     //@IBOutlet for send button
     @IBOutlet public weak var sendButton: UIButton!
     //@IBOutlets NSLayoutConstraint input area view height
@@ -35,7 +31,7 @@ public class InputBarView: UIView, InputBarViewProtocol,UITextViewDelegate,Camer
     
     //MARK: Public Parameters
     //Rerrence to CameraViewController
-    public lazy var cameraVC: CameraViewController = CameraViewController()
+    public lazy var cameraVC: CameraViewController! = CameraViewController()
     //CGFloat to the fine the number of rows a user can type
     public var numberOfRows:CGFloat = 3
     //String as placeholder text in input view
@@ -51,16 +47,23 @@ public class InputBarView: UIView, InputBarViewProtocol,UITextViewDelegate,Camer
     //CGFloat as defualt height for input view
     private let textInputViewHeightConst:CGFloat = 30
     //NMessengerViewController where to input is sent to
-    private var controller:NMessengerViewController = NMessengerViewController()
+    private var controller:NMessengerViewController!
     
     // MARK: Initialisers
+    /**
+     Initialiser the view.
+     */
+    public required init() {
+        super.init()
+    }
+    
     /**
      Initialiser the view.
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
      Calls helper methond to setup the view
      */
     public required init(controller:NMessengerViewController) {
-        super.init(frame: CGRectZero)
+        super.init(controller: controller)
         self.controller = controller
         loadFromBundle()
     }
@@ -71,7 +74,7 @@ public class InputBarView: UIView, InputBarViewProtocol,UITextViewDelegate,Camer
      Calls helper methond to setup the view
      */
     public required init(controller:NMessengerViewController,frame: CGRect) {
-        super.init(frame: frame)
+        super.init(controller: controller,frame: frame)
         self.controller = controller
         loadFromBundle()
     }

@@ -22,6 +22,7 @@
 		F1418CF11D380B2400C404B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1418CEF1D380B2400C404B5 /* LaunchScreen.storyboard */; };
 		F1418CFC1D380B2400C404B5 /* nMessengerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418CFB1D380B2400C404B5 /* nMessengerTests.swift */; };
 		F1418D071D380B2400C404B5 /* nMessengerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418D061D380B2400C404B5 /* nMessengerUITests.swift */; };
+		F14C8B691D66273700F8616F /* BaseInputBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14C8B681D66273700F8616F /* BaseInputBarView.swift */; };
 		F1FC873E1D63813700F3C21C /* loadBubble@1x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F1FC86931D63813700F3C21C /* loadBubble@1x.gif */; };
 		F1FC873F1D63813700F3C21C /* loadBubble@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F1FC86941D63813700F3C21C /* loadBubble@2x.gif */; };
 		F1FC87401D63813700F3C21C /* loadBubble@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = F1FC86951D63813700F3C21C /* loadBubble@3x.gif */; };
@@ -214,6 +215,7 @@
 		F1418D021D380B2400C404B5 /* nMessengerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nMessengerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1418D061D380B2400C404B5 /* nMessengerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nMessengerUITests.swift; sourceTree = "<group>"; };
 		F1418D081D380B2400C404B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F14C8B681D66273700F8616F /* BaseInputBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseInputBarView.swift; sourceTree = "<group>"; };
 		F1FC86931D63813700F3C21C /* loadBubble@1x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loadBubble@1x.gif"; sourceTree = "<group>"; };
 		F1FC86941D63813700F3C21C /* loadBubble@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loadBubble@2x.gif"; sourceTree = "<group>"; };
 		F1FC86951D63813700F3C21C /* loadBubble@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loadBubble@3x.gif"; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 			isa = PBXGroup;
 			children = (
 				F13F39E01D650D490021A858 /* InputBarViewProtocol.swift */,
+				F14C8B681D66273700F8616F /* BaseInputBarView.swift */,
 				F1FC87361D63813700F3C21C /* InputBarView.swift */,
 				F1FC87371D63813700F3C21C /* InputBarView.xib */,
 			);
@@ -1066,6 +1069,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F14C8B691D66273700F8616F /* BaseInputBarView.swift in Sources */,
 				F1FC87C21D63813700F3C21C /* CustomContentNode.swift in Sources */,
 				F1FC87C01D63813700F3C21C /* CustomContentCellNode.swift in Sources */,
 				F1FC87B71D63813700F3C21C /* ImageBubbleConfiguration.swift in Sources */,
