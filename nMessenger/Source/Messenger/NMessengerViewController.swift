@@ -155,6 +155,17 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0))
     }
     
+    override func shouldAutorotate() -> Bool {
+        if (UIDevice.currentDevice().orientation == UIDeviceOrientation.LandscapeLeft ||
+            UIDevice.currentDevice().orientation == UIDeviceOrientation.LandscapeRight ||
+            UIDevice.currentDevice().orientation == UIDeviceOrientation.Unknown) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
     //MARK: UIKeyboardWillChangeFrameNotification Selector
     /**
      Moves InputBarView up and down accoridng to the location of the keyboard
