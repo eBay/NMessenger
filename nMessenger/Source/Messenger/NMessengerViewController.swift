@@ -99,11 +99,15 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         //load views
         loadMessengerView()
         loadInputView()
-        setUpConstriantsForViews()
         //swipe down
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(NMessengerViewController.respondToSwipeGesture(_:)))
         swipeDown.direction = UISwipeGestureRecognizerDirection.Down
         self.inputBarView.textInputAreaView.addGestureRecognizer(swipeDown)
+    }
+    
+    override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpConstriantsForViews()
     }
     
     override public func viewDidAppear(animated: Bool) {
