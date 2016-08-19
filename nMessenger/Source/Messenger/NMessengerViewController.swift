@@ -124,15 +124,15 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
      */
     private func loadInputView()
     {
-        self.inputBarView = self.customInputBar()
+        self.inputBarView = self.getInputBar()
         self.view.addSubview(inputBarView)
     }
     
     /**
      Override this method to create your own custom InputBarView
-     - Returns: A view that extends BaseInputBarView
+     - Returns: A view that extends InputBarView
      */
-    public func customInputBar() -> InputBarView
+    public func getInputBar() -> InputBarView
     {
         return NMessengerBarView(controller: self)
     }

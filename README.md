@@ -36,6 +36,8 @@ Built-in support for:
 pod 'NMessenger'
 ```
 
+## Notes
+- **Landscape mode is not currently supported.** While it may be supported in a future release, we have disabled device rotation for `NMessengerViewController` to prevent issues.
 
 ## Getting Started
 
@@ -114,6 +116,25 @@ func removeTypingIndicator(indicator: GeneralMessengerCell)
 <p align="center">
 <img src="https://github.com/eBay/NMessenger/blob/master/Assets/TypingIndicator.png" alt="Typing Indicator" width="400"/>
 </p>
+
+#### Custom InputBar
+To use a custom input bar, you must subclass `InputBarView`. `InputBarView` conforms to `InputBarViewProtocol`:
+
+```
+@objc public protocol InputBarViewProtocol
+{
+    /* Superview of textInputView - can hold send button and/or attachment button*/
+    var textInputAreaView: UIView! {get set}
+    /* UITextView where the user will input the text*/
+    var textInputView: UITextView! {get set}
+    //NMessengerViewController where to input is sent to
+    var controller:NMessengerViewController! {get set}
+}
+```
+
+Both `textInputAreaView` and `textInputView` must be created in order for `NMessengerViewController` to have the correct behavior. `controller` is set by the initializer in `InputBarView` base class. 
+
+In order to use your custom InputBar, override `func getInputBar()->InputBarView` in `NMessengerViewController`.
 
 ### NMessenger
 
