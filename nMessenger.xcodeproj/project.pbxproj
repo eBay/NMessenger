@@ -14,6 +14,10 @@
 		190C89C91D40181A00CF3512 /* MessageGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C89C31D40181A00CF3512 /* MessageGroupTests.swift */; };
 		190C89CA1D40181A00CF3512 /* NetworkImageContentNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C89C41D40181A00CF3512 /* NetworkImageContentNodeTests.swift */; };
 		190C89CB1D40181A00CF3512 /* NMessengerVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C89C51D40181A00CF3512 /* NMessengerVCTests.swift */; };
+		19F4C12D1D6CF4550044E340 /* UIColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12B1D6CF4550044E340 /* UIColorTests.swift */; };
+		19F4C12E1D6CF4550044E340 /* UIFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12C1D6CF4550044E340 /* UIFontTests.swift */; };
+		19F4C1311D6CF4C00044E340 /* BubbleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */; };
+		19F4C1321D6CF4C00044E340 /* MessageNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C1301D6CF4C00044E340 /* MessageNodeTests.swift */; };
 		F13F39E11D650D490021A858 /* InputBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13F39E01D650D490021A858 /* InputBarViewProtocol.swift */; };
 		F1418CE71D380B2400C404B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418CE61D380B2400C404B5 /* AppDelegate.swift */; };
 		F1418CE91D380B2400C404B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1418CE81D380B2400C404B5 /* ViewController.swift */; };
@@ -201,6 +205,10 @@
 		190C89C31D40181A00CF3512 /* MessageGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageGroupTests.swift; sourceTree = "<group>"; };
 		190C89C41D40181A00CF3512 /* NetworkImageContentNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkImageContentNodeTests.swift; sourceTree = "<group>"; };
 		190C89C51D40181A00CF3512 /* NMessengerVCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMessengerVCTests.swift; sourceTree = "<group>"; };
+		19F4C12B1D6CF4550044E340 /* UIColorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorTests.swift; sourceTree = "<group>"; };
+		19F4C12C1D6CF4550044E340 /* UIFontTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontTests.swift; sourceTree = "<group>"; };
+		19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleConfigurationTests.swift; sourceTree = "<group>"; };
+		19F4C1301D6CF4C00044E340 /* MessageNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageNodeTests.swift; sourceTree = "<group>"; };
 		F13F39E01D650D490021A858 /* InputBarViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputBarViewProtocol.swift; sourceTree = "<group>"; };
 		F1418CE31D380B2400C404B5 /* nMessenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nMessenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1418CE61D380B2400C404B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -414,6 +422,8 @@
 		190C89BF1D40181A00CF3512 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */,
+				19F4C1301D6CF4C00044E340 /* MessageNodeTests.swift */,
 				190C89C01D40181A00CF3512 /* BubbleTests.swift */,
 				190C89C11D40181A00CF3512 /* CollectionViewContentNodeTests.swift */,
 				190C89C21D40181A00CF3512 /* HeadLoadingIndicatorTests.swift */,
@@ -421,6 +431,15 @@
 				190C89C41D40181A00CF3512 /* NetworkImageContentNodeTests.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		19F4C12A1D6CF4550044E340 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				19F4C12B1D6CF4550044E340 /* UIColorTests.swift */,
+				19F4C12C1D6CF4550044E340 /* UIFontTests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CEEA4FEAB14A1E9BACDB8B3A /* Frameworks */ = {
@@ -471,6 +490,7 @@
 		F1418CFA1D380B2400C404B5 /* nMessengerTests */ = {
 			isa = PBXGroup;
 			children = (
+				19F4C12A1D6CF4550044E340 /* Extensions */,
 				190C89BE1D40181A00CF3512 /* UI Components */,
 				190C89BB1D40175100CF3512 /* Messenger */,
 				F1418CFB1D380B2400C404B5 /* nMessengerTests.swift */,
@@ -1112,7 +1132,11 @@
 			files = (
 				190C89BD1D40175200CF3512 /* NMessengerTests.swift in Sources */,
 				F1418CFC1D380B2400C404B5 /* nMessengerTests.swift in Sources */,
+				19F4C12D1D6CF4550044E340 /* UIColorTests.swift in Sources */,
+				19F4C1321D6CF4C00044E340 /* MessageNodeTests.swift in Sources */,
 				190C89CA1D40181A00CF3512 /* NetworkImageContentNodeTests.swift in Sources */,
+				19F4C12E1D6CF4550044E340 /* UIFontTests.swift in Sources */,
+				19F4C1311D6CF4C00044E340 /* BubbleConfigurationTests.swift in Sources */,
 				190C89C81D40181A00CF3512 /* HeadLoadingIndicatorTests.swift in Sources */,
 				190C89C71D40181A00CF3512 /* CollectionViewContentNodeTests.swift in Sources */,
 				190C89CB1D40181A00CF3512 /* NMessengerVCTests.swift in Sources */,
