@@ -31,7 +31,7 @@ Built-in support for:
 
 ## Installation for [Cocoapods](https://cocoapods.org)
 
-```
+```ruby
 # For latest release in cocoapods
 pod 'NMessenger'
 ```
@@ -51,7 +51,7 @@ NMessenger comes with a prebuilt NMessengerViewController that has a few support
 
 #### Posting Messages
 Send a text message.
-```
+```swift
 func sendText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
 <p align="center">
@@ -60,11 +60,11 @@ func sendText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell
 ---
 
 Send a message with an image.
-```
+```swift
 func sendImage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
 Send a message with a network image. (Uses AsyncDisplayKit with PINCache to lazyload and cache network images)
-```
+```swift
 func sendNetworkImage(imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
 <p align="center">
@@ -74,7 +74,7 @@ func sendNetworkImage(imageURL: String, isIncomingMessage:Bool) -> GeneralMessen
 
 A message with a collection view can be created directly from an array of views or nodes. *Note: Nodes take advantage of ASDK's async rendering capabilities and will make this component scroll more smoothly.*
 
-```
+```swift
 func sendCollectionViewWithViews(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
 func sendCollectionViewWithNodes(nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
@@ -94,7 +94,7 @@ Multi line CollectionView
 
 Send a message with a custom view or node. *Note: Nodes take advantage of ASDK's async rendering capabilities and will make this component scroll more smoothly.*
 
-```
+```swift
 func sendCustomView(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell
 func sendCustomNode(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell
 ```
@@ -106,7 +106,7 @@ These functions are meant to be overridden for network calls and other controlle
 
 #### Typing Indicators
 Typing indicators signify that incoming messages are being typed. This will be the last message in the messenger by default.
-```
+```swift
 /** Adds an incoming typing indicator to the messenger */
 func showTypingIndicator(avatar: ASDisplayNode) -> GeneralMessengerCell
 
@@ -120,7 +120,7 @@ func removeTypingIndicator(indicator: GeneralMessengerCell)
 #### Custom InputBar
 To use a custom input bar, you must subclass `InputBarView`. `InputBarView` conforms to `InputBarViewProtocol`:
 
-```
+```swift
 @objc public protocol InputBarViewProtocol
 {
     /* Superview of textInputView - can hold send button and/or attachment button*/
@@ -139,7 +139,7 @@ In order to use your custom InputBar, override `func getInputBar()->InputBarView
 ### NMessenger
 
 NMessenger can be added to any view. 
-```
+```swift
 self.messengerView = NMessenger(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height))
 messengerView.delegate = self
 self.view.addSubview(self.messengerView)
@@ -148,7 +148,7 @@ With NMessenger, there is no need to manage a data source. Simply add a message 
 
 Changing and updating a message relies on a reference. These references can be passed through a delegate method or stored locally in a class. 
 
-```
+```swift
 self.delegate.deleteMessageBtnClick(self)
 .
 .
@@ -181,7 +181,7 @@ By setting `hasLayerMask = true`, bubbles will mask their content. This is relev
 
 ### Bubble Configuration
 In order to configure custom bubbles for the messenger, you must create a new class that implements `BubbleConfigurationProtocol`.
-```
+```swift
 /** Configures a bubble for a ContentNode. Implement this to create your own bubble configuration */
 protocol BubbleConfigurationProtocol {
     var isMasked: Bool {get set}
@@ -220,7 +220,7 @@ Content Nodes can also be given a `BubbleConfigurationProtocol` to customize the
 ### Avatars
 Custom avatars can be set with an AsyncDisplayKit `ASImageNode`.
 
-```
+```swift
 let nAvatar = ASImageNode()
 nAvatar.image = UIImage(named: "nAvatar")
 .
@@ -234,7 +234,7 @@ Many messengers prefetch at the head. This is not trivial with a UITableView or 
 
 To use the head prefetch feature, set `var doesBatchFetch: Bool = true` on NMessenger. NMessengerDelegate will also need to be implemented and set by your controller.
 
-```
+```swift
 @objc protocol NMessengerDelegate {
     /**
      Triggered when a load batch content should be called. This method is called on a background thread.
@@ -275,7 +275,7 @@ It is recommended that they are removed from `NMessenger` because of the possibi
 
 ##### Adding
 To add a `MessageNode`. 
-```
+```swift
 messageGroup.addMessageToGroup(message: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
@@ -284,7 +284,7 @@ messageGroup.addMessageToGroup(message: GeneralMessengerCell, completion: (()->V
 
 ##### Removing
 To remove a `MessageNode`.
-```
+```swift
 messageGroup.removeMessageFromGroup(message: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
@@ -293,7 +293,7 @@ messageGroup.removeMessageFromGroup(message: GeneralMessengerCell, completion: (
 
 ##### Updating
 To update an existing `MessageNode` with a new `MessageNode`.
-```
+```swift
 messageGroup.replaceMessage(message: GeneralMessengerCell, withMessage newMessage: GeneralMessengerCell, completion: (()->Void)?)
 ```
 <p align="center">
