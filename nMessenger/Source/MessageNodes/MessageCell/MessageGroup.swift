@@ -328,8 +328,8 @@ public class MessageGroup: GeneralMessengerCell {
                             self.transitionLayoutWithAnimation(true, shouldMeasureAsync: false, measurementCompletion:nil)
                         })
                     }
-                } else { //message shouldn't be in this group
-                    self.messages.removeAtIndex(index)
+                } else { //replace message
+                    self.messages[index] = newMessage
                 }
             }
         }
