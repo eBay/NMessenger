@@ -273,7 +273,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
      Adds a message to the messanger
      - parameter message: MessageNode
      */
-    public func addMessgeToMessenger(message:MessageNode)
+    public func addMessageToMessenger(message:MessageNode)
     {
         message.currentViewController = self
         if message.isIncomingMessage == false
@@ -345,7 +345,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
@@ -362,7 +362,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
@@ -379,7 +379,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
@@ -398,7 +398,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
@@ -416,7 +416,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
@@ -434,7 +434,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
@@ -451,7 +451,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
 
