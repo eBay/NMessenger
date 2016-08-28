@@ -13,7 +13,7 @@ import Photos
 import AVFoundation
 //MARK: CameraViewController
 /**
- CameraViewDelegate protocol for NMessaenger.
+ CameraViewDelegate protocol for NMessenger.
  Defines methods to be implemented inorder to use the CameraViewController
  */
 public protocol CameraViewDelegate {
@@ -28,7 +28,7 @@ public protocol CameraViewDelegate {
 }
 //MARK: SelectionType
 /**
- SelectionType enum for NMessaenger.
+ SelectionType enum for NMessenger.
  Defines type of selection the user is making - camera of photo library
  */
 public enum SelectionType {
@@ -37,8 +37,8 @@ public enum SelectionType {
 }
 //MARK: CameraViewController
 /**
- CameraViewController class for NMessaenger.
- Defines the camera view for NMessaenger. This is where the user will take photos or select them from the library.
+ CameraViewController class for NMessenger.
+ Defines the camera view for NMessenger. This is where the user will take photos or select them from the library.
  */
 public class CameraViewController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK: Public Parameters

@@ -13,7 +13,7 @@ import AsyncDisplayKit
 
 //MARK: ContentNode
 /**
- Content node class for NMessaenger.
+ Content node class for NMessenger.
  Define the content a a MessageNode or a MessageGroup
  */
 public class ContentNode: ASDisplayNode {
