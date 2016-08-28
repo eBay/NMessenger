@@ -269,37 +269,17 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     
     //MARK: NMessengerViewController - Add messege methods - DO NOT OVVERRIDE
     /**
-     DO NOT OVVERRIDE
+     DO NOT OVERRIDE
      Adds a message to the messanger
-     - parameter message: MessageNode
+     - parameter message: GeneralMessageCell
      */
-    public func addMessgeToMessenger(message:MessageNode)
+    public func addMessageToMessenger(message:GeneralMessengerCell)
     {
         message.currentViewController = self
-        if message.isIncomingMessage == false
-        {
+        if message.isIncomingMessage == false {
             self.messengerView.addMessage(message, scrollsToMessage: true, withAnimation: .Right)
-        }
-        else
-        {
+        } else {
             self.messengerView.addMessage(message, scrollsToMessage: true, withAnimation: .Left)
-        }
-    }
-    
-    /**
-     Adds a message group to the messanger
-     - parameter messageGroup: MessageGroup
-     */
-    public func addMessageGroupToMessenger(messageGroup:MessageGroup)
-    {
-        messageGroup.currentViewController = self
-        if messageGroup.isIncomingMessage == false
-        {
-            self.messengerView.addMessage(messageGroup, scrollsToMessage: true, withAnimation: .Right)
-        }
-        else
-        {
-            self.messengerView.addMessage(messageGroup, scrollsToMessage: true, withAnimation: .Left)
         }
     }
     
@@ -313,13 +293,25 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     /**
-     Adds an incoming typing indicator to the messenger
+     Creates an incoming typing indicator
+     - parameter avatar: an avatar to add to the typing indicator message
      */
-    public func showTypingIndicator(avatar: ASDisplayNode?) -> GeneralMessengerCell
+    public func createTypingIndicator(avatar: ASDisplayNode?) -> GeneralMessengerCell
     {
         let typing = TypingIndicatorContent(bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: typing)
         newMessage.avatarNode = avatar
+        
+        return newMessage
+    }
+    
+    /**
+     Adds an incoming typing indicator to the messenger
+     - parameter avatar: an avatar to add to the typing indicator message
+     */
+    public func showTypingIndicator(avatar: ASDisplayNode?) -> GeneralMessengerCell
+    {
+        let newMessage = self.createTypingIndicator(avatar)
         messengerView.addTypingIndicator(newMessage, scrollsToLast: false, animated: true, completion: nil)
         return newMessage
     }
@@ -332,126 +324,206 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     //MARK: NMessengerViewController Helper methods
+    
     /**
-     Adds a text message as outgoing
-     - parameter text: the text content to post
+     Creates a new text message
+     - parameter text: the text to add to the message
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
-    private func postText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func createTextMessage(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
         let textContent = TextContentNode(textMessegeString: text, currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: textContent)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
         return newMessage
     }
     
     /**
-     Adds an image message as outgoing
+     Adds a text message to the messenger
+     - parameter text: the text content to post
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    private func postText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let newMessage = createTextMessage(text, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
+        return newMessage
+    }
+    
+    /**
+     Creates a new image message
      - parameter image: the image to be displayed
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
-    private func postImage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func createImageMessage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell {
         let imageContent = ImageContentNode(image: image, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: imageContent)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
         return newMessage
     }
     
     /**
-     Adds an image message as outgoing
+     Adds an image message to the messenger
      - parameter image: the image to be displayed
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
-    private func postNetworkImage(url: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    private func postImage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let newMessage = self.createImageMessage(image, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
+        return newMessage
+    }
+    
+    
+    /**
+     Creates a new image message
+     - parameter url: the image url to be displayed
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    public func createNetworkImageMessage(url: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
         let networkImageContent = NetworkImageContentNode(imageURL: url, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: networkImageContent)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-        
-        self.addMessgeToMessenger(newMessage)
+    
         return newMessage
     }
     
+    /**
+     Adds an image message to the messenger
+     - parameter url: the image url to be displayed
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    private func postNetworkImage(url: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let newMessage = self.createNetworkImageMessage(url, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
+        return newMessage
+    }
     
     /**
-     Adds an image message as outgoing
+     Creates a new collection view message
      - parameter views: a [UIView] that are the view for the collection view
      - parameter numberOfRows: CGFloat number of rows in the collection view
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
-    private func postCollectionView(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func createCollectionViewMessage(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
         let collectionViewContent = CollectionViewContentNode(withCustomViews: views, andNumberOfRows: numberOfRows, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: collectionViewContent)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
         
-        self.addMessgeToMessenger(newMessage)
         return newMessage
     }
     
     /**
-     Adds an image message as outgoing
+     Adds a collection view message to the messenger
+     - parameter views: a [UIView] that are the view for the collection view
+     - parameter numberOfRows: CGFloat number of rows in the collection view
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    private func postCollectionView(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let newMessage = self.createCollectionViewMessage(views, numberOfRows: numberOfRows, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
+        return newMessage
+    }
+    
+    /**
+     Creates a new collection view message
+     - parameter views: a [ASDisplayNode] that are the view for the collection view
+     - parameter numberOfRows: CGFloat number of rows in the collection view
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    public func createCollectionNodeMessage(nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let collectionViewContent = CollectionViewContentNode(withCustomNodes: nodes, andNumberOfRows: numberOfRows, bubbleConfiguration: self.sharedBubbleConfiguration)
+        let newMessage = MessageNode(content: collectionViewContent)
+        newMessage.cellPadding = messagePadding
+        newMessage.currentViewController = self
+        newMessage.isIncomingMessage = isIncomingMessage
+    
+        return newMessage
+    }
+    
+    /**
+     Adds a collection view message to the messenger
      - parameter views: a [ASDisplayNode] that are the view for the collection view
      - parameter numberOfRows: CGFloat number of rows in the collection view
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
     private func postCollectionView(nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell {
-        let collectionViewContent = CollectionViewContentNode(withCustomNodes: nodes, andNumberOfRows: numberOfRows, bubbleConfiguration: self.sharedBubbleConfiguration)
-        let newMessage = MessageNode(content: collectionViewContent)
-        newMessage.cellPadding = messagePadding
-        newMessage.currentViewController = self
-        newMessage.isIncomingMessage = isIncomingMessage
-        
-        self.addMessgeToMessenger(newMessage)
+        let newMessage = self.createCollectionNodeMessage(nodes, numberOfRows: numberOfRows, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
     
-    
     /**
-     Adds an image message as outgoing
+     Creates a custom content message
      - parameter view: a UIView that is the view for the message
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
-    private func postCustomContent(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func createCustomContentViewMessage(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell {
         let customView = CustomContentNode(withCustomView: view, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: customView)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-        
-        self.addMessgeToMessenger(newMessage)
+    
         return newMessage
     }
     
     /**
-     Adds an image message as outgoing
+     Adds a custom content message to the messenger
+     - parameter view: a UIView that is the view for the message
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    private func postCustomContent(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let newMessage = self.createCustomContentViewMessage(view, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
+        return newMessage
+    }
+    
+    
+    /**
+     Creates a custom content message
      - parameter view: a ASDisplayNode that is the view for the message
      - parameter isIncomingMessage: if message is incoming or outgoing
      - returns: the newly created message
      */
-    private func postCustomContent(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell {
+    public func createCustomContentNodeMessage(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell {
         let customView = CustomContentNode(withCustomNode: node, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: customView)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-        
-        self.addMessgeToMessenger(newMessage)
+    
+        return newMessage
+    }
+    
+    /**
+     Adds a custom content message to the messenger
+     - parameter view: a ASDisplayNode that is the view for the message
+     - parameter isIncomingMessage: if message is incoming or outgoing
+     - returns: the newly created message
+     */
+    private func postCustomContent(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell {
+        let newMessage = self.createCustomContentNodeMessage(node, isIncomingMessage: isIncomingMessage)
+        self.addMessageToMessenger(newMessage)
         return newMessage
     }
 
