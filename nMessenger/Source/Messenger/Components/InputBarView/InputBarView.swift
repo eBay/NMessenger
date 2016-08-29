@@ -12,8 +12,8 @@ import UIKit
 
 //MARK: InputBarView
 /**
- InputBarView class for NMessaenger.
- Define the input bar for NMessaenger. This is where the user would type text and open the camera or photo library.
+ InputBarView class for NMessenger.
+ Define the input bar for NMessenger. This is where the user would type text and open the camera or photo library.
  */
 public class InputBarView: UIView, InputBarViewProtocol {
     
