@@ -186,14 +186,14 @@
 			containerPortal = F1418CDB1D380B2400C404B5 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F1418CE21D380B2400C404B5;
-			remoteInfo = nMessanger;
+			remoteInfo = nMessenger;
 		};
 		F1418D031D380B2400C404B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1418CDB1D380B2400C404B5 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F1418CE21D380B2400C404B5;
-			remoteInfo = nMessanger;
+			remoteInfo = nMessenger;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -853,7 +853,7 @@
 			dependencies = (
 			);
 			name = nMessenger;
-			productName = nMessanger;
+			productName = nMessenger;
 			productReference = F1418CE31D380B2400C404B5 /* nMessenger.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -871,7 +871,7 @@
 				F1418CF91D380B2400C404B5 /* PBXTargetDependency */,
 			);
 			name = nMessengerTests;
-			productName = nMessangerTests;
+			productName = nMessengerTests;
 			productReference = F1418CF71D380B2400C404B5 /* nMessengerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -889,7 +889,7 @@
 				F1418D041D380B2400C404B5 /* PBXTargetDependency */,
 			);
 			name = nMessengerUITests;
-			productName = nMessangerUITests;
+			productName = nMessengerUITests;
 			productReference = F1418D021D380B2400C404B5 /* nMessengerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -1305,7 +1305,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = nMessengerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessangerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessengerTests;
 				PRODUCT_NAME = nMessengerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/nMessenger.app/nMessenger";
 			};
@@ -1317,7 +1317,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = nMessengerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessangerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessengerTests;
 				PRODUCT_NAME = nMessengerTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/nMessenger.app/nMessenger";
 			};
@@ -1328,7 +1328,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = nMessengerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessangerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessengerUITests;
 				PRODUCT_NAME = nMessengerUITests;
 				TEST_TARGET_NAME = nMessenger;
 			};
@@ -1339,7 +1339,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = nMessengerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessangerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ebay.nMessengerUITests;
 				PRODUCT_NAME = nMessengerUITests;
 				TEST_TARGET_NAME = nMessenger;
 			};

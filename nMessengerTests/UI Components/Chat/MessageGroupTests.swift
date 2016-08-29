@@ -14,7 +14,7 @@ class MessageGroupTests: XCTestCase {
     func testInitialize() {
         let messageGroup = MessageGroup()
         
-        let textContent = TextContentNode(textMessegeString: "blah")
+        let textContent = TextContentNode(textMessageString: "blah")
         let newCell = MessageNode(content: textContent)
         messageGroup.addMessageToGroup(newCell, completion: nil)
         
@@ -31,7 +31,7 @@ class MessageGroupTests: XCTestCase {
         
         messageGroup.addMessageToGroup(newCell, completion: nil)
         
-        let textContent2 = TextContentNode(textMessegeString: "blah")
+        let textContent2 = TextContentNode(textMessageString: "blah")
         let newCell2 = MessageNode(content: textContent2)
         messageGroup.replaceMessage(newCell, withMessage: newCell2, completion: nil)
         

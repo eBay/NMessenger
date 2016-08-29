@@ -196,7 +196,7 @@ public class NMessengerBarView: InputBarView,UITextViewDelegate,CameraViewDelega
     //MARK: @IBAction selectors
     /**
      Send button selector
-     Sends the text in textInputView to the contoller
+     Sends the text in textInputView to the controller
      */
     @IBAction public func sendButtonClicked(sender: AnyObject) {
         textInputViewHeight.constant = textInputViewHeightConst
@@ -265,7 +265,7 @@ public class NMessengerBarView: InputBarView,UITextViewDelegate,CameraViewDelega
     //MARK: CameraView delegate methods
     /**
      Implemetning CameraView delegate method
-     Close the CameraView and sends the image to the contoller
+     Close the CameraView and sends the image to the controller
      */
     public func pickedImage(image: UIImage!) {
         self.cameraVC.dismissViewControllerAnimated(true, completion: nil)

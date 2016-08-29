@@ -18,7 +18,7 @@ import AsyncDisplayKit
 public class NMessengerViewController: UIViewController, UITextViewDelegate, NMessengerDelegate, UIGestureRecognizerDelegate {
     
     //MARK: Views
-    //This is messanger view
+    //This is messenger view
     public var messengerView: NMessenger!
     //This is input view
     public var inputBarView: InputBarView!
@@ -91,7 +91,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     
     // MARK: Controller LifeCycle
     /**
-     Overriding viewDidLoad to setup the view contoller
+     Overriding viewDidLoad to setup the view controller
      Calls helper methods
      */
     override public func viewDidLoad() {
@@ -99,7 +99,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
         //load views
         loadMessengerView()
         loadInputView()
-        setUpConstriantsForViews()
+        setUpConstraintsForViews()
         //swipe down
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(NMessengerViewController.respondToSwipeGesture(_:)))
         swipeDown.direction = UISwipeGestureRecognizerDirection.Down
@@ -139,7 +139,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     /**
      Adds auto layout constraints for NMessenger and InputBarView
      */
-    private func setUpConstriantsForViews()
+    private func setUpConstraintsForViews()
     {
         inputBarView.translatesAutoresizingMaskIntoConstraints = false
         self.inputBarBottomSpacing = NSLayoutConstraint(item: self.inputBarView, attribute: .Bottom, relatedBy: .Equal, toItem: self.bottomLayoutGuide, attribute: .Top, multiplier: 1, constant: 0)
@@ -215,19 +215,19 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     
     //MARK: NMessengerViewController - override to create custom behavior
     /**
-     Called when adding a text to the meesenger. Override this function to add your message to the VC
+     Called when adding a text to the messenger. Override this function to add your message to the VC
      */
     public func sendText(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postText(text,isIncomingMessage: isIncomingMessage)
     }
     /**
-     Called  when adding an image to the meesenger. Override this function to add your message to the VC
+     Called  when adding an image to the messenger. Override this function to add your message to the VC
      */
     public func sendImage(image: UIImage, isIncomingMessage:Bool) -> GeneralMessengerCell {
         return self.postImage(image,isIncomingMessage: isIncomingMessage)
     }
     /**
-     Called when adding a network image to the meesenger. Override this function to add your message to the VC
+     Called when adding a network image to the messenger. Override this function to add your message to the VC
      */
     public func sendNetworkImage(imageURL: String, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
@@ -235,7 +235,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     /**
-     Called when adding a collection view with views to the meesenger. Override this function to add your message to the VC
+     Called when adding a collection view with views to the messenger. Override this function to add your message to the VC
      */
     public func sendCollectionViewWithViews(views: [UIView], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
@@ -243,7 +243,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     /**
-     Called when adding a collection view with nodes to the meesenger. Override this function to add your message to the VC
+     Called when adding a collection view with nodes to the messenger. Override this function to add your message to the VC
      */
     public func sendCollectionViewWithNodes(nodes: [ASDisplayNode], numberOfRows:CGFloat, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
@@ -252,7 +252,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     
     
     /**
-     Called when adding a a custom view to the meesenger. Override this function to add your message to the VC
+     Called when adding a a custom view to the messenger. Override this function to add your message to the VC
      */
     public func sendCustomView(view: UIView, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
@@ -260,17 +260,17 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     /**
-     Called when adding a a custom node to the meesenger. Override this function to add your message to the VC
+     Called when adding a a custom node to the messenger. Override this function to add your message to the VC
      */
     public func sendCustomNode(node: ASDisplayNode, isIncomingMessage:Bool) -> GeneralMessengerCell
     {
         return self.postCustomContent(node, isIncomingMessage: isIncomingMessage)
     }
     
-    //MARK: NMessengerViewController - Add messege methods - DO NOT OVVERRIDE
+    //MARK: NMessengerViewController - Add message methods - DO NOT OVERRIDE
     /**
      DO NOT OVERRIDE
-     Adds a message to the messanger
+     Adds a message to the messenger
      - parameter message: GeneralMessageCell
      */
     public func addMessageToMessenger(message:GeneralMessengerCell)
@@ -284,10 +284,10 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
     }
     
     /**
-     Adds a general message to the messanger. Default animation is fade.
+     Adds a general message to the messenger. Default animation is fade.
      - parameter messageGroup: MessageGroup
      */
-    public func addGeneralMessengeToMessenger(message: GeneralMessengerCell) {
+    public func addGeneralMessengerToMessenger(message: GeneralMessengerCell) {
         message.currentViewController = self
         self.messengerView.addMessage(message, scrollsToMessage: false, withAnimation: .Fade)
     }
@@ -332,7 +332,7 @@ public class NMessengerViewController: UIViewController, UITextViewDelegate, NMe
      - returns: the newly created message
      */
     public func createTextMessage(text: String, isIncomingMessage:Bool) -> GeneralMessengerCell {
-        let textContent = TextContentNode(textMessegeString: text, currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
+        let textContent = TextContentNode(textMessageString: text, currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: textContent)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self

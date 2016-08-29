@@ -78,7 +78,7 @@ class NMessengerTests: XCTestCase {
         messenger.delegate = testVC
         let mg = MessageGroup()
         messenger.addMessage(mg, scrollsToMessage: false)
-        let content = TextContentNode(textMessegeString: "test")
+        let content = TextContentNode(textMessageString: "test")
         let mn = MessageNode(content: content)
         mn.currentViewController = testVC
         messenger.addMessageToMessageGroup(mn, messageGroup: mg, scrollsToLastMessage: false)
@@ -86,7 +86,7 @@ class NMessengerTests: XCTestCase {
         XCTAssertNotNil(messenger.messengerNode)
         XCTAssertTrue(mg.messages.contains(mn))
         
-        let content2 = TextContentNode(textMessegeString: "test")
+        let content2 = TextContentNode(textMessageString: "test")
         let mn2 = MessageNode(content: content2)
         mn2.currentViewController = testVC
         messenger.addMessageToMessageGroup(mn2, messageGroup: mg, scrollsToLastMessage: false, completion: nil)
@@ -101,7 +101,7 @@ class NMessengerTests: XCTestCase {
         messenger.delegate = testVC
         let mg = MessageGroup()
         messenger.addMessage(mg, scrollsToMessage: false)
-        let content = TextContentNode(textMessegeString: "test")
+        let content = TextContentNode(textMessageString: "test")
         let mn = MessageNode(content: content)
         mn.currentViewController = testVC
         messenger.addMessageToMessageGroup(mn, messageGroup: mg, scrollsToLastMessage: false)

@@ -13,7 +13,7 @@ import AsyncDisplayKit
 
 //MARK: MessageNode
 /**
- Base message class for N Messanger. Extends GeneralMessengerCell. Holds one message
+ Base message class for N Messenger. Extends GeneralMessengerCell. Holds one message
  */
 public class MessageNode: GeneralMessengerCell {
     

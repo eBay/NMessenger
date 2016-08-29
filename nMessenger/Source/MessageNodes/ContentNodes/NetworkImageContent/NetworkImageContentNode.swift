@@ -13,7 +13,7 @@ import AsyncDisplayKit
 
 //MARK: NetworkImageContentNode
 /**
- NetworkImageContentNode class for N Messanger. Extends MessageNode.
+ NetworkImageContentNode class for N Messenger. Extends MessageNode.
  Defines content that is a network image (An image that is provided via url).
  */
 public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
@@ -22,15 +22,15 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /** NSURL for the image*/
     public var url: NSURL? {
         get {
-            return networkImageMessegeNode.URL
+            return networkImageMessageNode.URL
         } set {
-            networkImageMessegeNode.URL = newValue
+            networkImageMessageNode.URL = newValue
         }
     }
     
     // MARK: Private Variables
     /** ASNetworkImageNode as the content of the cell*/
-    public private(set) var networkImageMessegeNode:ASNetworkImageNode = ASNetworkImageNode()
+    public private(set) var networkImageMessageNode:ASNetworkImageNode = ASNetworkImageNode()
 
     
     // MARK: Initialisers
@@ -58,10 +58,10 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
      */
     private func setupNetworkImageNode(imageURL: String)
     {
-        networkImageMessegeNode.URL = NSURL(string: imageURL)
-        networkImageMessegeNode.shouldCacheImage = true
-        networkImageMessegeNode.delegate = self
-        self.addSubnode(networkImageMessegeNode)
+        networkImageMessageNode.URL = NSURL(string: imageURL)
+        networkImageMessageNode.shouldCacheImage = true
+        networkImageMessageNode.delegate = self
+        self.addSubnode(networkImageMessageNode)
     }
     
     
@@ -73,8 +73,8 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = UIScreen.mainScreen().bounds.width/3*2
-        self.networkImageMessegeNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
-        return ASStaticLayoutSpec(children: [self.networkImageMessegeNode])
+        self.networkImageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
+        return ASStaticLayoutSpec(children: [self.networkImageMessageNode])
     }
     
     // MARK: ASNetworkImageNodeDelegate
@@ -101,14 +101,14 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
         if recognizer.state == UIGestureRecognizerState.Began {
             
             let touchLocation = recognizer.locationInView(view)
-            if CGRectContainsPoint(self.networkImageMessegeNode.frame, touchLocation) {
+            if CGRectContainsPoint(self.networkImageMessageNode.frame, touchLocation) {
                 
                 view.becomeFirstResponder()
                 
                 delay(0.1, closure: {
                     let menuController = UIMenuController.sharedMenuController()
                     menuController.menuItems = [UIMenuItem(title: "Copy", action: #selector(NetworkImageContentNode.copySelector))]
-                    menuController.setTargetRect(self.networkImageMessegeNode.frame, inView: self.view)
+                    menuController.setTargetRect(self.networkImageMessageNode.frame, inView: self.view)
                     menuController.setMenuVisible(true, animated:true)
                 })
             }
@@ -120,7 +120,7 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
      Puts the node's image on UIPasteboard
      */
     public func copySelector() {
-        if let image = self.networkImageMessegeNode.image {
+        if let image = self.networkImageMessageNode.image {
             UIPasteboard.generalPasteboard().image = image
         }
     }
