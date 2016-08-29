@@ -34,7 +34,7 @@ class ViewController: NMessengerViewController {
     override func sendText(text: String, isIncomingMessage: Bool) -> GeneralMessengerCell {
         
         //create a new text message
-        let textContent = TextContentNode(textMessegeString: text, currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
+        let textContent = TextContentNode(textMessageString: text, currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
         let newMessage = MessageNode(content: textContent)
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self

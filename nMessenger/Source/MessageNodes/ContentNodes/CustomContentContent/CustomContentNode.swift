@@ -35,7 +35,7 @@ public class CustomContentNode: ContentNode {
     
     // MARK: Private Variables
     /** ASCollectionNode as the content of the cell*/
-    public private(set) var customContentMessegeNode:ASDisplayNode = ASDisplayNode()
+    public private(set) var customContentMessageNode:ASDisplayNode = ASDisplayNode()
     /** UIView as the posiible view of the cell*/
     private var customView:UIView?
     /** ASDisplayNode as the posiible view of the cell*/
@@ -80,10 +80,10 @@ public class CustomContentNode: ContentNode {
     {
         self.customView = customView
         dispatch_async(dispatch_get_main_queue()) {
-            self.customContentMessegeNode.view.addSubview(customView)
-            self.customContentMessegeNode.preferredFrameSize = customView.frame.size
+            self.customContentMessageNode.view.addSubview(customView)
+            self.customContentMessageNode.preferredFrameSize = customView.frame.size
         }
-        self.addSubnode(customContentMessegeNode)
+        self.addSubnode(customContentMessageNode)
     }
     
     /**
@@ -95,8 +95,8 @@ public class CustomContentNode: ContentNode {
         self.userInteractionEnabled = true
         self.customNode = customNode
         self.customNode?.userInteractionEnabled = true
-        customContentMessegeNode = customNode
-        self.addSubnode(customContentMessegeNode)
+        customContentMessageNode = customNode
+        self.addSubnode(customContentMessageNode)
     }
     
     // MARK: Override AsycDisaplyKit Methods
@@ -109,8 +109,8 @@ public class CustomContentNode: ContentNode {
         let width = constrainedSize.max.width
         let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSizeZero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
         
-        customContentMessegeNode.sizeRange = tmp
-        let customContetntSpec = ASStaticLayoutSpec(children: [customContentMessegeNode])
+        customContentMessageNode.sizeRange = tmp
+        let customContetntSpec = ASStaticLayoutSpec(children: [customContentMessageNode])
         return ASInsetLayoutSpec(insets: insets, child: customContetntSpec)
     }
     

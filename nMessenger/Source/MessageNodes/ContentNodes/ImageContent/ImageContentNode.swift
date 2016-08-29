@@ -22,15 +22,15 @@ public class ImageContentNode: ContentNode {
     /** UIImage as the image of the cell*/
     public var image: UIImage? {
         get {
-            return imageMessegeNode.image
+            return imageMessageNode.image
         } set {
-            imageMessegeNode.image = newValue
+            imageMessageNode.image = newValue
         }
     }
     
     // MARK: Private Variables
     /** ASImageNode as the content of the cell*/
-    public private(set) var imageMessegeNode:ASImageNode = ASImageNode()
+    public private(set) var imageMessageNode:ASImageNode = ASImageNode()
     
     // MARK: Initialisers
     
@@ -59,12 +59,12 @@ public class ImageContentNode: ContentNode {
      */
     private func setupImageNode(image: UIImage)
     {
-        imageMessegeNode.image = image
-        imageMessegeNode.clipsToBounds = true
-        imageMessegeNode.contentMode = UIViewContentMode.ScaleAspectFill
-        self.imageMessegeNode.accessibilityIdentifier = "imageNode"
-        self.imageMessegeNode.isAccessibilityElement = true
-        self.addSubnode(imageMessegeNode)
+        imageMessageNode.image = image
+        imageMessageNode.clipsToBounds = true
+        imageMessageNode.contentMode = UIViewContentMode.ScaleAspectFill
+        self.imageMessageNode.accessibilityIdentifier = "imageNode"
+        self.imageMessageNode.isAccessibilityElement = true
+        self.addSubnode(imageMessageNode)
     }
     
     
@@ -77,8 +77,8 @@ public class ImageContentNode: ContentNode {
         
         let width = UIScreen.mainScreen().bounds.width/3*2
         
-        imageMessegeNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
-        return ASStaticLayoutSpec(children: [self.imageMessegeNode])
+        imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
+        return ASStaticLayoutSpec(children: [self.imageMessageNode])
     }
     
     // MARK: UILongPressGestureRecognizer Selector Methods
@@ -97,14 +97,14 @@ public class ImageContentNode: ContentNode {
         if recognizer.state == UIGestureRecognizerState.Began {
             
             let touchLocation = recognizer.locationInView(view)
-            if CGRectContainsPoint(self.imageMessegeNode.frame, touchLocation) {
+            if CGRectContainsPoint(self.imageMessageNode.frame, touchLocation) {
                 
                 view.becomeFirstResponder()
                 
                 delay(0.1, closure: {
                     let menuController = UIMenuController.sharedMenuController()
                     menuController.menuItems = [UIMenuItem(title: "Copy", action: #selector(ImageContentNode.copySelector))]
-                    menuController.setTargetRect(self.imageMessegeNode.frame, inView: self.view)
+                    menuController.setTargetRect(self.imageMessageNode.frame, inView: self.view)
                     menuController.setMenuVisible(true, animated:true)
                 })
             }

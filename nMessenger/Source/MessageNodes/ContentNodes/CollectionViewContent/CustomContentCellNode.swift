@@ -13,7 +13,7 @@ import AsyncDisplayKit
 
 //MARK: CustomContentCellNode
 /**
- CustomContentCellNode class for N Messanger.
+ CustomContentCellNode class for N Messenger.
  Define the cell for CollectionViewContentNode
  */
 public class CustomContentCellNode: ASCellNode {

@@ -14,7 +14,7 @@ import AsyncDisplayKit
 
 class MessageNodeTests: XCTestCase {
     func testInitialize() {
-        let textContent = TextContentNode(textMessegeString: "blah")
+        let textContent = TextContentNode(textMessageString: "blah")
         let message = MessageNode(content: textContent)
         
         XCTAssertNotNil(message)
@@ -22,7 +22,7 @@ class MessageNodeTests: XCTestCase {
         XCTAssertEqual(message.contentNode, textContent)
         
         //reset content
-        let newContent = TextContentNode(textMessegeString: "blah2")
+        let newContent = TextContentNode(textMessageString: "blah2")
         message.contentNode = newContent
         
         XCTAssertNotNil(message)
