@@ -216,6 +216,18 @@ Content Nodes can also be given a `BubbleConfigurationProtocol` to customize the
 #### GeneralMessengerCell
 `GeneralMessengerCell` can be subclassed to make any type of component. All messenger cells extend this object.
 
+#### Timestamps
+Timestamps can be easily added with the `MessageSentIndicator` class. 
+```swift
+let messageTimestamp = MessageSentIndicator()
+messageTimestamp.messageSentText = "NOW"
+
+//NMessengerViewController
+self.addGeneralMessengeToMessenger(messageTimestamp)
+
+//NMessenger
+messengerView.addMessage(messageTimestamp, scrollsToMessage: false)
+```
 
 ### Avatars
 Custom avatars can be set with an AsyncDisplayKit `ASImageNode`.
