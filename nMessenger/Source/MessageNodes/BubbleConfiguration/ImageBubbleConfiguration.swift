@@ -31,7 +31,7 @@ public class ImageBubbleConfiguration: BubbleConfigurationProtocol {
     public func getBubble() -> Bubble
     {
         let newBubble = ImageBubble()
-        newBubble.bubbleImage = UIImage(named: "MessageBubble")
+        newBubble.bubbleImage = UIImage(named: "MessageBubble", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)
         newBubble.cutInsets = UIEdgeInsetsMake(29, 32, 25, 43)
         newBubble.hasLayerMask = isMasked
         return newBubble
@@ -40,7 +40,7 @@ public class ImageBubbleConfiguration: BubbleConfigurationProtocol {
     public func getSecondaryBubble() -> Bubble
     {
         let newBubble = ImageBubble()
-        newBubble.bubbleImage = UIImage(named: "MessageBubble")
+        newBubble.bubbleImage = UIImage(named: "MessageBubble", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)
         newBubble.cutInsets = UIEdgeInsetsMake(29, 32, 25, 43)
         newBubble.hasLayerMask = isMasked
         return newBubble

@@ -30,7 +30,7 @@ public class TypingIndicatorContent: ContentNode {
         var images = [UIImage]()
         
         for imageName in imageNames {
-            if let image = UIImage(named: imageName) {
+            if let image = UIImage(named: imageName, inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil){
                 images.append(image)
             }
         }
