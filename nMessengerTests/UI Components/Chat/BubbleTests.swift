@@ -113,7 +113,7 @@ class BubbleTests: XCTestCase {
     
     func testBubbleImage() {
         let bubble = ImageBubble()
-        bubble.bubbleImage = UIImage(named: "MessageBubble")
+        bubble.bubbleImage = UIImage(named: "MessageBubble", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)
         XCTAssertNotNil(bubble.layer)
         XCTAssertNotNil(bubble.maskLayer)
         XCTAssertEqual(bubble.hasLayerMask, true)

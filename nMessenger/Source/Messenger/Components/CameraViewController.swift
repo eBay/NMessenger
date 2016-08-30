@@ -177,7 +177,7 @@ public class CameraViewController: UIImagePickerController, UIImagePickerControl
         //GALLERY BUTTON
         gallery = UIButton(frame: CGRectMake(self.view.frame.width - sideButtonSize - bottomPadding, self.view.frame.height - sideButtonSize - bottomPadding, sideButtonSize, sideButtonSize))
         gallery.addTarget(self, action: #selector(CameraViewController.changePictureMode), forControlEvents: UIControlEvents.TouchUpInside)
-        gallery.setImage(UIImage(named: "cameraRollIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        gallery.setImage(UIImage(named: "cameraRollIcon", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         gallery.tintColor = UIColor.whiteColor()
         galleryImage = UIImageView(frame: gallery.frame)
         galleryImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -208,7 +208,7 @@ public class CameraViewController: UIImagePickerController, UIImagePickerControl
         
         //CAPTURE BUTTON
         capturePictureButton = UIButton(frame: CGRectMake(self.view.frame.width/2 - bottomPadding, self.view.frame.height - captureButtonSize - bottomPadding, captureButtonSize, captureButtonSize))
-        capturePictureButton.setImage(UIImage(named: "shutterBtn")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        capturePictureButton.setImage(UIImage(named: "shutterBtn", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         capturePictureButton.tintColor = UIColor.whiteColor()
         
         //call the uiimagepickercontroller method takePicture()
@@ -222,7 +222,7 @@ public class CameraViewController: UIImagePickerController, UIImagePickerControl
         //FLIP CAMERA BUTTON
         flipCamera = UIButton(frame: CGRectMake(bottomPadding, self.view.frame.height - sideButtonSize - bottomPadding, sideButtonSize, sideButtonSize))
         flipCamera.addTarget(self, action: #selector(CameraViewController.flipCamera(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        flipCamera.setImage(UIImage(named: "flipCameraIcon.png")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        flipCamera.setImage(UIImage(named: "flipCameraIcon", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         flipCamera.tintColor = UIColor.whiteColor()
     }
     /**
@@ -234,7 +234,7 @@ public class CameraViewController: UIImagePickerController, UIImagePickerControl
         cameraToolbar.barStyle = UIBarStyle.BlackTranslucent
         cameraToolbar.translucent = true
         let exitButton = UIButton(frame: CGRectMake(20, 10, 40, 40))
-        exitButton.setImage(UIImage(named: "exitIcon.png")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        exitButton.setImage(UIImage(named: "exitIcon", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         exitButton.tintColor = UIColor.whiteColor()
         exitButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         exitButton.addTarget(self, action: #selector(CameraViewController.exitButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
@@ -246,7 +246,7 @@ public class CameraViewController: UIImagePickerController, UIImagePickerControl
     public func addFlashButton() {
         //Flash Button
         flashButton = UIButton(frame: CGRectMake(self.view.frame.width - 60, 10, 40, 40))
-        flashButton.setImage(UIImage(named: "flashIcon")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
+        flashButton.setImage(UIImage(named: "flashIcon", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), forState: UIControlState.Normal)
         flashButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         flashButton.tintColor = UIColor.whiteColor()
         flashButton.addTarget(self, action: #selector(CameraViewController.toggleFlash(_:)), forControlEvents: UIControlEvents.TouchUpInside)
