@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "NMessenger"
-  s.version      = "1.0.74"
+  s.version      = "1.0.75"
   s.summary      = "A fast, lightweight messenger component built on AsyncDisplaykit and written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -106,7 +106,7 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   #
 
   # s.resource  = "icon.png"
-  s.resources = ['nMessenger/Assets.xcassets', 'nMessenger/Source/**/*.{png,jpeg,jpg,xib}']
+  s.resources = ['nMessenger/Source/**/*.{png,jpeg,jpg,xib}']
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
