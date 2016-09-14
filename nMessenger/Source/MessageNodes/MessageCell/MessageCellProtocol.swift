@@ -13,5 +13,5 @@ import Foundation
     /**
      Called when the avatar is clicked. Notifies the delegate of the message cell whose avatar is clicked
      */
-    optional func avatarClicked(messageCell: GeneralMessengerCell)
+    @objc optional func avatarClicked(_ messageCell: GeneralMessengerCell)
 }

@@ -16,41 +16,41 @@ import AsyncDisplayKit
  TextMessageNode class for N Messenger. Extends MessageNode.
  Defines content that is a text.
  */
-public class TextContentNode: ContentNode,ASTextNodeDelegate {
+open class TextContentNode: ContentNode,ASTextNodeDelegate {
 
     // MARK: Public Variables
     /** Insets for the node */
-    public var insets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10) {
+    open var insets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10) {
         didSet {
             setNeedsLayout()
         }
     }
     /** UIFont for incoming text messages*/
-    public var incomingTextFont = UIFont.n1B1Font() {
+    open var incomingTextFont = UIFont.n1B1Font() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** UIFont for outgoinf text messages*/
-    public var outgoingTextFont = UIFont.n1B1Font() {
+    open var outgoingTextFont = UIFont.n1B1Font() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** UIColor for incoming text messages*/
-    public var incomingTextColor = UIColor.n1DarkestGreyColor() {
+    open var incomingTextColor = UIColor.n1DarkestGreyColor() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** UIColor for outgoinf text messages*/
-    public var outgoingTextColor = UIColor.n1WhiteColor() {
+    open var outgoingTextColor = UIColor.n1WhiteColor() {
         didSet {
             self.updateAttributedText()
         }
     }
     /** String to present as the content of the cell*/
-    public var textMessageString: NSAttributedString? {
+    open var textMessageString: NSAttributedString? {
         get {
             return self.textMessageNode.attributedString
         } set {
@@ -60,7 +60,7 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     /** Overriding from super class
      Set backgroundBubble.bubbleColor and the text color when valus is set
      */
-    public override var isIncomingMessage: Bool
+    open override var isIncomingMessage: Bool
         {
         didSet {
             if isIncomingMessage
@@ -76,9 +76,9 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     
     // MARK: Private Variables
     /** ASTextNode as the content of the cell*/
-    public private(set) var textMessageNode:ASTextNode = ASTextNode()
+    open fileprivate(set) var textMessageNode:ASTextNode = ASTextNode()
     /** Bool as mutex for handling attributed link long presses*/
-    private var lockKey: Bool = false
+    fileprivate var lockKey: Bool = false
     
     
     // MARK: Initialisers
@@ -112,29 +112,29 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
      Creates the text to be display in the cell. Finds links and phone number in the string and creates atrributed string.
       - parameter textMessageString: Must be String. Sets text for cell.
      */
-    private func setupTextNode(textMessageString: String)
+    fileprivate func setupTextNode(_ textMessageString: String)
     {
         self.backgroundBubble = self.bubbleConfiguration.getBubble()
         textMessageNode.delegate = self
-        textMessageNode.userInteractionEnabled = true
+        textMessageNode.isUserInteractionEnabled = true
         textMessageNode.linkAttributeNames = ["LinkAttribute","PhoneNumberAttribute"]
         let fontAndSizeAndTextColor = [ NSFontAttributeName: self.isIncomingMessage ? incomingTextFont : outgoingTextFont, NSForegroundColorAttributeName: self.isIncomingMessage ? incomingTextColor : outgoingTextColor]
         let outputString = NSMutableAttributedString(string: textMessageString, attributes: fontAndSizeAndTextColor )
-        let types: NSTextCheckingType = [.Link, .PhoneNumber]
+        let types: NSTextCheckingResult.CheckingType = [.link, .phoneNumber]
         let detector = try! NSDataDetector(types: types.rawValue)
-        let matches = detector.matchesInString(textMessageString, options: [], range: NSMakeRange(0, textMessageString.characters.count))
+        let matches = detector.matches(in: textMessageString, options: [], range: NSMakeRange(0, textMessageString.characters.count))
         for match in matches {
-            if let url = match.URL
+            if let url = match.url
             {
                 outputString.addAttribute("LinkAttribute", value: url, range: match.range)
-                outputString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: match.range)
-                outputString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: match.range)
+                outputString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: match.range)
+                outputString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: match.range)
             }
             if let phoneNumber = match.phoneNumber
             {
                 outputString.addAttribute("PhoneNumberAttribute", value: phoneNumber, range: match.range)
-                outputString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: match.range)
-                outputString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: match.range)
+                outputString.addAttribute(NSUnderlineStyleAttributeName, value: NSUnderlineStyle.styleSingle.rawValue, range: match.range)
+                outputString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: match.range)
             }
         }
         self.textMessageNode.attributedString = outputString
@@ -145,7 +145,7 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     
     //MARK: Helper Methods
     /** Updates the attributed string to the correct incoming/outgoing settings and lays out the component again*/
-    private func updateAttributedText() {
+    fileprivate func updateAttributedText() {
         let tmpString = NSMutableAttributedString(attributedString: self.textMessageNode.attributedString!)
         tmpString.addAttributes([NSForegroundColorAttributeName: isIncomingMessage ? incomingTextColor : outgoingTextColor, NSFontAttributeName: isIncomingMessage ? incomingTextFont : outgoingTextFont], range: NSMakeRange(0, tmpString.length))
         self.textMessageNode.attributedString = tmpString
@@ -158,10 +158,10 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let width = constrainedSize.max.width * 0.90 - self.insets.left - self.insets.right
         
-        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSizeZero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
+        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
         
         textMessageNode.sizeRange = tmp
         
@@ -176,7 +176,8 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Implementing shouldHighlightLinkAttribute - returning true for both link and phone numbers
      */
-    public func textNode(textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint) -> Bool {
+    
+    public func textNode(_ textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: Any, at point: CGPoint) -> Bool {
         if attribute == "LinkAttribute"
         {
             return true
@@ -186,12 +187,27 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
             return true
         }
         return false
+
     }
+    
+    /*open func textNode(_ textNode: ASTextNode, shouldHighlightLinkAttribute attribute: String, value: AnyObject, at point: CGPoint) -> Bool {
+        if attribute == "LinkAttribute"
+        {
+            return true
+        }
+        else if attribute == "PhoneNumberAttribute"
+        {
+            return true
+        }
+        return false
+    }*/
     
     /**
      Implementing tappedLinkAttribute - handle tap event on links and phone numbers
      */
-    public func textNode(textNode: ASTextNode, tappedLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint, textRange: NSRange) {
+
+    //open func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: AnyObject, at point: CGPoint, textRange: NSRange) {
+    public func textNode(_ textNode: ASTextNode, tappedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         if attribute == "LinkAttribute"
         {
             if !self.lockKey
@@ -199,9 +215,9 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
                 if let tmpString = self.textMessageNode.attributedString
                 {
                     let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                    attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGrayColor(), range: textRange)
+                    attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGray, range: textRange)
                     self.textMessageNode.attributedString = attributedString
-                    UIApplication.sharedApplication().openURL(value as! NSURL)
+                    UIApplication.shared.openURL(value as! URL)
                     delay(0.4) {
                         if let tmpString = self.textMessageNode.attributedString
                         {
@@ -216,14 +232,15 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
         else if attribute == "PhoneNumberAttribute"
         {
             let phoneNumber = value as! String
-            UIApplication.sharedApplication().openURL(NSURL(string: "tel://\(phoneNumber)")!)
+            UIApplication.shared.openURL(URL(string: "tel://\(phoneNumber)")!)
         }
     }
     
     /**
      Implementing shouldLongPressLinkAttribute - returning true for both link and phone numbers
      */
-    public func textNode(textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint) -> Bool {
+    //open func textNode(_ textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: AnyObject, at point: CGPoint) -> Bool {
+    public func textNode(_ textNode: ASTextNode, shouldLongPressLinkAttribute attribute: String, value: Any, at point: CGPoint) -> Bool {
         if attribute == "LinkAttribute"
         {
             return true
@@ -238,33 +255,34 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Implementing longPressedLinkAttribute - handles long tap event on links and phone numbers
      */
-    public func textNode(textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: AnyObject, atPoint point: CGPoint, textRange: NSRange) {
+    //open func textNode(_ textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: AnyObject, at point: CGPoint, textRange: NSRange) {
+    public func textNode(_ textNode: ASTextNode, longPressedLinkAttribute attribute: String, value: Any, at point: CGPoint, textRange: NSRange) {
         if attribute == "LinkAttribute"
         {
             self.lockKey = true
             if let tmpString = self.textMessageNode.attributedString
             {
                 let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGrayColor(), range: textRange)
+                attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGray, range: textRange)
                 self.textMessageNode.attributedString = attributedString
 
-                let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 
-                let openAction = UIAlertAction(title: "Open", style: .Default, handler: {
+                let openAction = UIAlertAction(title: "Open", style: .default, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
-                let addToReadingListAction = UIAlertAction(title: "Add to Reading List", style: .Default, handler: {
-                    (alert: UIAlertAction) -> Void in
-                    self.lockKey = false
-                })
-                
-                let copyAction = UIAlertAction(title: "Copy", style: .Default, handler: {
+                let addToReadingListAction = UIAlertAction(title: "Add to Reading List", style: .default, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
                 
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                let copyAction = UIAlertAction(title: "Copy", style: .default, handler: {
+                    (alert: UIAlertAction) -> Void in
+                    self.lockKey = false
+                })
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
@@ -276,8 +294,8 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
                 
                 if let tmpCurrentViewController = self.currentViewController
                 {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        tmpCurrentViewController.presentViewController(optionMenu, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        tmpCurrentViewController.present(optionMenu, animated: true, completion: nil)
                     })
                     
                 }
@@ -299,35 +317,35 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
             if let tmpString = self.textMessageNode.attributedString
             {
                 let attributedString =  NSMutableAttributedString(attributedString: tmpString)
-                attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGrayColor(), range: textRange)
+                attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.lightGray, range: textRange)
                 self.textMessageNode.attributedString = attributedString
-                let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
                 
-                let callPhoneNumberAction = UIAlertAction(title: "Call \(phoneNumber)", style: .Default, handler: {
+                let callPhoneNumberAction = UIAlertAction(title: "Call \(phoneNumber)", style: .default, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
-                let facetimeAudioAction = UIAlertAction(title: "Facetime Audio", style: .Default, handler: {
-                    (alert: UIAlertAction) -> Void in
-                    self.lockKey = false
-                })
-                
-                let sendMessageAction = UIAlertAction(title: "Send Message", style: .Default, handler: {
+                let facetimeAudioAction = UIAlertAction(title: "Facetime Audio", style: .default, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
                 
-                let addToContactsAction = UIAlertAction(title: "Add to Contacts", style: .Default, handler: {
+                let sendMessageAction = UIAlertAction(title: "Send Message", style: .default, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
                 
-                let copyAction = UIAlertAction(title: "Copy", style: .Default, handler: {
+                let addToContactsAction = UIAlertAction(title: "Add to Contacts", style: .default, handler: {
                     (alert: UIAlertAction) -> Void in
                     self.lockKey = false
                 })
                 
-                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                let copyAction = UIAlertAction(title: "Copy", style: .default, handler: {
+                    (alert: UIAlertAction) -> Void in
+                    self.lockKey = false
+                })
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
                     (alert: UIAlertAction) -> Void in
                     //print("Cancelled")
                     self.lockKey = false
@@ -342,8 +360,8 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
                 
                 if let tmpCurrentViewController = self.currentViewController
                 {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        tmpCurrentViewController.presentViewController(optionMenu, animated: true, completion: nil)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        tmpCurrentViewController.present(optionMenu, animated: true, completion: nil)
                     })
                     
                 }
@@ -366,28 +384,28 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Overriding canBecomeFirstResponder to make cell first responder
      */
-    override public func canBecomeFirstResponder() -> Bool {
+    override open func canBecomeFirstResponder() -> Bool {
         return true
     }
     /**
      Overriding resignFirstResponder to resign responder
      */
-    override public func resignFirstResponder() -> Bool {
+    override open func resignFirstResponder() -> Bool {
         return view.resignFirstResponder()
     }
     
     /**
      Override method from superclass
      */
-    public override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.Began {
-            let touchLocation = recognizer.locationInView(view)
-            if CGRectContainsPoint(self.textMessageNode.frame, touchLocation) {
+    open override func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == UIGestureRecognizerState.began {
+            let touchLocation = recognizer.location(in: view)
+            if self.textMessageNode.frame.contains(touchLocation) {
                 becomeFirstResponder()
                 delay(0.1, closure: {
-                    let menuController = UIMenuController.sharedMenuController()
+                    let menuController = UIMenuController.shared
                     menuController.menuItems = [UIMenuItem(title: "Copy", action: #selector(TextContentNode.copySelector))]
-                    menuController.setTargetRect(self.textMessageNode.frame, inView: self.view)
+                    menuController.setTargetRect(self.textMessageNode.frame, in: self.view)
                     menuController.setMenuVisible(true, animated:true)
                 })
             }
@@ -397,8 +415,8 @@ public class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Copy Selector for UIMenuController
      */
-    public func copySelector() {
-        UIPasteboard.generalPasteboard().string = self.textMessageNode.attributedString!.string
+    open func copySelector() {
+        UIPasteboard.general.string = self.textMessageNode.attributedString!.string
     }
     
 }

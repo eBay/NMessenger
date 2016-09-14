@@ -12,35 +12,35 @@ import Foundation
 import UIKit
 
 /** Uses a simple bubble as primary and a simple bubble as secondary. Incoming color is pale grey and outgoing is mid grey */
-public class ImageBubbleConfiguration: BubbleConfigurationProtocol {
+open class ImageBubbleConfiguration: BubbleConfigurationProtocol {
     
-    public var isMasked = false
+    open var isMasked = false
     
     public init() {}
     
-    public func getIncomingColor() -> UIColor
+    open func getIncomingColor() -> UIColor
     {
         return UIColor.n1PaleGreyColor()
     }
     
-    public func getOutgoingColor() -> UIColor
+    open func getOutgoingColor() -> UIColor
     {
         return UIColor.n1ActionBlueColor()
     }
     
-    public func getBubble() -> Bubble
+    open func getBubble() -> Bubble
     {
         let newBubble = ImageBubble()
-        newBubble.bubbleImage = UIImage(named: "MessageBubble", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)
+        newBubble.bubbleImage = UIImage(named: "MessageBubble", in: Bundle(for: NMessengerViewController.self), compatibleWith: nil)
         newBubble.cutInsets = UIEdgeInsetsMake(29, 32, 25, 43)
         newBubble.hasLayerMask = isMasked
         return newBubble
     }
     
-    public func getSecondaryBubble() -> Bubble
+    open func getSecondaryBubble() -> Bubble
     {
         let newBubble = ImageBubble()
-        newBubble.bubbleImage = UIImage(named: "MessageBubble", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)
+        newBubble.bubbleImage = UIImage(named: "MessageBubble", in: Bundle(for: NMessengerViewController.self), compatibleWith: nil)
         newBubble.cutInsets = UIEdgeInsetsMake(29, 32, 25, 43)
         newBubble.hasLayerMask = isMasked
         return newBubble

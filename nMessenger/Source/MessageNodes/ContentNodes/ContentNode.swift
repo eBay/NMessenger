@@ -16,15 +16,15 @@ import AsyncDisplayKit
  Content node class for NMessenger.
  Define the content a a MessageNode or a MessageGroup
  */
-public class ContentNode: ASDisplayNode {
+open class ContentNode: ASDisplayNode {
     
     // MARK: Public Parameters
     /** Bubble that defines the background for the message*/
-    public var backgroundBubble: Bubble?
+    open var backgroundBubble: Bubble?
     /** UIViewController that holds the cell. Allows the cell the present View Controllers. Generally used for UIMenu or UIAlert Options*/
-    public var currentViewController: UIViewController?
+    open var currentViewController: UIViewController?
     /** MessageConfigurationProtocol hold common definition for all messages. Defaults to **StandardMessageConfiguration***/
-    public var bubbleConfiguration : BubbleConfigurationProtocol = StandardBubbleConfiguration() {
+    open var bubbleConfiguration : BubbleConfigurationProtocol = StandardBubbleConfiguration() {
         didSet {
             self.updateBubbleConfig(self.bubbleConfiguration)
         }
@@ -32,7 +32,7 @@ public class ContentNode: ASDisplayNode {
     /** Bool if the cell is an incoming or out going message.
      Set backgroundBubble.bubbleColor when value is changed
      */
-    public var isIncomingMessage = true {
+    open var isIncomingMessage = true {
         didSet {
              self.backgroundBubble?.bubbleColor = isIncomingMessage ? bubbleConfiguration.getIncomingColor() : bubbleConfiguration.getOutgoingColor()
             
@@ -57,7 +57,7 @@ public class ContentNode: ASDisplayNode {
     /**
      Overriding didLoad and calling helper method addSublayers
      */
-    override public func didLoad() {
+    override open func didLoad() {
         super.didLoad()
         self.addSublayers()
     }
@@ -67,7 +67,7 @@ public class ContentNode: ASDisplayNode {
     /** Updates the bubble config by setting all necessary properties (background bubble, bubble color, layout)
      - parameter newValue: the new BubbleConfigurationProtocol
      */
-    public func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    open func updateBubbleConfig(_ newValue: BubbleConfigurationProtocol) {
         self.backgroundBubble = self.bubbleConfiguration.getBubble()
         
         self.backgroundBubble?.bubbleColor = isIncomingMessage ? bubbleConfiguration.getIncomingColor() : bubbleConfiguration.getOutgoingColor()
@@ -78,13 +78,13 @@ public class ContentNode: ASDisplayNode {
     /**
      Called during the initializer and makes sure layers are added on the main thread
      */
-    public func addSublayers() {
+    open func addSublayers() {
         if let backgroundBubble = self.backgroundBubble {
             //make sure the layer is at the bottom of the node
             backgroundBubble.layer.removeFromSuperlayer()
             backgroundBubble.maskLayer.removeFromSuperlayer()
             
-            self.layer.insertSublayer(backgroundBubble.layer, atIndex: 0)
+            self.layer.insertSublayer(backgroundBubble.layer, at: 0)
             
             //If there is a layer mask, add it
             if backgroundBubble.hasLayerMask {
@@ -100,14 +100,14 @@ public class ContentNode: ASDisplayNode {
     /**
      Draws the content in the bubble. This is called on a background thread.
      */
-    public func drawRect(bounds: CGRect, withParameters parameters: NSObjectProtocol!,
+    open func drawRect(_ bounds: CGRect, withParameters parameters: NSObjectProtocol!,
                   isCancelled isCancelledBlock: asdisplaynode_iscancelled_block_t, isRasterizing: Bool) {
-        self.opaque = false
+        self.isOpaque = false
         if !isRasterizing {
             self.calculateLayerPropertiesThatFit(bounds)
             
             //call the main queue
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.layoutLayers()
             }
         }
@@ -120,7 +120,7 @@ public class ContentNode: ASDisplayNode {
      Called through the draw rect function. This should be used to create a background layer off the main thread. This layer should be added in layout.
      - parameter bounds: Must be CGRect
      */
-    public func calculateLayerPropertiesThatFit(bounds: CGRect) {
+    open func calculateLayerPropertiesThatFit(_ bounds: CGRect) {
         if let backgroundBubble = self.backgroundBubble {
              backgroundBubble.sizeToBounds(bounds)
         }
@@ -129,7 +129,7 @@ public class ContentNode: ASDisplayNode {
     /**
      Called on the main thread
      */
-    public func layoutLayers() {
+    open func layoutLayers() {
         if let backgroundBubble = self.backgroundBubble {
             backgroundBubble.createLayer()
             
@@ -149,14 +149,10 @@ public class ContentNode: ASDisplayNode {
      - parameter delay: Must be Double.
      - parameter closure: Must be an ()->()
      */
-    public func delay(delay: Double, closure: ()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(),
-            closure
+    open func delay(_ delay: Double, closure: @escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+            execute: closure
         )
     }
 
@@ -167,7 +163,7 @@ public class ContentNode: ASDisplayNode {
      Selector to handle long press on message and show custom menu
      - parameter recognizer: Must be UITapGestureRecognizer
      */
-    public func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
+    open func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
     }
 
 }

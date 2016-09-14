@@ -37,6 +37,10 @@ pod 'NMessenger'
 ```
 
 ## Notes
+###For iOS 10 Support
+Add `NSPhotoLibraryUsageDescription` and `NSCameraUsageDescription` to your App Info.plist to specify the reason for accessing photo library and camera. See [Cocoa Keys](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html) for more details.
+
+###Landscape Mode
 - **Landscape mode is not currently supported.** While it may be supported in a future release, we have disabled device rotation for `NMessengerViewController` to prevent issues.
 
 ## Getting Started

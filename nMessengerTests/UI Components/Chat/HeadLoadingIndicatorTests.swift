@@ -17,7 +17,7 @@ class HeadLoadingIndicatorTests: XCTestCase {
         let loadingIndicator = HeadLoadingIndicator()
         XCTAssertNotNil(loadingIndicator.spinner)
         XCTAssertNotNil(loadingIndicator.text)
-        loadingIndicator.layoutSpecThatFits(ASSizeRange(min: CGSize(width: 50, height: 10), max:  CGSize(width: 200, height: 20)))
+        _ = loadingIndicator.layoutSpecThatFits(ASSizeRange(min: CGSize(width: 50, height: 10), max:  CGSize(width: 200, height: 20)))
     }
     
     func testSpinner() {

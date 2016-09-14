@@ -16,11 +16,11 @@ import AsyncDisplayKit
  CustomContentCellNode class for N Messenger.
  Define the cell for CollectionViewContentNode
  */
-public class CustomContentCellNode: ASCellNode {
+open class CustomContentCellNode: ASCellNode {
     
     // MARK: Public Variables
     /** ASDisplayNode as the content of the cell*/
-    public var customContent:ASDisplayNode = ASDisplayNode()
+    open var customContent:ASDisplayNode = ASDisplayNode()
     
     // MARK: Initialisers
     
@@ -40,7 +40,7 @@ public class CustomContentCellNode: ASCellNode {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let customContetntSpec = ASStaticLayoutSpec(children: [customContent])
         return customContetntSpec
     }    

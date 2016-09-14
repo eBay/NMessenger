@@ -16,11 +16,11 @@ import AsyncDisplayKit
  ImageContentNode for NMessenger. Extends ContentNode.
  Defines content that is an image.
  */
-public class ImageContentNode: ContentNode {
+open class ImageContentNode: ContentNode {
     
     // MARK: Public Variables
     /** UIImage as the image of the cell*/
-    public var image: UIImage? {
+    open var image: UIImage? {
         get {
             return imageMessageNode.image
         } set {
@@ -30,7 +30,7 @@ public class ImageContentNode: ContentNode {
     
     // MARK: Private Variables
     /** ASImageNode as the content of the cell*/
-    public private(set) var imageMessageNode:ASImageNode = ASImageNode()
+    open fileprivate(set) var imageMessageNode:ASImageNode = ASImageNode()
     
     // MARK: Initialisers
     
@@ -47,7 +47,7 @@ public class ImageContentNode: ContentNode {
     
     // MARK: Initialiser helper method
     /** Override updateBubbleConfig to set bubble mask */
-    public override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    open override func updateBubbleConfig(_ newValue: BubbleConfigurationProtocol) {
         var maskedBubbleConfig = newValue
         maskedBubbleConfig.isMasked = true
         super.updateBubbleConfig(maskedBubbleConfig)
@@ -57,11 +57,11 @@ public class ImageContentNode: ContentNode {
      Sets the image to be display in the cell. Clips and rounds the corners.
      - parameter image: Must be UIImage. Sets image for cell.
      */
-    private func setupImageNode(image: UIImage)
+    fileprivate func setupImageNode(_ image: UIImage)
     {
         imageMessageNode.image = image
         imageMessageNode.clipsToBounds = true
-        imageMessageNode.contentMode = UIViewContentMode.ScaleAspectFill
+        imageMessageNode.contentMode = UIViewContentMode.scaleAspectFill
         self.imageMessageNode.accessibilityIdentifier = "imageNode"
         self.imageMessageNode.isAccessibilityElement = true
         self.addSubnode(imageMessageNode)
@@ -73,11 +73,11 @@ public class ImageContentNode: ContentNode {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        let width = UIScreen.mainScreen().bounds.width/3*2
+        let width = UIScreen.main.bounds.width/3*2
         
-        imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
+        imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
         return ASStaticLayoutSpec(children: [self.imageMessageNode])
     }
     
@@ -86,25 +86,25 @@ public class ImageContentNode: ContentNode {
     /**
      Overriding canBecomeFirstResponder to make cell first responder
      */
-    override public func canBecomeFirstResponder() -> Bool {
+    override open func canBecomeFirstResponder() -> Bool {
         return true
     }
     
     /**
      Override method from superclass
      */
-    public override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.Began {
+    open override func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == UIGestureRecognizerState.began {
             
-            let touchLocation = recognizer.locationInView(view)
-            if CGRectContainsPoint(self.imageMessageNode.frame, touchLocation) {
+            let touchLocation = recognizer.location(in: view)
+            if self.imageMessageNode.frame.contains(touchLocation) {
                 
                 view.becomeFirstResponder()
                 
                 delay(0.1, closure: {
-                    let menuController = UIMenuController.sharedMenuController()
+                    let menuController = UIMenuController.shared
                     menuController.menuItems = [UIMenuItem(title: "Copy", action: #selector(ImageContentNode.copySelector))]
-                    menuController.setTargetRect(self.imageMessageNode.frame, inView: self.view)
+                    menuController.setTargetRect(self.imageMessageNode.frame, in: self.view)
                     menuController.setMenuVisible(true, animated:true)
                 })
             }
@@ -115,9 +115,9 @@ public class ImageContentNode: ContentNode {
      Copy Selector for UIMenuController
      Puts the node's image on UIPasteboard
      */
-    public func copySelector() {
+    open func copySelector() {
         if let image = self.image {
-            UIPasteboard.generalPasteboard().image = image
+            UIPasteboard.general.image = image
         }
     }
     

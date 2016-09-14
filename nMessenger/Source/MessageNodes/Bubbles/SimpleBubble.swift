@@ -15,13 +15,13 @@ import UIKit
 /**
  Simple bubble with no layer effects which is the bounds of the content it holds
  */
-public class SimpleBubble: Bubble {
+open class SimpleBubble: Bubble {
     
     //MARK: Public Variables
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    public var bubbleBorderColor : UIColor = UIColor.clearColor()
+    open var bubbleBorderColor : UIColor = UIColor.clear
     /** Path used to cutout the bubble*/
-    public private(set) var path: CGMutablePath = CGPathCreateMutable()
+    open fileprivate(set) var path: CGMutablePath = CGMutablePath()
     
     public override init() {
         super.init()
@@ -33,34 +33,40 @@ public class SimpleBubble: Bubble {
      Overriding sizeToBounds from super class
      -parameter bounds: The bounds of the content
      */
-    public override func sizeToBounds(bounds: CGRect) {
+    open override func sizeToBounds(_ bounds: CGRect) {
         super.sizeToBounds(bounds)
         
         let rect = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
     
-        path = CGPathCreateMutable()
+        path = CGMutablePath()
     
-        CGPathMoveToPoint(path, nil, rect.minX, rect.minY)
-        CGPathAddLineToPoint(path, nil, rect.maxX, rect.minY)
-        CGPathAddLineToPoint(path, nil, rect.maxX, rect.maxY)
-        CGPathAddLineToPoint(path, nil, rect.minX, rect.maxY)
-        CGPathCloseSubpath(path)
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+        
+       // CGPathMoveToPoint(path, nil, rect.minX, rect.minY)
+       // CGPathAddLineToPoint(path, nil, rect.maxX, rect.minY)
+       // CGPathAddLineToPoint(path, nil, rect.maxX, rect.maxY)
+       // CGPathAddLineToPoint(path, nil, rect.minX, rect.maxY)
+        
+        path.closeSubpath()
     }
     
     /**
      Overriding createLayer from super class
      */
-    public override func createLayer() {
+    open override func createLayer() {
         super.createLayer()
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.layer.path = path
-        self.layer.fillColor = self.bubbleColor.CGColor
-        self.layer.strokeColor = self.bubbleBorderColor.CGColor
+        self.layer.fillColor = self.bubbleColor.cgColor
+        self.layer.strokeColor = self.bubbleBorderColor.cgColor
         self.layer.position = CGPoint.zero
         
-        self.maskLayer.fillColor = UIColor.blackColor().CGColor
+        self.maskLayer.fillColor = UIColor.black.cgColor
         self.maskLayer.path = path
         self.maskLayer.position = CGPoint.zero
         CATransaction.commit()
