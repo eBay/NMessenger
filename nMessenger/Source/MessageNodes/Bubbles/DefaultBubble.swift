@@ -15,18 +15,18 @@ import UIKit
 /**
  Default bubble class is standard with our message configuration. It has three rounded corners and one square corner closest to the avatar.
  */
-public class DefaultBubble: Bubble {
+open class DefaultBubble: Bubble {
     
     //MARK: Public Variables
     
     /** Radius of the corners for the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    public var radius : CGFloat = 16
+    open var radius : CGFloat = 16
     /** Should be less or equal to the *radius* property. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    public var borderWidth : CGFloat = 0 //TODO:
+    open var borderWidth : CGFloat = 0 //TODO:
     /** The color of the border around the bubble. When this is set, you will need to call setNeedsLayout on your message for changes to take effect if the bubble has already been drawn*/
-    public var bubbleBorderColor : UIColor = UIColor.clearColor()
+    open var bubbleBorderColor : UIColor = UIColor.clear
     /** Path used to cutout the bubble*/
-    public private(set) var path: CGMutablePath = CGPathCreateMutable()
+    open fileprivate(set) var path: CGMutablePath = CGMutablePath()
     
     // MARK: Initialisers
     
@@ -43,10 +43,10 @@ public class DefaultBubble: Bubble {
      Overriding sizeToBounds from super class
      -parameter bounds: The bounds of the content
      */
-   public override func sizeToBounds(bounds: CGRect) {
+   open override func sizeToBounds(_ bounds: CGRect) {
         super.sizeToBounds(bounds)
         
-        var rect = CGRectZero
+        var rect = CGRect.zero
         var radius2: CGFloat = 0
         
        if bounds.width < 2*radius || bounds.height < 2*radius { //if the rect calculation yeilds a negative result
@@ -55,37 +55,42 @@ public class DefaultBubble: Bubble {
         
             let newRadius = newRadiusW>newRadiusH ? newRadiusH : newRadiusW
         
-            rect = CGRectMake(newRadius, newRadius, bounds.width - 2*newRadius, bounds.height - 2*newRadius)
+            rect = CGRect(x: newRadius, y: newRadius, width: bounds.width - 2*newRadius, height: bounds.height - 2*newRadius)
             radius2 = newRadius - borderWidth / 2
         } else {
-            rect = CGRectMake(radius, radius, bounds.width - 2*radius, bounds.height - 2*radius)
+            rect = CGRect(x: radius, y: radius, width: bounds.width - 2*radius, height: bounds.height - 2*radius)
             radius2 = radius - borderWidth / 2
         }
         
-        path = CGPathCreateMutable()
-        
-        CGPathAddArc(path, nil, rect.maxX, rect.minY, radius2, CGFloat(-M_PI_2), 0, false)
-        CGPathAddLineToPoint(path, nil, rect.maxX + radius2, rect.maxY + radius2)
-        CGPathAddArc(path, nil, rect.minX, rect.maxY, radius2, CGFloat(M_PI_2), CGFloat(M_PI), false)
-        CGPathAddArc(path, nil, rect.minX, rect.minY, radius2, CGFloat(M_PI), CGFloat(-M_PI_2), false)
-        CGPathCloseSubpath(path)
+        path = CGMutablePath()
+    
+        path.addArc(center: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: false)
+        path.addLine(to: CGPoint(x: rect.maxX + radius2, y: rect.maxY + radius2))
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: false)
+    
+        //CGPathAddArc(path, nil, rect.maxX, rect.minY, radius2, CGFloat(-M_PI_2), 0, false)
+        //CGPathAddLineToPoint(path, nil, rect.maxX + radius2, rect.maxY + radius2)
+        //CGPathAddArc(path, nil, rect.minX, rect.maxY, radius2, CGFloat(M_PI_2), CGFloat(M_PI), false)
+        //CGPathAddArc(path, nil, rect.minX, rect.minY, radius2, CGFloat(M_PI), CGFloat(-M_PI_2), false)
+        path.closeSubpath()
     }
     
     /**
      Overriding createLayer from super class
      */
-    public override func createLayer() {
+    open override func createLayer() {
         super.createLayer()
 
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         self.layer.path = path
-        self.layer.fillColor = self.bubbleColor.CGColor
-        self.layer.strokeColor = self.bubbleBorderColor.CGColor
+        self.layer.fillColor = self.bubbleColor.cgColor
+        self.layer.strokeColor = self.bubbleBorderColor.cgColor
         self.layer.lineWidth = self.borderWidth
         self.layer.position = CGPoint.zero
         
-        self.maskLayer.fillColor = UIColor.blackColor().CGColor
+        self.maskLayer.fillColor = UIColor.black.cgColor
         self.maskLayer.path = path
         self.maskLayer.position = CGPoint.zero
         CATransaction.commit()

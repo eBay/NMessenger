@@ -16,17 +16,17 @@ import AsyncDisplayKit
  GeneralMessengerCell class for NMessenger. Extends ASCellNode.
  Defines the base class for all messages in NMessenger.
  */
-public class GeneralMessengerCell: ASCellNode {
+open class GeneralMessengerCell: ASCellNode {
     
     // MARK: Public Variables
     /** UIEdgeInsets for cell*/
-    public var cellPadding: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+    open var cellPadding: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
     /** UIViewController that holds the cell. Allows the cell the present View Controllers*/
-    public var currentViewController: UIViewController?
+    open var currentViewController: UIViewController?
     /** The current table in which this node resides*/
-    public var currentTableNode: ASTableNode?
+    open var currentTableNode: ASTableNode?
     /** message incoming/outgoing */
-    public var isIncomingMessage:Bool = true
+    open var isIncomingMessage:Bool = true
     
     // MARK: Initialisers
     /**
@@ -35,7 +35,7 @@ public class GeneralMessengerCell: ASCellNode {
      */
     public override init() {
         super.init()
-        selectionStyle = .None
+        selectionStyle = .none
         cellPadding = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
     }
     /**

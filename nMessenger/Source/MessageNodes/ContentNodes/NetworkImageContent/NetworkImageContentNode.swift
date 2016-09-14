@@ -16,21 +16,21 @@ import AsyncDisplayKit
  NetworkImageContentNode class for N Messenger. Extends MessageNode.
  Defines content that is a network image (An image that is provided via url).
  */
-public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
+open class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     
     // MARK: Public Variables
     /** NSURL for the image*/
-    public var url: NSURL? {
+    open var url: URL? {
         get {
-            return networkImageMessageNode.URL
+            return networkImageMessageNode.url
         } set {
-            networkImageMessageNode.URL = newValue
+            networkImageMessageNode.url = newValue
         }
     }
     
     // MARK: Private Variables
     /** ASNetworkImageNode as the content of the cell*/
-    public private(set) var networkImageMessageNode:ASNetworkImageNode = ASNetworkImageNode()
+    open fileprivate(set) var networkImageMessageNode:ASNetworkImageNode = ASNetworkImageNode()
 
     
     // MARK: Initialisers
@@ -46,7 +46,7 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     
     // MARK: Initialiser helper method
     /** Override updateBubbleConfig to set bubble mask */
-    public override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    open override func updateBubbleConfig(_ newValue: BubbleConfigurationProtocol) {
         var maskedBubbleConfig = newValue
         maskedBubbleConfig.isMasked = true
         super.updateBubbleConfig(maskedBubbleConfig)
@@ -56,9 +56,9 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
      Sets the URL to be display in the image. Clips and rounds the corners.
      - parameter imageURL: Must be String. Sets url for the image in the cell.
      */
-    private func setupNetworkImageNode(imageURL: String)
+    fileprivate func setupNetworkImageNode(_ imageURL: String)
     {
-        networkImageMessageNode.URL = NSURL(string: imageURL)
+        networkImageMessageNode.url = URL(string: imageURL)
         networkImageMessageNode.shouldCacheImage = true
         networkImageMessageNode.delegate = self
         self.addSubnode(networkImageMessageNode)
@@ -70,10 +70,10 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
-        let width = UIScreen.mainScreen().bounds.width/3*2
-        self.networkImageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSizeMake(width, width/4*3))
+        let width = UIScreen.main.bounds.width/3*2
+        self.networkImageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
         return ASStaticLayoutSpec(children: [self.networkImageMessageNode])
     }
     
@@ -81,7 +81,7 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Overriding didLoadImage to layout the node once the image is loaded
      */
-    public func imageNode(imageNode: ASNetworkImageNode, didLoadImage image: UIImage) {
+    open func imageNode(_ imageNode: ASNetworkImageNode, didLoad image: UIImage) {
         self.setNeedsLayout()
     }
     
@@ -90,25 +90,25 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Overriding canBecomeFirstResponder to make cell first responder
      */
-    override public func canBecomeFirstResponder() -> Bool {
+    override open func canBecomeFirstResponder() -> Bool {
         return true
     }
     
     /**
      Override method from superclass
      */
-    public override func messageNodeLongPressSelector(recognizer: UITapGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizerState.Began {
+    open override func messageNodeLongPressSelector(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == UIGestureRecognizerState.began {
             
-            let touchLocation = recognizer.locationInView(view)
-            if CGRectContainsPoint(self.networkImageMessageNode.frame, touchLocation) {
+            let touchLocation = recognizer.location(in: view)
+            if self.networkImageMessageNode.frame.contains(touchLocation) {
                 
                 view.becomeFirstResponder()
                 
                 delay(0.1, closure: {
-                    let menuController = UIMenuController.sharedMenuController()
+                    let menuController = UIMenuController.shared
                     menuController.menuItems = [UIMenuItem(title: "Copy", action: #selector(NetworkImageContentNode.copySelector))]
-                    menuController.setTargetRect(self.networkImageMessageNode.frame, inView: self.view)
+                    menuController.setTargetRect(self.networkImageMessageNode.frame, in: self.view)
                     menuController.setMenuVisible(true, animated:true)
                 })
             }
@@ -119,9 +119,9 @@ public class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
      Copy Selector for UIMenuController
      Puts the node's image on UIPasteboard
      */
-    public func copySelector() {
+    open func copySelector() {
         if let image = self.networkImageMessageNode.image {
-            UIPasteboard.generalPasteboard().image = image
+            UIPasteboard.general.image = image
         }
     }
     

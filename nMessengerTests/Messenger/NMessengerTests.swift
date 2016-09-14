@@ -23,19 +23,19 @@ class NMessengerTests: XCTestCase {
     func testInit() {
         let testVC = TestVC()
         
-       let messenger = NMessenger(frame: CGRectZero)
+       let messenger = NMessenger(frame: CGRect.zero)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         messenger.delegate = testVC
         XCTAssertNotNil(messenger.delegate)
-        XCTAssertTrue(messenger.subviews.contains(messenger.messengerNode.view))
+        XCTAssertTrue(messenger.subviews.contains((messenger.messengerNode?.view)!))
         
         let messenger2 = NMessenger()
         XCTAssertNotNil(messenger2)
         XCTAssertNotNil(messenger2.messengerNode)
         messenger2.delegate = testVC
         XCTAssertNotNil(messenger2.delegate)
-        XCTAssertTrue(messenger.subviews.contains(messenger.messengerNode.view))
+        XCTAssertTrue(messenger.subviews.contains((messenger.messengerNode?.view)!))
     }
     
     func testAdd() {
@@ -46,28 +46,28 @@ class NMessengerTests: XCTestCase {
         messenger.addMessage(cell, scrollsToMessage: false)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
-        messenger.addMessage(cell, scrollsToMessage: false, withAnimation: .None)
+        messenger.addMessage(cell, scrollsToMessage: false, withAnimation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         messenger.addMessages([cell], scrollsToMessage: false)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
-        messenger.addMessages([cell], scrollsToMessage: false, withAnimation: .None)
+        messenger.addMessages([cell], scrollsToMessage: false, withAnimation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         messenger.addMessages([GeneralMessengerCell](), scrollsToMessage: true)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
-        let expectationSuccess = expectationWithDescription("expectationSuccess")
-        messenger.addMessagesWithBlock([cell], scrollsToMessage: false, withAnimation: .None) {
+        let expectationSuccess = expectation(description: "expectationSuccess")
+        messenger.addMessagesWithBlock([cell], scrollsToMessage: false, withAnimation: .none) {
             XCTAssertNotNil(messenger)
             XCTAssertNotNil(messenger.messengerNode)
             expectationSuccess.fulfill()
         }
         
         // Loop until the expectation is fulfilled
-        waitForExpectationsWithTimeout(5, handler: { error in
+        waitForExpectations(timeout: 5, handler: { error in
             XCTAssertNil(error, "Error")
         })
     }
@@ -135,28 +135,28 @@ class NMessengerTests: XCTestCase {
         XCTAssertNotNil(messenger.messengerNode)
         
         var cell = GeneralMessengerCell()
-        messenger.removeMessage(cell, animation: .None)
+        messenger.removeMessage(cell, animation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
         cell = GeneralMessengerCell()
         messenger.addMessage(cell, scrollsToMessage: false)
-        messenger.removeMessage(cell, animation: .None)
+        messenger.removeMessage(cell, animation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
         cell = GeneralMessengerCell()
-        messenger.removeMessages([cell], animation: .None)
+        messenger.removeMessages([cell], animation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
         cell = GeneralMessengerCell()
         messenger.addMessage(cell, scrollsToMessage: false)
-        messenger.removeMessages([cell], animation: .None)
+        messenger.removeMessages([cell], animation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
-        messenger.removeMessages([GeneralMessengerCell](), animation: .None)
+        messenger.removeMessages([GeneralMessengerCell](), animation: .none)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
@@ -166,17 +166,17 @@ class NMessengerTests: XCTestCase {
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
-        let expectationSuccess = expectationWithDescription("expectationSuccess")
+        let expectationSuccess = expectation(description: "expectationSuccess")
         cell = GeneralMessengerCell()
         messenger.addMessage(cell, scrollsToMessage: false)
-        messenger.removeMessagesWithBlock([cell], animation: .None) {
+        messenger.removeMessagesWithBlock([cell], animation: .none) {
             XCTAssertNotNil(messenger)
             XCTAssertNotNil(messenger.messengerNode)
             expectationSuccess.fulfill()
         }
         
         // Loop until the expectation is fulfilled
-        waitForExpectationsWithTimeout(5, handler: { error in
+        waitForExpectations(timeout: 5, handler: { error in
             XCTAssertNil(error, "Error")
         })
     }
@@ -186,36 +186,36 @@ class NMessengerTests: XCTestCase {
         let messenger = NMessenger()
         messenger.delegate = testVC
         
-        messenger.allMessages()
+        _ = messenger.allMessages()
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
         let tmpCell = GeneralMessengerCell()
         messenger.addMessage(tmpCell, scrollsToMessage: false)
-        messenger.allMessages()
+        _ = messenger.allMessages()
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
-        messenger.hasMessage(tmpCell)
+        _ = messenger.hasMessage(tmpCell)
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
-        messenger.hasMessage(GeneralMessengerCell())
+        _ = messenger.hasMessage(GeneralMessengerCell())
         XCTAssertNotNil(messenger)
         XCTAssertNotNil(messenger.messengerNode)
         
         //do this to make sure everything else has been called
-        let expectationSuccess = expectationWithDescription("expectationSuccess")
+        let expectationSuccess = expectation(description: "expectationSuccess")
         let cell = GeneralMessengerCell()
         messenger.addMessage(cell, scrollsToMessage: false)
-        messenger.removeMessagesWithBlock([cell], animation: .None) {
+        messenger.removeMessagesWithBlock([cell], animation: .none) {
             XCTAssertNotNil(messenger)
             XCTAssertNotNil(messenger.messengerNode)
             expectationSuccess.fulfill()
         }
         
         // Loop until the expectation is fulfilled
-        waitForExpectationsWithTimeout(5, handler: { error in
+        waitForExpectations(timeout: 5, handler: { error in
             XCTAssertNil(error, "Error")
         })
     }

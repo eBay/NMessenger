@@ -16,25 +16,25 @@ import AsyncDisplayKit
 /**
  'Abstract' Bubble class. Subclass for creating a custom bubble
  */
-public class Bubble {
+open class Bubble {
     
     // MARK: Public Parameters
-    public var bubbleColor : UIColor = UIColor.n1PaleGreyColor()
+    open var bubbleColor : UIColor = UIColor.n1PaleGreyColor()
     
     /** When this is set, the layer mask will mask the ContentNode.*/
-    public var hasLayerMask = false
+    open var hasLayerMask = false
     
     /**
      A layer for the bubble. Make sure this property is first accessed on the main thread.
      */
-    public lazy var layer: CAShapeLayer = CAShapeLayer()
+    open lazy var layer: CAShapeLayer = CAShapeLayer()
     /**
      A layer that holds a mask which is the same shape as the bubble. This can be used to mask anything in the ContentNode to the same shape as the bubble.
      */
-    public lazy var maskLayer: CAShapeLayer = CAShapeLayer()
+    open lazy var maskLayer: CAShapeLayer = CAShapeLayer()
         
     /** Bounds of the bubble*/
-    public var calculatedBounds = CGRectZero
+    open var calculatedBounds = CGRect.zero
     
     // MARK: Initialisers
     public init() {}
@@ -44,7 +44,7 @@ public class Bubble {
      Sizes the layer accordingly. This function should **always** be thread safe.
      -parameter bounds: The bounds of the content
      */
-    public func sizeToBounds(bounds: CGRect) {
+    open func sizeToBounds(_ bounds: CGRect) {
         self.calculatedBounds = bounds
     }
     
@@ -52,12 +52,12 @@ public class Bubble {
     /**
      This function should be called on the  main thread. It makes creates the layer with the calculated values from *sizeToBounds*
      */
-    public func createLayer() {
+    open func createLayer() {
         self.layer.shouldRasterize = true
-        self.layer.rasterizationScale = UIScreen.mainScreen().scale
+        self.layer.rasterizationScale = UIScreen.main.scale
         
         self.maskLayer.shouldRasterize = true
-        self.maskLayer.rasterizationScale = UIScreen.mainScreen().scale
+        self.maskLayer.rasterizationScale = UIScreen.main.scale
     }
     
 }

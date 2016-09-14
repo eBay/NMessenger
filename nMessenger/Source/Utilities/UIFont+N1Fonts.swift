@@ -17,50 +17,50 @@ import UIKit
  */
 extension UIFont {
     class func n1H1Font() -> UIFont {
-        return UIFont.systemFontOfSize(28.0, weight: UIFontWeightThin)
+        return UIFont.systemFont(ofSize: 28.0, weight: UIFontWeightThin)
     }
     
     class func n1H2Font() -> UIFont {
-        return UIFont.systemFontOfSize(20.0, weight: UIFontWeightLight)
+        return UIFont.systemFont(ofSize: 20.0, weight: UIFontWeightLight)
     }
     
     class func n1H3Font() -> UIFont {
-        return UIFont.systemFontOfSize(18.0, weight: UIFontWeightRegular)
+        return UIFont.systemFont(ofSize: 18.0, weight: UIFontWeightRegular)
     }
     
     class func n1LinkFont() -> UIFont {
-        return UIFont.systemFontOfSize(16.0, weight: UIFontWeightSemibold)
+        return UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightSemibold)
     }
     
     class func n1TextStyleFont() -> UIFont {
-        return UIFont.systemFontOfSize(16.0, weight: UIFontWeightRegular)
+        return UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightRegular)
     }
     
     class func n1B1Font() -> UIFont {
-        return UIFont.systemFontOfSize(16.0, weight: UIFontWeightRegular)
+        return UIFont.systemFont(ofSize: 16.0, weight: UIFontWeightRegular)
     }
     
     class func n1TextStyle3Font() -> UIFont {
-        return UIFont.systemFontOfSize(12.0, weight: UIFontWeightBold)
+        return UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightBold)
     }
     
     class func n1TextStyle3MiniFont() -> UIFont {
-        return UIFont.systemFontOfSize(8.0, weight: UIFontWeightBold)
+        return UIFont.systemFont(ofSize: 8.0, weight: UIFontWeightBold)
     }
     
     class func n1TextStyle2Font() -> UIFont {
-        return UIFont.systemFontOfSize(14.0, weight: UIFontWeightRegular)
+        return UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightRegular)
     }
     
     class func n1B2Font() -> UIFont {
-        return UIFont.systemFontOfSize(14.0, weight: UIFontWeightRegular)
+        return UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightRegular)
     }
     
     class func n1TextStyle4Font() -> UIFont {
-        return UIFont.systemFontOfSize(14.0, weight: UIFontWeightLight)
+        return UIFont.systemFont(ofSize: 14.0, weight: UIFontWeightLight)
     }
     
     class func n1CaptionFont() -> UIFont {
-        return UIFont.systemFontOfSize(12.0, weight: UIFontWeightMedium)
+        return UIFont.systemFont(ofSize: 12.0, weight: UIFontWeightMedium)
     }
 }

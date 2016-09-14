@@ -15,19 +15,19 @@ import UIKit
 /**
  Spinning loading indicator class. Used by the NMessenger prefetch.
  */
-public class HeadLoadingIndicator: GeneralMessengerCell {
+open class HeadLoadingIndicator: GeneralMessengerCell {
     /** Horizontal spacing between text and spinner. Defaults to 20.*/
-    public var contentPadding:CGFloat = 20 {
+    open var contentPadding:CGFloat = 20 {
         didSet {
             self.setNeedsLayout()
         }
     }
     /** Animated spinner node*/
-    public let spinner = SpinnerNode()
+    open let spinner = SpinnerNode()
     /** Loading text node*/
-    public let text = ASTextNode()
+    open let text = ASTextNode()
     /** Sets the loading attributed text for the spinner. Defaults to *"Loading..."* */
-    public var loadingAttributedText:NSAttributedString? {
+    open var loadingAttributedText:NSAttributedString? {
         set {
             text.attributedString = newValue
             self.setNeedsLayout()
@@ -42,19 +42,19 @@ public class HeadLoadingIndicator: GeneralMessengerCell {
         text.attributedString = NSAttributedString(
             string: "Loading…",
             attributes: [
-                NSFontAttributeName: UIFont.systemFontOfSize(12),
-                NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                NSFontAttributeName: UIFont.systemFont(ofSize: 12),
+                NSForegroundColorAttributeName: UIColor.lightGray,
                 NSKernAttributeName: -0.3
             ])
         addSubnode(spinner)
     }
 
-    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let stackLayout = ASStackLayoutSpec(
-            direction: .Horizontal,
+            direction: .horizontal,
             spacing: contentPadding,
-            justifyContent: .Center,
-            alignItems: .Center,
+            justifyContent: .center,
+            alignItems: .center,
             children: [ text, spinner ])
         let paddingLayout = ASInsetLayoutSpec(insets: cellPadding, child: stackLayout)
         return paddingLayout
@@ -65,17 +65,17 @@ public class HeadLoadingIndicator: GeneralMessengerCell {
 /**
  Animated spinner. Used by HeadLoadingIndicator. Defaults to *preferredFrameSize.height=32*
  */
-public class SpinnerNode: ASDisplayNode {
-    public var activityIndicatorView: UIActivityIndicatorView {
+open class SpinnerNode: ASDisplayNode {
+    open var activityIndicatorView: UIActivityIndicatorView {
         return view as! UIActivityIndicatorView
     }
 
     public override init() {
-        super.init(viewBlock: { UIActivityIndicatorView(activityIndicatorStyle: .Gray) }, didLoadBlock: nil)
+        super.init(viewBlock: { UIActivityIndicatorView(activityIndicatorStyle: .gray) }, didLoad: nil)
         preferredFrameSize.height = 32
     }
     
-    override public func didLoad() {
+    override open func didLoad() {
         super.didLoad()
         activityIndicatorView.startAnimating()
     }

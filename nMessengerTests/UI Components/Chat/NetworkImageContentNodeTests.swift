@@ -16,12 +16,12 @@ class NetworkImageContentNodeTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let testNetworkImage = NetworkImageContentNode(imageURL: "http://placehold.it/100x100")
-        let tmpSize = CGSizeMake(100, 100)
+        let tmpSize = CGSize(width: 100, height: 100)
         let tmpRecongnizer = UITapGestureRecognizer()
-        testNetworkImage.layoutSpecThatFits(ASSizeRangeMake(tmpSize, tmpSize))
+        _ = testNetworkImage.layoutSpecThatFits(ASSizeRangeMake(tmpSize, tmpSize))
         testNetworkImage.messageNodeLongPressSelector(tmpRecongnizer)
         testNetworkImage.copySelector()
-        testNetworkImage.canBecomeFirstResponder()
+        _ = testNetworkImage.canBecomeFirstResponder()
     }
     
 }

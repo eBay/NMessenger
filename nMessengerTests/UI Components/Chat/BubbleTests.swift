@@ -24,7 +24,7 @@ class BubbleTests: XCTestCase {
         XCTAssertEqual(rect.width, bubble.calculatedBounds.width)
         XCTAssertEqual(rect.height, bubble.calculatedBounds.height)
         
-        rect = CGRectZero
+        rect = CGRect.zero
         bubble.sizeToBounds(rect)
         XCTAssertEqual(rect.minX, bubble.calculatedBounds.minX)
         XCTAssertEqual(rect.minY, bubble.calculatedBounds.minY)
@@ -49,7 +49,7 @@ class BubbleTests: XCTestCase {
         XCTAssertEqual(rect.width, bubble.calculatedBounds.width)
         XCTAssertEqual(rect.height, bubble.calculatedBounds.height)
         
-        rect = CGRectZero
+        rect = CGRect.zero
         bubble.sizeToBounds(rect)
         XCTAssertEqual(rect.minX, bubble.calculatedBounds.minX)
         XCTAssertEqual(rect.minY, bubble.calculatedBounds.minY)
@@ -74,7 +74,7 @@ class BubbleTests: XCTestCase {
         XCTAssertEqual(rect.width, bubble.calculatedBounds.width)
         XCTAssertEqual(rect.height, bubble.calculatedBounds.height)
         
-        rect = CGRectZero
+        rect = CGRect.zero
         bubble.sizeToBounds(rect)
         XCTAssertEqual(rect.minX, bubble.calculatedBounds.minX)
         XCTAssertEqual(rect.minY, bubble.calculatedBounds.minY)
@@ -99,7 +99,7 @@ class BubbleTests: XCTestCase {
         XCTAssertEqual(rect.width, bubble.calculatedBounds.width)
         XCTAssertEqual(rect.height, bubble.calculatedBounds.height)
         
-        rect = CGRectZero
+        rect = CGRect.zero
         bubble.sizeToBounds(rect)
         XCTAssertEqual(rect.minX, bubble.calculatedBounds.minX)
         XCTAssertEqual(rect.minY, bubble.calculatedBounds.minY)
@@ -113,7 +113,7 @@ class BubbleTests: XCTestCase {
     
     func testBubbleImage() {
         let bubble = ImageBubble()
-        bubble.bubbleImage = UIImage(named: "MessageBubble", inBundle: NSBundle(forClass: NMessengerViewController.self), compatibleWithTraitCollection: nil)
+        bubble.bubbleImage = UIImage(named: "MessageBubble", in: Bundle(for: NMessengerViewController.self), compatibleWith: nil)
         XCTAssertNotNil(bubble.layer)
         XCTAssertNotNil(bubble.maskLayer)
         XCTAssertEqual(bubble.hasLayerMask, true)

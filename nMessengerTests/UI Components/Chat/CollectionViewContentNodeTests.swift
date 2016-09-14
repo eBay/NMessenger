@@ -15,12 +15,12 @@ class CollectionViewContentNodeTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let tmpView = UIView(frame: CGRectMake(0,0,100,100))
+        let tmpView = UIView(frame: CGRect(x: 0,y: 0,width: 100,height: 100))
         let tempColectionNode = CollectionViewContentNode(withCustomViews: [tmpView], andNumberOfRows: 1)
-        let tmpSize = CGSizeMake(100, 100)
-        tempColectionNode.layoutSpecThatFits(ASSizeRangeMake(tmpSize, tmpSize))
-        let tmpCollection = UICollectionView(frame: CGRectMake(0,0,100,100), collectionViewLayout: UICollectionViewFlowLayout())
-        tempColectionNode.collectionView(tmpCollection, numberOfItemsInSection: 0)
+        let tmpSize = CGSize(width: 100, height: 100)
+        _ = tempColectionNode.layoutSpecThatFits(ASSizeRangeMake(tmpSize, tmpSize))
+        let tmpCollection = UICollectionView(frame: CGRect(x: 0,y: 0,width: 100,height: 100), collectionViewLayout: UICollectionViewFlowLayout())
+        _ = tempColectionNode.collectionView(tmpCollection, numberOfItemsInSection: 0)
     }
     
 }

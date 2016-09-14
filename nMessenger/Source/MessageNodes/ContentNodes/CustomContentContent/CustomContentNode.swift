@@ -16,17 +16,17 @@ import AsyncDisplayKit
  Custom View Message class for NMessenger. Extends ContentNode.
  Defines content that is a custom. Content can be a view or a node.
  */
-public class CustomContentNode: ContentNode {
+open class CustomContentNode: ContentNode {
     
     // MARK: Public Variables
     /** Insets for the node */
-    public var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
+    open var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) {
         didSet {
             setNeedsLayout()
         }
     }
     /**Should the bubble be masked or not*/
-    public var maskedBubble = true {
+    open var maskedBubble = true {
         didSet {
             self.updateBubbleConfig(self.bubbleConfiguration)
             self.setNeedsLayout()
@@ -35,11 +35,11 @@ public class CustomContentNode: ContentNode {
     
     // MARK: Private Variables
     /** ASCollectionNode as the content of the cell*/
-    public private(set) var customContentMessageNode:ASDisplayNode = ASDisplayNode()
+    open fileprivate(set) var customContentMessageNode:ASDisplayNode = ASDisplayNode()
     /** UIView as the posiible view of the cell*/
-    private var customView:UIView?
+    fileprivate var customView:UIView?
     /** ASDisplayNode as the posiible view of the cell*/
-    private var customNode:ASDisplayNode?
+    fileprivate var customNode:ASDisplayNode?
    
     
     // MARK: Initialisers
@@ -66,7 +66,7 @@ public class CustomContentNode: ContentNode {
     
     // MARK: Initialiser helper methods
      /** Override updateBubbleConfig to set bubble mask */
-    public override func updateBubbleConfig(newValue: BubbleConfigurationProtocol) {
+    open override func updateBubbleConfig(_ newValue: BubbleConfigurationProtocol) {
         var maskedBubbleConfig = newValue
         maskedBubbleConfig.isMasked = self.maskedBubble
         super.updateBubbleConfig(maskedBubbleConfig)
@@ -76,10 +76,10 @@ public class CustomContentNode: ContentNode {
      Adds subview to the content
      - parameter customView: Must be UIView. Sets view for the cell.
      */
-    private func setupCustomView(customView: UIView)
+    fileprivate func setupCustomView(_ customView: UIView)
     {
         self.customView = customView
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.customContentMessageNode.view.addSubview(customView)
             self.customContentMessageNode.preferredFrameSize = customView.frame.size
         }
@@ -90,11 +90,11 @@ public class CustomContentNode: ContentNode {
      Adds subnode to the content
      - parameter customNode: Must be ASDisplayNode. Sets view for the cell.
      */
-    private func setupCustomNode(customNode: ASDisplayNode)
+    fileprivate func setupCustomNode(_ customNode: ASDisplayNode)
     {
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
         self.customNode = customNode
-        self.customNode?.userInteractionEnabled = true
+        self.customNode?.isUserInteractionEnabled = true
         customContentMessageNode = customNode
         self.addSubnode(customContentMessageNode)
     }
@@ -104,10 +104,10 @@ public class CustomContentNode: ContentNode {
     /**
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
-    override public func layoutSpecThatFits(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = constrainedSize.max.width
-        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSizeZero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
+        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
         
         customContentMessageNode.sizeRange = tmp
         let customContetntSpec = ASStaticLayoutSpec(children: [customContentMessageNode])

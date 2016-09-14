@@ -15,19 +15,19 @@ import UIKit
 /**
  Custom alerts for NMessenger
  */
-public class ModalAlertUtilities {
+open class ModalAlertUtilities {
     /**
      Genreal error alert message
      - parameter controller: Must be UIViewController. Where to present to alert.
      */
     class func postGenericErrorModal(fromController controller: UIViewController) {
-        let alert = UIAlertController(title: "Error", message: "An error occurred. Please try again later", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Okay", style: .Cancel) { (action) in
-            alert.dismissViewControllerAnimated(true, completion: nil)
+        let alert = UIAlertController(title: "Error", message: "An error occurred. Please try again later", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Okay", style: .cancel) { (action) in
+            alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(cancelAction)
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            controller.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: { () -> Void in
+            controller.present(alert, animated: true, completion: nil)
         })
     }
     /**
@@ -37,20 +37,20 @@ public class ModalAlertUtilities {
      */
     class func postGoToSettingToEnableCameraAndLibraryModal(fromController controller: UIViewController)
     {
-        let alert = UIAlertController(title: "", message: "Allow access to your camera & photo library to start uploading photos with N1", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive) { (action) in
-            alert.dismissViewControllerAnimated(true, completion: nil)
+        let alert = UIAlertController(title: "", message: "Allow access to your camera & photo library to start uploading photos with N1", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (action) in
+            alert.dismiss(animated: true, completion: nil)
         }
-        let settingsAction = UIAlertAction(title: "Go to Settings", style: .Default) { (alertAction) in
-            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.sharedApplication().openURL(appSettings)
+        let settingsAction = UIAlertAction(title: "Go to Settings", style: .default) { (alertAction) in
+            if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(appSettings)
             }
         }
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            controller.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: { () -> Void in
+            controller.present(alert, animated: true, completion: nil)
         })
     }
     /**
@@ -60,20 +60,20 @@ public class ModalAlertUtilities {
      */
     class func postGoToSettingToEnableCameraModal(fromController controller: UIViewController)
     {
-        let alert = UIAlertController(title: "", message: "Allow access to your camera to start taking photos and uploading photos from your library with N1", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive) { (action) in
-            alert.dismissViewControllerAnimated(true, completion: nil)
+        let alert = UIAlertController(title: "", message: "Allow access to your camera to start taking photos and uploading photos from your library with N1", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (action) in
+            alert.dismiss(animated: true, completion: nil)
         }
-        let settingsAction = UIAlertAction(title: "Go to Settings", style: .Default) { (alertAction) in
-            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.sharedApplication().openURL(appSettings)
+        let settingsAction = UIAlertAction(title: "Go to Settings", style: .default) { (alertAction) in
+            if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(appSettings)
             }
         }
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            controller.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: { () -> Void in
+            controller.present(alert, animated: true, completion: nil)
         })
     }
     /**
@@ -83,20 +83,20 @@ public class ModalAlertUtilities {
      */
     class func postGoToSettingToEnableLibraryModal(fromController controller: UIViewController)
     {
-        let alert = UIAlertController(title: "", message: "Allow access to your photo library to start uploading photos from you library with N1", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive) { (action) in
-            alert.dismissViewControllerAnimated(true, completion: nil)
+        let alert = UIAlertController(title: "", message: "Allow access to your photo library to start uploading photos from you library with N1", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (action) in
+            alert.dismiss(animated: true, completion: nil)
         }
-        let settingsAction = UIAlertAction(title: "Go to Settings", style: .Default) { (alertAction) in
-            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
-                UIApplication.sharedApplication().openURL(appSettings)
+        let settingsAction = UIAlertAction(title: "Go to Settings", style: .default) { (alertAction) in
+            if let appSettings = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(appSettings)
             }
         }
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            controller.presentViewController(alert, animated: true, completion: nil)
+        DispatchQueue.main.async(execute: { () -> Void in
+            controller.present(alert, animated: true, completion: nil)
         })
     }
 }
