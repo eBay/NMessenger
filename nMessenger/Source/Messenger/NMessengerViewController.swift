@@ -175,15 +175,18 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0))
     }
     
-    override open var shouldAutorotate : Bool {
+    open override var shouldAutorotate: Bool {
         if (UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft ||
-            UIDevice.current.orientation == UIDeviceOrientation.landscapeRight ||
-            UIDevice.current.orientation == UIDeviceOrientation.unknown) {
+            UIDevice.current.orientation == UIDeviceOrientation.landscapeRight) {
             return false;
         }
         else {
             return true;
         }
+    }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return [UIInterfaceOrientationMask.portrait]
     }
     
     //MARK: UIKeyboardWillChangeFrameNotification Selector
