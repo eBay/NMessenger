@@ -28,14 +28,14 @@ class NMessengerTests: XCTestCase {
         XCTAssertNotNil(messenger.messengerNode)
         messenger.delegate = testVC
         XCTAssertNotNil(messenger.delegate)
-        XCTAssertTrue(messenger.subviews.contains((messenger.messengerNode?.view)!))
+        XCTAssertTrue(messenger.subviews.contains(messenger.messengerNode.view))
         
         let messenger2 = NMessenger()
         XCTAssertNotNil(messenger2)
         XCTAssertNotNil(messenger2.messengerNode)
         messenger2.delegate = testVC
         XCTAssertNotNil(messenger2.delegate)
-        XCTAssertTrue(messenger.subviews.contains((messenger.messengerNode?.view)!))
+        XCTAssertTrue(messenger.subviews.contains(messenger.messengerNode.view))
     }
     
     func testAdd() {

@@ -14,6 +14,7 @@
 		190C89C91D40181A00CF3512 /* MessageGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C89C31D40181A00CF3512 /* MessageGroupTests.swift */; };
 		190C89CA1D40181A00CF3512 /* NetworkImageContentNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C89C41D40181A00CF3512 /* NetworkImageContentNodeTests.swift */; };
 		190C89CB1D40181A00CF3512 /* NMessengerVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190C89C51D40181A00CF3512 /* NMessengerVCTests.swift */; };
+		194EC68B1D8B29E300FBC9C9 /* OrientationUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194EC68A1D8B29E300FBC9C9 /* OrientationUITest.swift */; };
 		19F4C12D1D6CF4550044E340 /* UIColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12B1D6CF4550044E340 /* UIColorTests.swift */; };
 		19F4C12E1D6CF4550044E340 /* UIFontTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12C1D6CF4550044E340 /* UIFontTests.swift */; };
 		19F4C1311D6CF4C00044E340 /* BubbleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */; };
@@ -217,6 +218,7 @@
 		190C89C31D40181A00CF3512 /* MessageGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageGroupTests.swift; sourceTree = "<group>"; };
 		190C89C41D40181A00CF3512 /* NetworkImageContentNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkImageContentNodeTests.swift; sourceTree = "<group>"; };
 		190C89C51D40181A00CF3512 /* NMessengerVCTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMessengerVCTests.swift; sourceTree = "<group>"; };
+		194EC68A1D8B29E300FBC9C9 /* OrientationUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationUITest.swift; sourceTree = "<group>"; };
 		19F4C12B1D6CF4550044E340 /* UIColorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorTests.swift; sourceTree = "<group>"; };
 		19F4C12C1D6CF4550044E340 /* UIFontTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontTests.swift; sourceTree = "<group>"; };
 		19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleConfigurationTests.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 		F1418D051D380B2400C404B5 /* nMessengerUITests */ = {
 			isa = PBXGroup;
 			children = (
+				194EC68A1D8B29E300FBC9C9 /* OrientationUITest.swift */,
 				F1418D061D380B2400C404B5 /* nMessengerUITests.swift */,
 				F1418D081D380B2400C404B5 /* Info.plist */,
 			);
@@ -1316,6 +1319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				194EC68B1D8B29E300FBC9C9 /* OrientationUITest.swift in Sources */,
 				F1418D071D380B2400C404B5 /* nMessengerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
