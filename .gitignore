@@ -3,6 +3,7 @@ build/
 DerivedData/
 Pods/
 Podfile.lock
+Carthage/
 *.xcworkspace
 
 ## Various settings
