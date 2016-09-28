@@ -20,8 +20,6 @@
 		19F4C1311D6CF4C00044E340 /* BubbleConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C12F1D6CF4C00044E340 /* BubbleConfigurationTests.swift */; };
 		19F4C1321D6CF4C00044E340 /* MessageNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F4C1301D6CF4C00044E340 /* MessageNodeTests.swift */; };
 		616280281D8196F700D1F510 /* nMessenger-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 616280271D8196F700D1F510 /* nMessenger-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6162802C1D8196F700D1F510 /* NMessenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616280251D8196F700D1F510 /* NMessenger.framework */; };
-		6162802D1D8196F700D1F510 /* NMessenger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 616280251D8196F700D1F510 /* NMessenger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		616280321D81978000D1F510 /* NMessengerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87391D63813700F3C21C /* NMessengerViewController.swift */; };
 		616280331D8197AD00D1F510 /* NMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87381D63813700F3C21C /* NMessenger.swift */; };
 		616280341D8197B100D1F510 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FC87341D63813700F3C21C /* CameraViewController.swift */; };
@@ -363,13 +361,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6162802A1D8196F700D1F510 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F1418CDB1D380B2400C404B5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 616280241D8196F700D1F510;
-			remoteInfo = "nMessenger-iOS";
-		};
 		F1418CF81D380B2400C404B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1418CDB1D380B2400C404B5 /* Project object */;
@@ -385,20 +376,6 @@
 			remoteInfo = nMessenger;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		616280311D8196F700D1F510 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6162802D1D8196F700D1F510 /* NMessenger.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		190C89BC1D40175200CF3512 /* NMessengerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NMessengerTests.swift; sourceTree = "<group>"; };
@@ -610,7 +587,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6162802C1D8196F700D1F510 /* NMessenger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1147,12 +1123,10 @@
 				F1418CDF1D380B2400C404B5 /* Sources */,
 				F1418CE01D380B2400C404B5 /* Frameworks */,
 				F1418CE11D380B2400C404B5 /* Resources */,
-				616280311D8196F700D1F510 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6162802B1D8196F700D1F510 /* PBXTargetDependency */,
 			);
 			name = nMessenger;
 			productName = nMessenger;
@@ -1757,11 +1731,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6162802B1D8196F700D1F510 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 616280241D8196F700D1F510 /* nMessenger-iOS */;
-			targetProxy = 6162802A1D8196F700D1F510 /* PBXContainerItemProxy */;
-		};
 		F1418CF91D380B2400C404B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F1418CE21D380B2400C404B5 /* nMessenger */;

@@ -4,6 +4,7 @@ DerivedData/
 Pods/
 Podfile.lock
 Carthage/
+Cartfile.resolved
 *.xcworkspace
 
 ## Various settings
