@@ -48,8 +48,6 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
     open fileprivate(set) var isKeyboardIsShown : Bool = false
     //NSLayoutConstraint for the input bar spacing from the bottom
     fileprivate var inputBarBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
-    //NSLayoutConstraint for the messenger spacing from the input bar
-    fileprivate var messengerBottomSpacing:NSLayoutConstraint = NSLayoutConstraint()
     //MARK: Public Variables
     //UIEdgeInsets for padding for each message
     open var messagePadding: UIEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
@@ -116,6 +114,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
      */
     override open func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
         //load views
         loadMessengerView()
         loadInputView()
@@ -167,12 +166,12 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         self.view.addConstraint(NSLayoutConstraint(item: self.inputBarView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: self.inputBarView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.inputBarView.frame.size.height))
+        self.view.addConstraint(NSLayoutConstraint(item: inputBarView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 43))
         self.messengerView.translatesAutoresizingMaskIntoConstraints = false
-        self.messengerBottomSpacing = NSLayoutConstraint(item: self.messengerView, attribute: .bottom, relatedBy: .equal, toItem: self.inputBarView, attribute: .top, multiplier: 1, constant: 0)
-        self.view.addConstraint(self.messengerBottomSpacing)
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.frame.size.height-63))
     }
     
     open override var shouldAutorotate: Bool {
@@ -202,19 +201,25 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if endFrame?.origin.y >= UIScreen.main.bounds.size.height {
                 self.inputBarBottomSpacing.constant = 0
+                self.messengerView.messengerNode.view.contentInset = UIEdgeInsets.zero
                 self.isKeyboardIsShown = false
             } else {
                 if self.inputBarBottomSpacing.constant==0
                 {
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
+                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: endFrame?.size.height ?? 0.0, right: 0)
                 }
                 else
                 {
                     self.inputBarBottomSpacing.constant = 0
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
+                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets.zero
                 }
                 self.isKeyboardIsShown = true
             }
+            
+            self.messengerView.messengerNode.view.scrollIndicatorInsets = self.messengerView.messengerNode.view.contentInset
+            
             UIView.animate(withDuration: duration,
                                        delay: TimeInterval(0),
                                        options: animationCurve,
