@@ -656,13 +656,6 @@
 			path = "nMessenger-iOS";
 			sourceTree = "<group>";
 		};
-		7E0C8FBB9D65E94C7CDC7F2A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		CEEA4FEAB14A1E9BACDB8B3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,7 +673,6 @@
 				616280261D8196F700D1F510 /* nMessenger-iOS */,
 				F1418CE41D380B2400C404B5 /* Products */,
 				CEEA4FEAB14A1E9BACDB8B3A /* Frameworks */,
-				7E0C8FBB9D65E94C7CDC7F2A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1120,9 +1112,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1418D0B1D380B2400C404B5 /* Build configuration list for PBXNativeTarget "nMessenger" */;
 			buildPhases = (
+				58CB97744A374D6D16A52ABA /* [CP] Check Pods Manifest.lock */,
 				F1418CDF1D380B2400C404B5 /* Sources */,
 				F1418CE01D380B2400C404B5 /* Frameworks */,
 				F1418CE11D380B2400C404B5 /* Resources */,
+				72DD7E364423637E2B452014 /* [CP] Embed Pods Frameworks */,
+				2490890A9DFE779CEF913BEF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1527,6 +1522,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2490890A9DFE779CEF913BEF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nMessenger/Pods-nMessenger-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58CB97744A374D6D16A52ABA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		72DD7E364423637E2B452014 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nMessenger/Pods-nMessenger-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		92EE1EB1707ECEA825593FBA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1766,6 +1806,7 @@
 		6162802F1D8196F700D1F510 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1791,6 +1832,7 @@
 		616280301D8196F700D1F510 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1906,8 +1948,8 @@
 		F1418D0C1D380B2400C404B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = nMessenger/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
@@ -1921,8 +1963,8 @@
 		F1418D0D1D380B2400C404B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = nMessenger/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
