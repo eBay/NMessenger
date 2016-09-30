@@ -24,14 +24,14 @@ class ViewController: NMessengerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.senderSegmentedControl.frame = CGRect(x: self.segmentedControlPadding, y: UIApplication.sharedApplication().statusBarFrame.height, width: self.view.frame.width-2*self.segmentedControlPadding, height: self.segmentedControlHeight)
+        self.senderSegmentedControl.frame = CGRect(x: self.segmentedControlPadding, y: UIApplication.shared.statusBarFrame.height, width: self.view.frame.width-2*self.segmentedControlPadding, height: self.segmentedControlHeight)
         self.senderSegmentedControl.selectedSegmentIndex = 0
         self.navigationController?.view.addSubview(self.senderSegmentedControl)
         
         self.automaticallyAdjustsScrollViewInsets = false
     }
 
-    override func sendText(text: String, isIncomingMessage: Bool) -> GeneralMessengerCell {
+    override func sendText(_ text: String, isIncomingMessage: Bool) -> GeneralMessengerCell {
         
         //create a new text message
         let textContent = TextContentNode(textMessageString: text, currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
@@ -55,7 +55,7 @@ class ViewController: NMessengerViewController {
      - parameter message: The message to add
      - parameter isIncomingMessage: If the message is incoming or outgoing.
      */
-    private func postText(message: MessageNode, isIncomingMessage: Bool) {
+    private func postText(_ message: MessageNode, isIncomingMessage: Bool) {
         if self.lastMessageGroup == nil || self.lastMessageGroup?.isIncomingMessage == !isIncomingMessage {
             self.lastMessageGroup = self.createMessageGroup()
             
@@ -66,7 +66,7 @@ class ViewController: NMessengerViewController {
             
             self.lastMessageGroup!.isIncomingMessage = isIncomingMessage
             self.messengerView.addMessageToMessageGroup(message, messageGroup: self.lastMessageGroup!, scrollsToLastMessage: false)
-            self.messengerView.addMessage(self.lastMessageGroup!, scrollsToMessage: true, withAnimation: isIncomingMessage ? .Left : .Right)
+            self.messengerView.addMessage(self.lastMessageGroup!, scrollsToMessage: true, withAnimation: isIncomingMessage ? .left : .right)
             
         } else {
             self.messengerView.addMessageToMessageGroup(message, messageGroup: self.lastMessageGroup!, scrollsToLastMessage: true)
@@ -90,7 +90,7 @@ class ViewController: NMessengerViewController {
      */
     private func createAvatar()->ASImageNode {
         let avatar = ASImageNode()
-        avatar.backgroundColor = UIColor.lightGrayColor()
+        avatar.backgroundColor = UIColor.lightGray
         avatar.preferredFrameSize = CGSize(width: 20, height: 20)
         avatar.layer.cornerRadius = 10
         return avatar
