@@ -37,7 +37,7 @@ open class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     /**
      Initialiser for the cell.
      - parameter imageURL: Must be String. Sets url for the image in the cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(imageURL: String, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)

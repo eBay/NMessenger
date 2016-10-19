@@ -37,7 +37,7 @@ open class ImageContentNode: ContentNode {
     /**
      Initialiser for the cell.
      - parameter image: Must be UIImage. Sets image for cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(image: UIImage, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         

@@ -17,7 +17,7 @@ import UIKit
  */
 open class ModalAlertUtilities {
     /**
-     Genreal error alert message
+     General error alert message
      - parameter controller: Must be UIViewController. Where to present to alert.
      */
     class func postGenericErrorModal(fromController controller: UIViewController) {
@@ -31,7 +31,7 @@ open class ModalAlertUtilities {
         })
     }
     /**
-     Camera persmission alert message
+     Camera permission alert message
      - parameter controller: Must be UIViewController. Where to present to alert.
      Alert tells user to go into setting to enable permission for both camera and photo library
      */
@@ -54,7 +54,7 @@ open class ModalAlertUtilities {
         })
     }
     /**
-     Camera persmission alert message
+     Camera permission alert message
      - parameter controller: Must be UIViewController. Where to present to alert.
      Alert tells user to go into setting to enable permission for camera
      */
@@ -77,7 +77,7 @@ open class ModalAlertUtilities {
         })
     }
     /**
-     Camera persmission alert message
+     Camera permission alert message
      - parameter controller: Must be UIViewController. Where to present to alert.
      Alert tells user to go into setting to enable permission for photo library
      */

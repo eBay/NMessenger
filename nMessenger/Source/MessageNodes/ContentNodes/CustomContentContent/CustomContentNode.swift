@@ -47,7 +47,7 @@ open class CustomContentNode: ContentNode {
     /**
      Initialiser for the cell.
      - parameter customView: Must be UIView. Sets view for the cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(withCustomView customView: UIView, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
@@ -57,7 +57,7 @@ open class CustomContentNode: ContentNode {
     /**
      Initialiser for the cell.
      - parameter customNode: Must be ASDisplayNode. Sets view for the cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(withCustomNode customNode: ASDisplayNode, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)

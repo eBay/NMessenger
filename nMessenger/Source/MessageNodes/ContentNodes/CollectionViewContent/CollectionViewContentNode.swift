@@ -52,7 +52,7 @@ open class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollect
      Initialiser for the cell.
      - parameter customViews: Must be [UIView]. Sets views for the cell.
      - parameter rows: Must be CGFloat. Sets number of rows for the cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(withCustomViews customViews: [UIView], andNumberOfRows rows:CGFloat, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)
@@ -63,7 +63,7 @@ open class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollect
      Initialiser for the cell.
      - parameter customNodes: Must be [ASDisplayNode]. Sets views for the cell.
      - parameter rows: Must be CGFloat. Sets number of rows for the cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(withCustomNodes customNodes:[ASDisplayNode], andNumberOfRows rows:CGFloat, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         super.init(bubbleConfiguration: bubbleConfiguration)

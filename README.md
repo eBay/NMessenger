@@ -230,7 +230,7 @@ let messageTimestamp = MessageSentIndicator()
 messageTimestamp.messageSentText = "NOW"
 
 //NMessengerViewController
-self.addGeneralMessengeToMessenger(messageTimestamp)
+self.addMessageToMessenger(messageTimestamp)
 
 //NMessenger
 messengerView.addMessage(messageTimestamp, scrollsToMessage: false)

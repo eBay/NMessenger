@@ -30,7 +30,7 @@ open class NMessengerBarView: InputBarView,UITextViewDelegate,CameraViewDelegate
     @IBOutlet open weak var textInputViewHeight: NSLayoutConstraint!
     
     //MARK: Public Parameters
-    //Rerrence to CameraViewController
+    //Reference to CameraViewController
     open lazy var cameraVC: CameraViewController = CameraViewController()
     //CGFloat to the fine the number of rows a user can type
     open var numberOfRows:CGFloat = 3
@@ -58,7 +58,7 @@ open class NMessengerBarView: InputBarView,UITextViewDelegate,CameraViewDelegate
     /**
      Initialiser the view.
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
-     Calls helper methond to setup the view
+     Calls helper method to setup the view
      */
     public required init(controller:NMessengerViewController) {
         super.init(controller: controller)
@@ -67,8 +67,8 @@ open class NMessengerBarView: InputBarView,UITextViewDelegate,CameraViewDelegate
     /**
      Initialiser the view.
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
-     - parameter controller: Must be CGRect. Sets frame for the view.
-     Calls helper methond to setup the view
+     - parameter frame: Must be CGRect. Sets frame for the view.
+     Calls helper method to setup the view
      */
     public required init(controller:NMessengerViewController,frame: CGRect) {
         super.init(controller: controller,frame: frame)
@@ -76,7 +76,7 @@ open class NMessengerBarView: InputBarView,UITextViewDelegate,CameraViewDelegate
     }
     /**
      - parameter aDecoder: Must be NSCoder
-     Calls helper methond to setup the view
+     Calls helper method to setup the view
      */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
