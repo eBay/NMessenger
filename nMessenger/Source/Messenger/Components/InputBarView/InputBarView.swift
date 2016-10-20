@@ -33,7 +33,7 @@ open class InputBarView: UIView, InputBarViewProtocol {
     /**
      Initialiser the view.
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
-     Calls helper methond to setup the view
+     Calls helper method to setup the view
      */
     public required init()
     {
@@ -48,7 +48,7 @@ open class InputBarView: UIView, InputBarViewProtocol {
      Initialiser the view.
      - parameter controller: Must be NMessengerViewController. Sets controller for the view.
      - parameter controller: Must be CGRect. Sets frame for the view.
-     Calls helper methond to setup the view
+     Calls helper method to setup the view
      */
     public required init(controller:NMessengerViewController,frame: CGRect) {
         super.init(frame: frame)
@@ -56,7 +56,7 @@ open class InputBarView: UIView, InputBarViewProtocol {
     }
     /**
      - parameter aDecoder: Must be NSCoder
-     Calls helper methond to setup the view
+     Calls helper method to setup the view
      */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

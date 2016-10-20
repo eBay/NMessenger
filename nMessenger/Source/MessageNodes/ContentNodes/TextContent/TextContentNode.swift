@@ -86,7 +86,7 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
     /**
      Initialiser for the cell.
      - parameter textMessageString: Must be String. Sets text for cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(textMessageString: String, bubbleConfiguration: BubbleConfigurationProtocol? = nil) {
         
@@ -97,7 +97,7 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
      Initialiser for the cell.
      - parameter textMessageString: Must be String. Sets text for cell.
      - parameter currentViewController: Must be an UIViewController. Set current view controller holding the cell.
-     Calls helper methond to setup cell
+     Calls helper method to setup cell
      */
     public init(textMessageString: String, currentViewController: UIViewController, bubbleConfiguration: BubbleConfigurationProtocol? = nil)
     {
