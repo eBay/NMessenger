@@ -64,7 +64,7 @@ open class StackedBubble: Bubble {
         path.addLine(to: CGPoint(x: rect.maxX + radius2, y: rect.minY - radius2))
         path.addLine(to: CGPoint(x: rect.maxX + radius2, y: rect.maxY + radius2))
         path.addArc(center: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
-        path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(-M_PI_2), clockwise: false)
+        path.addArc(center: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: false)
         
         //CGPathMoveToPoint(path, nil, rect.minX, rect.minY - radius2)
         //CGPathAddLineToPoint(path, nil, rect.maxX + radius2, rect.minY - radius2)
