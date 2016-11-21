@@ -22,7 +22,7 @@ open class ContentNode: ASDisplayNode {
     /** Bubble that defines the background for the message*/
     open var backgroundBubble: Bubble?
     /** UIViewController that holds the cell. Allows the cell the present View Controllers. Generally used for UIMenu or UIAlert Options*/
-    open var currentViewController: UIViewController?
+    open weak var currentViewController: UIViewController?
     /** MessageConfigurationProtocol hold common definition for all messages. Defaults to **StandardMessageConfiguration***/
     open var bubbleConfiguration : BubbleConfigurationProtocol = StandardBubbleConfiguration() {
         didSet {

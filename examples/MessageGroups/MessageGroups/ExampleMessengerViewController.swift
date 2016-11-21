@@ -12,23 +12,35 @@ import UIKit
 import NMessenger
 import AsyncDisplayKit
 
-class ViewController: NMessengerViewController {
+// not needed in your implementation
+import LoremIpsum
+
+class ExampleMessengerViewController: NMessengerViewController {
     
     let segmentedControlPadding:CGFloat = 10
     let segmentedControlHeight: CGFloat = 30
     
-    let senderSegmentedControl = UISegmentedControl(items: ["incoming", "outgoing"])
+    lazy var senderSegmentedControl : UISegmentedControl = {
+        let control = UISegmentedControl(items: ["incoming", "outgoing"])
+        control.selectedSegmentIndex = 0
+        return control
+    }()
     
     private(set) var lastMessageGroup:MessageGroup? = nil
+    
+    //This is not needed in your implementation. This just for a demo purpose.
+    var bootstrapWithRandomMessages : Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.senderSegmentedControl.frame = CGRect(x: self.segmentedControlPadding, y: UIApplication.shared.statusBarFrame.height, width: self.view.frame.width-2*self.segmentedControlPadding, height: self.segmentedControlHeight)
-        self.senderSegmentedControl.selectedSegmentIndex = 0
-        self.navigationController?.view.addSubview(self.senderSegmentedControl)
-        
+        navigationItem.titleView = senderSegmentedControl
+        senderSegmentedControl.sizeToFit()
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        
+        for _ in 0...bootstrapWithRandomMessages {
+            _ = sendText(LoremIpsum.paragraph() ?? "", isIncomingMessage: randomBool())
+        }
     }
 
     override func sendText(_ text: String, isIncomingMessage: Bool) -> GeneralMessengerCell {
@@ -94,6 +106,17 @@ class ViewController: NMessengerViewController {
         avatar.preferredFrameSize = CGSize(width: 20, height: 20)
         avatar.layer.cornerRadius = 10
         return avatar
+    }
+    
+    /**
+     Just a helper to give a random isIncomingValue
+    */
+    func randomBool() -> Bool {
+        return arc4random_uniform(2) == 0
+    }
+    
+    deinit {
+        print("Deinitialized")
     }
 }
 

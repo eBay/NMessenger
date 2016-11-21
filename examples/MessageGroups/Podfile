@@ -8,7 +8,8 @@ target 'MessageGroups' do
   swift_version = '3.0'
 
   # Pods for MessageGroups
-  pod 'NMessenger', :path => '../..'	
+  pod 'NMessenger', :path => '../..'
+  pod 'LoremIpsum', '= 1.0.0'
 
   target 'MessageGroupsTests' do
     inherit! :search_paths

@@ -16,7 +16,7 @@ import AVFoundation
  CameraViewDelegate protocol for NMessenger.
  Defines methods to be implemented inorder to use the CameraViewController
  */
-public protocol CameraViewDelegate {
+public protocol CameraViewDelegate : class {
     /**
      Should define behavior when a photo is selected
      */
@@ -43,7 +43,7 @@ public enum SelectionType {
 open class CameraViewController: UIImagePickerController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK: Public Parameters
     //CameraViewDelegate that implemets the delegate methods
-    open var cameraDelegate: CameraViewDelegate!
+    open weak var cameraDelegate: CameraViewDelegate?
     //SelectionType type of selection the user is making  - defualt is camera
     open var selection = SelectionType.camera
     //AVAuthorizationStatus authorization status for the camera
@@ -280,10 +280,7 @@ open class CameraViewController: UIImagePickerController, UIImagePickerControlle
                 }
             }
         }
-        
-        if (cameraDelegate != nil) {
-            cameraDelegate.pickedImage(myImage)
-        }
+        cameraDelegate?.pickedImage(myImage)
     }
     /**
      Implementing imagePickerControllerDidCancel to go back to camera view or close the view
@@ -292,7 +289,7 @@ open class CameraViewController: UIImagePickerController, UIImagePickerControlle
         
         switch selection {
         case .camera where !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) :
-            cameraDelegate.cameraCancelSelection()
+            cameraDelegate?.cameraCancelSelection()
         case .library:
             changePictureMode()
         default:
@@ -318,7 +315,7 @@ open class CameraViewController: UIImagePickerController, UIImagePickerControlle
             orientCamera(flipCamera)
             setFlash(flashButton)
         default:
-            cameraDelegate.cameraCancelSelection()
+            cameraDelegate?.cameraCancelSelection()
         }
     }
     /**
@@ -349,7 +346,7 @@ open class CameraViewController: UIImagePickerController, UIImagePickerControlle
      Closes the view
      */
     open func exitButtonPressed() {
-        cameraDelegate.cameraCancelSelection()
+        cameraDelegate?.cameraCancelSelection()
     }
     /**
      Takes a photo
