@@ -34,13 +34,11 @@ class ExampleMessengerViewController: NMessengerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = senderSegmentedControl
-        senderSegmentedControl.sizeToFit()
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-        
         for _ in 0...bootstrapWithRandomMessages {
-            _ = sendText(LoremIpsum.paragraph() ?? "", isIncomingMessage: randomBool())
+            let isIncoming = randomBool()
+            
         }
+        self.automaticallyAdjustsScrollViewInsets = false
     }
 
     override func sendText(_ text: String, isIncomingMessage: Bool) -> GeneralMessengerCell {

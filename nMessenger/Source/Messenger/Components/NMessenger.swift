@@ -478,6 +478,10 @@ open class NMessenger: UIView {
         }
     }
     
+    fileprivate func setMessages(_ messages: [GeneralMessengerCell]){
+        
+    }
+    
     /**
      Picks the last index path in the messenger. Used when there are typing indicators in the messenger
      - returns: An NSIndexPath representing the last element

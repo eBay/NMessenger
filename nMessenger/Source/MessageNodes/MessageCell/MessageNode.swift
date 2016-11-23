@@ -18,7 +18,7 @@ import AsyncDisplayKit
 open class MessageNode: GeneralMessengerCell {
     
     // MARK: Public Variables
-    open var delegate: MessageCellProtocol?
+    open weak var delegate: MessageCellProtocol?
     
     /** ASDisplayNode as the content of the cell*/
     open var contentNode: ContentNode?

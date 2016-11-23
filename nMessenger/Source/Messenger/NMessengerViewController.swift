@@ -201,19 +201,22 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if endFrame?.origin.y >= UIScreen.main.bounds.size.height {
                 self.inputBarBottomSpacing.constant = 0
-                self.messengerView.messengerNode.view.contentInset = UIEdgeInsets.zero
+                let bottomInset = inputBarView.frame.height
+                self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
                 self.isKeyboardIsShown = false
             } else {
                 if self.inputBarBottomSpacing.constant==0
                 {
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
-                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: endFrame?.size.height ?? 0.0, right: 0)
+                    let bottomInset = (endFrame?.size.height ?? 0) + inputBarView.frame.height
+                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
                 }
                 else
                 {
                     self.inputBarBottomSpacing.constant = 0
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
-                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets.zero
+                    let bottomInset = (endFrame?.size.height ?? 0) + inputBarView.frame.height
+                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
                 }
                 self.isKeyboardIsShown = true
             }

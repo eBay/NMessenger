@@ -26,7 +26,7 @@ open class MessageGroup: GeneralMessengerCell {
     }
     
     // MARK: Public Variables
-    open var delegate: MessageCellProtocol?
+    open weak var delegate: MessageCellProtocol?
     /** Holds a table of GeneralMessengerCells*/
     open fileprivate(set) var messageTable = ASTableNode(style: .plain)
     /** Set to true when the after the component has laid out for the first time*/

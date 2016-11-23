@@ -50,7 +50,7 @@ class EntryViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.deselectRow(at: indexPath, animated: true)
         let exampleViewController = ExampleMessengerViewController()
         if indexPath.row == 1 {
-            exampleViewController.bootstrapWithRandomMessages = 99
+            exampleViewController.bootstrapWithRandomMessages = 3
         }
         navigationController?.pushViewController(exampleViewController, animated: true)
     }
