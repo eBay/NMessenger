@@ -15,23 +15,23 @@ import AVFoundation
 import Photos
 import AsyncDisplayKit
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l >= r
+    default:
+        return !(lhs < rhs)
+    }
 }
 
 
@@ -171,7 +171,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .top, relatedBy: .equal, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.view.frame.size.height-63))
+        self.view.addConstraint(NSLayoutConstraint(item: self.messengerView, attribute: .bottom, relatedBy: .equal, toItem: inputBarView, attribute: .top, multiplier: 1.0, constant: 0))
     }
     
     open override var shouldAutorotate: Bool {
@@ -202,36 +202,31 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
             if endFrame?.origin.y >= UIScreen.main.bounds.size.height {
                 self.inputBarBottomSpacing.constant = 0
                 let bottomInset = inputBarView.frame.height
-                self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
                 self.isKeyboardIsShown = false
             } else {
-                if self.inputBarBottomSpacing.constant==0
-                {
+                if self.inputBarBottomSpacing.constant==0{
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
                     let bottomInset = (endFrame?.size.height ?? 0) + inputBarView.frame.height
-                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
                 }
                 else
                 {
                     self.inputBarBottomSpacing.constant = 0
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
                     let bottomInset = (endFrame?.size.height ?? 0) + inputBarView.frame.height
-                    self.messengerView.messengerNode.view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
                 }
                 self.isKeyboardIsShown = true
             }
             
-            self.messengerView.messengerNode.view.scrollIndicatorInsets = self.messengerView.messengerNode.view.contentInset
-            
             UIView.animate(withDuration: duration,
-                                       delay: TimeInterval(0),
-                                       options: animationCurve,
-                                       animations: { self.view.layoutIfNeeded()
-                                        if self.isKeyboardIsShown {
-                                            self.messengerView.scrollToLastMessage(true)
-                                        }
-                },
-                                       completion: nil)
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded()
+                            if self.isKeyboardIsShown {
+                                self.messengerView.scrollToLastMessage(animated: true)
+                            }
+            },
+                           completion: nil)
+            
         }
     }
     
@@ -425,7 +420,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -484,7 +479,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -513,7 +508,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -542,7 +537,7 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         newMessage.cellPadding = messagePadding
         newMessage.currentViewController = self
         newMessage.isIncomingMessage = isIncomingMessage
-    
+        
         return newMessage
     }
     
@@ -557,5 +552,5 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
         self.addMessageToMessenger(newMessage)
         return newMessage
     }
-
+    
 }

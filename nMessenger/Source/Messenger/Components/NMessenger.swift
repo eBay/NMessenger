@@ -276,7 +276,7 @@ open class NMessenger: UIView {
      Scrolls to the last message in the messenger. (Fire and forget)
      - parameter animated: The move is animated or not
      */
-    open func scrollToLastMessage(_ animated: Bool) {
+    open func scrollToLastMessage(animated: Bool) {
         waitForMessageLock {
             DispatchQueue.main.async {
                 if let indexPath = self.pickLastIndexPath() {
@@ -478,10 +478,6 @@ open class NMessenger: UIView {
         }
     }
     
-    fileprivate func setMessages(_ messages: [GeneralMessengerCell]){
-        
-    }
-    
     /**
      Picks the last index path in the messenger. Used when there are typing indicators in the messenger
      - returns: An NSIndexPath representing the last element
@@ -665,7 +661,7 @@ extension NMessenger {
     public func addMessageToMessageGroup(_ message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, completion: (()->Void)?) {
         messageGroup.addMessageToGroup(message, completion: {
                 if scrollsToLastMessage {
-                    self.scrollToLastMessage(true)
+                    self.scrollToLastMessage(animated: true)
                 }
                 completion?()
             })

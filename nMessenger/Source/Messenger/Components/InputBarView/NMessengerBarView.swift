@@ -21,7 +21,7 @@ open class NMessengerBarView: InputBarView, UITextViewDelegate, CameraViewDelega
     
     //MARK: IBOutlets
     //@IBOutlet for InputBarView
-    @IBOutlet open weak var InputBarView: UIView!
+    @IBOutlet open weak var inputBarView: UIView!
     //@IBOutlet for send button
     @IBOutlet open weak var sendButton: UIButton!
     //@IBOutlets NSLayoutConstraint input area view height
@@ -89,8 +89,8 @@ open class NMessengerBarView: InputBarView, UITextViewDelegate, CameraViewDelega
      */
     fileprivate func loadFromBundle() {
         _ = Bundle(for: NMessengerViewController.self).loadNibNamed("NMessengerBarView", owner: self, options: nil)?[0] as! UIView
-        self.addSubview(InputBarView)
-        InputBarView.frame = self.bounds
+        self.addSubview(inputBarView)
+        inputBarView.frame = self.bounds
         textInputView.delegate = self
         self.sendButton.isEnabled = false
         cameraVC.cameraDelegate = self

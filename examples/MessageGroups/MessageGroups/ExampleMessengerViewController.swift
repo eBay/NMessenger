@@ -34,11 +34,38 @@ class ExampleMessengerViewController: NMessengerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = senderSegmentedControl
-        for _ in 0...bootstrapWithRandomMessages {
-            let isIncoming = randomBool()
+        
+        //BEGIN BOOTSTRAPPING MESSAGES
+        var messageGroups = [MessageGroup]()
+        for _ in 0..<self.bootstrapWithRandomMessages {
+            let isIncomingMessage = self.randomBool()
+            
+            let textContent = TextContentNode(textMessageString: LoremIpsum.sentences(withNumber: 2), currentViewController: self, bubbleConfiguration: self.sharedBubbleConfiguration)
+            let newMessage = MessageNode(content: textContent)
+            newMessage.cellPadding = self.messagePadding
+            newMessage.currentViewController = self
+            
+            if messageGroups.last == nil || messageGroups.last?.isIncomingMessage == !isIncomingMessage {
+                let newMessageGroup = self.createMessageGroup()
+                //add avatar if incoming message
+                if isIncomingMessage {
+                    newMessageGroup.avatarNode = self.createAvatar()
+                }
+                newMessageGroup.isIncomingMessage = isIncomingMessage
+                newMessageGroup.addMessageToGroup(newMessage, completion: nil)
+                messageGroups.append(newMessageGroup)
+            } else {
+                messageGroups.last?.addMessageToGroup(newMessage, completion: nil)
+            }
             
         }
-        self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.messengerView.addMessages(messageGroups, scrollsToMessage: false)
+        self.messengerView.scrollToLastMessage(animated: false)
+        self.lastMessageGroup = messageGroups.last
+        //END BOOTSTRAPPING OF MESSAGES
+        
+        automaticallyAdjustsScrollViewInsets = false
     }
 
     override func sendText(_ text: String, isIncomingMessage: Bool) -> GeneralMessengerCell {
