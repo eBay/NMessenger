@@ -22,9 +22,9 @@ open class GeneralMessengerCell: ASCellNode {
     /** UIEdgeInsets for cell*/
     open var cellPadding: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
     /** UIViewController that holds the cell. Allows the cell the present View Controllers*/
-    open var currentViewController: UIViewController?
+    open weak var currentViewController: UIViewController?
     /** The current table in which this node resides*/
-    open var currentTableNode: ASTableNode?
+    open weak var currentTableNode: ASTableNode?
     /** message incoming/outgoing */
     open var isIncomingMessage:Bool = true
     

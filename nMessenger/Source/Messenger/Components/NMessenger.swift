@@ -80,7 +80,7 @@ open class NMessenger: UIView {
     //MARK: Public variables
     
     /**Delegate*/
-    open var delegate: NMessengerDelegate?
+    open weak var delegate: NMessengerDelegate?
     /**Triggers the delegate batch fetch function when NMessenger determines a batch fetch is needed. Defaults to true. **Note** *batchFetchContent()* must also be implemented */
     open var doesBatchFetch: Bool = false
     
@@ -276,7 +276,7 @@ open class NMessenger: UIView {
      Scrolls to the last message in the messenger. (Fire and forget)
      - parameter animated: The move is animated or not
      */
-    open func scrollToLastMessage(_ animated: Bool) {
+    open func scrollToLastMessage(animated: Bool) {
         waitForMessageLock {
             DispatchQueue.main.async {
                 if let indexPath = self.pickLastIndexPath() {
@@ -661,7 +661,7 @@ extension NMessenger {
     public func addMessageToMessageGroup(_ message: GeneralMessengerCell, messageGroup: MessageGroup, scrollsToLastMessage: Bool, completion: (()->Void)?) {
         messageGroup.addMessageToGroup(message, completion: {
                 if scrollsToLastMessage {
-                    self.scrollToLastMessage(true)
+                    self.scrollToLastMessage(animated: true)
                 }
                 completion?()
             })

@@ -27,7 +27,7 @@ open class InputBarView: UIView, InputBarViewProtocol {
     
     //MARK: Private Parameters
     //NMessengerViewController where to input is sent to
-    open var controller:NMessengerViewController!
+    open weak var controller:NMessengerViewController!
     
     // MARK: Initialisers
     /**
