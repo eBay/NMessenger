@@ -174,29 +174,33 @@ open class MessageNode: GeneralMessengerCell {
         
         if let tmpAvatar = self.avatarNode {
             let tmpSizeMesuare = tmpAvatar.measure(constrainedSize.max)
-            let avatarSizeLayout = ASStaticLayoutSpec(children: [tmpAvatar])
+            let avatarSizeLayout = ASStaticLayoutSpec()
+            avatarSizeLayout.children = [tmpAvatar]
             self.avatarButtonNode.preferredFrameSize = tmpSizeMesuare
-            let avatarButtonSizeLayout = ASStaticLayoutSpec(children: [self.avatarButtonNode])
+            let avatarButtonSizeLayout = ASStaticLayoutSpec()
+            avatarButtonSizeLayout.children = [self.avatarButtonNode]
             let avatarBackStack = ASBackgroundLayoutSpec(child: avatarButtonSizeLayout, background: avatarSizeLayout)
             let width = constrainedSize.max.width - tmpSizeMesuare.width - self.cellPadding.left - self.cellPadding.right - avatarInsets.left - avatarInsets.right - self.messageOffset
             let tmpSizeRange = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
             self.contentNode!.sizeRange = tmpSizeRange
-            let contentSizeLayout = ASStaticLayoutSpec(children: [self.contentNode!])
+            let contentSizeLayout = ASStaticLayoutSpec()
+            contentSizeLayout.children = [self.contentNode!]
             
             let ins = ASInsetLayoutSpec(insets: self.avatarInsets, child: avatarBackStack)
             
             let cellOrientation = isIncomingMessage ? [ins, contentSizeLayout] : [contentSizeLayout,ins]
             
             layoutSpecs = ASStackLayoutSpec(direction: .horizontal, spacing: 0, justifyContent: justifyLocation, alignItems: .end, children: cellOrientation)
-            contentSizeLayout.flexShrink = true
+            contentSizeLayout.flexShrink = 1
         } else {
             let width = constrainedSize.max.width - self.cellPadding.left - self.cellPadding.right - self.messageOffset
             let tmpSizeRange = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
             self.contentNode!.sizeRange = tmpSizeRange
-            let contentSizeLayout = ASStaticLayoutSpec(children: [self.contentNode!])
+            let contentSizeLayout = ASStaticLayoutSpec()
+            contentSizeLayout.children = [self.contentNode!]
             
             layoutSpecs = ASStackLayoutSpec(direction: .horizontal, spacing: 0, justifyContent: justifyLocation, alignItems: .end, children: [spacer, contentSizeLayout])
-            contentSizeLayout.flexShrink = true
+            contentSizeLayout.flexShrink = 1
         }
         
         if let headerNode = self.headerNode

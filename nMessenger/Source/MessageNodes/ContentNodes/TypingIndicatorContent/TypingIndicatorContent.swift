@@ -57,7 +57,9 @@ open class TypingIndicatorContent: ContentNode {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        return ASStaticLayoutSpec(children: [self.gifNode])
+        let staticLayoutSpec = ASStaticLayoutSpec()
+        staticLayoutSpec.children = [self.gifNode]
+        return staticLayoutSpec
     }
     
 }

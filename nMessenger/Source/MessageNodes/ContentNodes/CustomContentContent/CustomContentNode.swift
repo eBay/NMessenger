@@ -107,11 +107,14 @@ open class CustomContentNode: ContentNode {
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = constrainedSize.max.width
-        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
+        
+        let max = ASRelativeSizeMake(ASDimension(unit: .points, value: width), ASDimension(unit: .fraction, value: 1))
+        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), max)
         
         customContentMessageNode.sizeRange = tmp
-        let customContetntSpec = ASStaticLayoutSpec(children: [customContentMessageNode])
-        return ASInsetLayoutSpec(insets: insets, child: customContetntSpec)
+        let customContentSpec = ASStaticLayoutSpec()
+        customContentSpec.children = [customContentMessageNode]
+        return ASInsetLayoutSpec(insets: insets, child: customContentSpec)
     }
     
 }

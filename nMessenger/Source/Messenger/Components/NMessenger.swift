@@ -105,7 +105,7 @@ open class NMessenger: UIView {
     fileprivate func setupView() {
         
         self.messengerNode.view.keyboardDismissMode = .onDrag
-        self.addSubview((messengerNode.view)!)
+        self.addSubview((messengerNode.view))
         
         messengerNode.delegate = self
         messengerNode.dataSource = self
@@ -567,7 +567,7 @@ open class NMessenger: UIView {
             
             //done animating
             let animated = animation != .none
-            tableView?.endUpdates(animated: animated) { (success) in
+            tableView.endUpdates(animated: animated) { (success) in
                 completion?()
             }
         }
@@ -582,7 +582,7 @@ open class NMessenger: UIView {
      */
     fileprivate func renderDiff(_ oldState: NMessengerState, startIndex: Int, animation: UITableViewRowAnimation, completion: (()->Void)?) {
         let tableView = messengerNode.view
-        tableView?.beginUpdates()
+        tableView.beginUpdates()
         
         // Add or remove items
         let rowCountChange = state.itemCount - oldState.itemCount
@@ -590,17 +590,17 @@ open class NMessenger: UIView {
             let indexPaths = (startIndex..<startIndex + rowCountChange).map { index in
                 IndexPath(row: index, section: NMessengerSection.messenger.rawValue)
             }
-            tableView?.insertRows(at: indexPaths, with: animation)
+            tableView.insertRows(at: indexPaths, with: animation)
         } else if rowCountChange < 0 {
             let indexPaths = (startIndex..<startIndex - rowCountChange).map { index in
                 IndexPath(row: index, section: NMessengerSection.messenger.rawValue)
             }
-            tableView?.deleteRows(at: indexPaths, with: animation)
+            tableView.deleteRows(at: indexPaths, with: animation)
         }
         
         //done animating
         let animated = animation != .none
-        tableView?.endUpdates(animated: animated) { (success) in
+        tableView.endUpdates(animated: animated) { (success) in
             completion?()
         }
     }
@@ -776,7 +776,7 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
             if (indexPath as NSIndexPath).row >= self.state.cellBufferStartIndex {
                 return self.state.cellBuffer[(indexPath as NSIndexPath).row - self.state.cellBufferStartIndex]
             }
-            return tableView.nodeForRow(at: indexPath)
+            return tableView.nodeForRow(at: indexPath)!
         case NMessengerSection.typingIndicator.rawValue:
             return self.state.typingIndicators[(indexPath as NSIndexPath).row]
         default: //should never come here

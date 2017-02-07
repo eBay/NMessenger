@@ -108,14 +108,14 @@ open class MessageGroup: GeneralMessengerCell {
     
     /** Initializes the ASTableNode for a group of messages*/
     fileprivate func setupTable() {
-        self.messageTable?.delegate = self
-        self.messageTable?.dataSource = self
+        self.messageTable.delegate = self
+        self.messageTable.dataSource = self
         
-        self.messageTable?.view.separatorStyle = .none
-        self.messageTable?.view.isScrollEnabled = false
-        self.messageTable?.view.showsVerticalScrollIndicator = false
+        self.messageTable.view.separatorStyle = .none
+        self.messageTable.view.isScrollEnabled = false
+        self.messageTable.view.showsVerticalScrollIndicator = false
         
-        self.addSubnode(self.messageTable!)
+        self.addSubnode(self.messageTable)
     }
     
     /** Creates a listener for the avatar button */
@@ -209,7 +209,7 @@ open class MessageGroup: GeneralMessengerCell {
                     self.setNeedsLayout()
                     let time: DispatchTime = DispatchTime.now() + Double(Int64(self.tableviewAnimationDelay)*1000 * Int64(NSEC_PER_MSEC)) / Double(NSEC_PER_SEC)
                     DispatchQueue.main.asyncAfter(deadline: time) {
-                        let tableView = self.messageTable?.view
+                        let tableView = self.messageTable.view
                         tableView?.endUpdates()
                         self.callLayoutCompletionBlock()
                     }
@@ -317,7 +317,7 @@ open class MessageGroup: GeneralMessengerCell {
                     self.state = .replaced
                     
                     //update table
-                    let tableView = self.messageTable?.view
+                    let tableView = self.messageTable.view
                     tableView?.beginUpdates()
                     self.messages[index] = newMessage
                     let indexPath = IndexPath(row: index, section:0)
@@ -365,7 +365,7 @@ open class MessageGroup: GeneralMessengerCell {
                     if isLastMessage && self.avatarNode != nil {
                         UIView.animate(withDuration: self.avatarAnimationSpeed, delay: self.animationDelay, options: [], animations: {
                             if let avatarNode = self.avatarNode {
-                                avatarNode.frame.origin.y = (self.messageTable?.view.rectForRow(at: IndexPath(item: index-1, section: 0)).maxY)! - avatarNode.frame.height + self.cellPadding.top
+                                avatarNode.frame.origin.y = (self.messageTable.view.rectForRow(at: IndexPath(item: index-1, section: 0)).maxY)! - avatarNode.frame.height + self.cellPadding.top
                             }
                             }, completion: nil)
                     }

@@ -74,7 +74,9 @@ open class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
         
         let width = UIScreen.main.bounds.width/3*2
         self.networkImageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
-        return ASStaticLayoutSpec(children: [self.networkImageMessageNode])
+        let staticLayoutSpec = ASStaticLayoutSpec()
+        staticLayoutSpec.children = [self.networkImageMessageNode]
+        return staticLayoutSpec
     }
     
     // MARK: ASNetworkImageNodeDelegate
