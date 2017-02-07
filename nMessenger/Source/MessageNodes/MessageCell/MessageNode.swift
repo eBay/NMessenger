@@ -181,7 +181,10 @@ open class MessageNode: GeneralMessengerCell {
             avatarButtonSizeLayout.children = [self.avatarButtonNode]
             let avatarBackStack = ASBackgroundLayoutSpec(child: avatarButtonSizeLayout, background: avatarSizeLayout)
             let width = constrainedSize.max.width - tmpSizeMesuare.width - self.cellPadding.left - self.cellPadding.right - avatarInsets.left - avatarInsets.right - self.messageOffset
-            let tmpSizeRange = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
+
+            let max = ASRelativeSizeMake(ASDimension(unit: .points, value: width), ASDimension(unit: .fraction, value: 1))
+            let tmpSizeRange = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), max)
+
             self.contentNode!.sizeRange = tmpSizeRange
             let contentSizeLayout = ASStaticLayoutSpec()
             contentSizeLayout.children = [self.contentNode!]
@@ -194,7 +197,10 @@ open class MessageNode: GeneralMessengerCell {
             contentSizeLayout.flexShrink = 1
         } else {
             let width = constrainedSize.max.width - self.cellPadding.left - self.cellPadding.right - self.messageOffset
-            let tmpSizeRange = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
+            
+            let max = ASRelativeSizeMake(ASDimension(unit: .points, value: width), ASDimension(unit: .fraction, value: 1))
+            let tmpSizeRange = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), max)
+
             self.contentNode!.sizeRange = tmpSizeRange
             let contentSizeLayout = ASStaticLayoutSpec()
             contentSizeLayout.children = [self.contentNode!]

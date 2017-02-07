@@ -562,8 +562,8 @@ open class NMessenger: UIView {
             
             //remove rows
             let tableView = self.messengerNode.view
-            tableView?.beginUpdates()
-            tableView?.deleteRows(at: indexes, with: animation)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: indexes, with: animation)
             
             //done animating
             let animated = animation != .none
