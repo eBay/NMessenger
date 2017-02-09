@@ -582,7 +582,9 @@ open class NMessenger: UIView {
      */
     fileprivate func renderDiff(_ oldState: NMessengerState, startIndex: Int, animation: UITableViewRowAnimation, completion: (()->Void)?) {
         let tableView = messengerNode.view
+        
         tableView.beginUpdates()
+        //messengerNode.performBatchUpdates(updates: (() -> Void)?, completion: ((Bool) -> Void)?)
         
         // Add or remove items
         let rowCountChange = state.itemCount - oldState.itemCount
