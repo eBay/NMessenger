@@ -738,7 +738,7 @@ extension NMessenger {
 }
 
 //MARK: ASTableView Delegates/DataSource
-extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
+extension NMessenger: ASTableDelegate, ASTableDataSource {
     
     //MARK: footer
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
