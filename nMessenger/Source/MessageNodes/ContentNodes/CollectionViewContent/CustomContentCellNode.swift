@@ -41,7 +41,8 @@ open class CustomContentCellNode: ASCellNode {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let customContetntSpec = ASStaticLayoutSpec(children: [customContent])
-        return customContetntSpec
+        let customContentSpec = ASStaticLayoutSpec()
+        customContentSpec.children = [customContent]
+        return customContentSpec
     }    
 }

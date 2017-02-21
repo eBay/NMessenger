@@ -29,7 +29,7 @@ open class HeadLoadingIndicator: GeneralMessengerCell {
     /** Sets the loading attributed text for the spinner. Defaults to *"Loading..."* */
     open var loadingAttributedText:NSAttributedString? {
         set {
-            text.attributedString = newValue
+            text.attributedText = newValue
             self.setNeedsLayout()
         } get {
             return text.attributedText
@@ -39,7 +39,7 @@ open class HeadLoadingIndicator: GeneralMessengerCell {
     public override init() {
         super.init()
         addSubnode(text)
-        text.attributedString = NSAttributedString(
+        text.attributedText = NSAttributedString(
             string: "Loading…",
             attributes: [
                 NSFontAttributeName: UIFont.systemFont(ofSize: 12),

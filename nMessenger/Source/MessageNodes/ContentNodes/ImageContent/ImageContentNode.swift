@@ -78,7 +78,9 @@ open class ImageContentNode: ContentNode {
         let width = UIScreen.main.bounds.width/3*2
         
         imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
-        return ASStaticLayoutSpec(children: [self.imageMessageNode])
+        let staticLayout = ASStaticLayoutSpec()
+        staticLayout.children = [self.imageMessageNode]
+        return staticLayout
     }
     
     // MARK: UILongPressGestureRecognizer Selector Methods

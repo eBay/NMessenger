@@ -27,7 +27,7 @@ open class MessageSentIndicator: GeneralMessengerCell {
     /** Sets the loading attributed text for the spinner. Defaults to *"Loading..."* */
     open var messageSentAttributedText:NSAttributedString? {
         set {
-            text.attributedString = newValue
+            text.attributedText = newValue
             self.setNeedsLayout()
         } get {
             return text.attributedText
@@ -35,7 +35,7 @@ open class MessageSentIndicator: GeneralMessengerCell {
     }
     open var messageSentText: String? {
         set {
-            text.attributedString = NSAttributedString(
+            text.attributedText = NSAttributedString(
                 string: newValue != nil ? newValue! : "",
                 attributes: [
                     NSFontAttributeName: UIFont.systemFont(ofSize: 14),
@@ -44,7 +44,7 @@ open class MessageSentIndicator: GeneralMessengerCell {
                 ])
             self.setNeedsLayout()
         } get {
-            return text.attributedString?.string
+            return text.attributedText?.string
         }
     }
     
