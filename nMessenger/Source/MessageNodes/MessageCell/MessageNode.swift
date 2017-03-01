@@ -181,13 +181,15 @@ open class MessageNode: GeneralMessengerCell {
         if let tmpAvatar = self.avatarNode {
             let tmpSizeMeasure = tmpAvatar.layoutThatFits(ASSizeRange(min: CGSize.zero, max: constrainedSize.max))
             
-            let avatarSizeLayout = ASStaticLayoutSpec()
+            let avatarSizeLayout = ASAbsoluteLayoutSpec()
+            avatarSizeLayout.sizing = .sizeToFit
             avatarSizeLayout.children = [tmpAvatar]
             
             self.avatarButtonNode.style.width = ASDimension(unit: .points, value: tmpSizeMeasure.size.width)
             self.avatarButtonNode.style.height = ASDimension(unit: .points, value: tmpSizeMeasure.size.height)
             
-            let avatarButtonSizeLayout = ASStaticLayoutSpec()
+            let avatarButtonSizeLayout = ASAbsoluteLayoutSpec()
+            avatarButtonSizeLayout.sizing = .sizeToFit
             avatarButtonSizeLayout.children = [self.avatarButtonNode]
             let avatarBackStack = ASBackgroundLayoutSpec(child: avatarButtonSizeLayout, background: avatarSizeLayout)
             
@@ -196,7 +198,8 @@ open class MessageNode: GeneralMessengerCell {
             contentNode?.style.maxWidth = ASDimension(unit: .points, value: width * (2/3))
             contentNode?.style.maxHeight = ASDimension(unit: .points, value: 100000)
             
-            let contentSizeLayout = ASStaticLayoutSpec()
+            let contentSizeLayout = ASAbsoluteLayoutSpec()
+            contentSizeLayout.sizing = .sizeToFit
             contentSizeLayout.children = [self.contentNode!]
             
             let ins = ASInsetLayoutSpec(insets: self.avatarInsets, child: avatarBackStack)
@@ -213,7 +216,8 @@ open class MessageNode: GeneralMessengerCell {
         
             contentNode?.style.flexGrow = 1
         
-            let contentSizeLayout = ASStaticLayoutSpec()
+            let contentSizeLayout = ASAbsoluteLayoutSpec()
+            contentSizeLayout.sizing = .sizeToFit
             contentSizeLayout.children = [self.contentNode!]
             
             layoutSpecs = ASStackLayoutSpec(direction: .horizontal, spacing: 0, justifyContent: justifyLocation, alignItems: .end, children: [createSpacer(), contentSizeLayout])
