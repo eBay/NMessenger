@@ -153,8 +153,7 @@ open class MessageGroup: GeneralMessengerCell {
         }
         self.messageTable.style.preferredSize = CGSize(width: tableWidth, height: elementHeight)
         
-        var retLayout:ASLayoutSpec = ASStaticLayoutSpec()
-        retLayout.children = [self.messageTable]
+        var retLayout:ASLayoutSpec = ASAbsoluteLayoutSpec(sizing: .sizeToFit, children: [self.messageTable])
         
         var stackLayout: ASStackLayoutSpec?
         var insetLayout: ASInsetLayoutSpec?
@@ -162,12 +161,14 @@ open class MessageGroup: GeneralMessengerCell {
         
         //add the avatar to the layout
         if let avatarNode = self.avatarNode {
-            let avatarSizeLayout = ASStaticLayoutSpec()
+            let avatarSizeLayout = ASAbsoluteLayoutSpec()
+            avatarSizeLayout.sizing = .sizeToFit
             avatarSizeLayout.children = [avatarNode]
             
             //create avatar button
             self.avatarButtonNode.style.preferredSize = avatarNode.layoutThatFits(ASSizeRange(min: CGSize.zero, max: constrainedSize.max)).size
-            let avatarButtonSizeLayout = ASStaticLayoutSpec()
+            let avatarButtonSizeLayout = ASAbsoluteLayoutSpec()
+            avatarButtonSizeLayout.sizing = .sizeToFit
             avatarButtonSizeLayout.children = [self.avatarButtonNode]
             let avatarBackStack = ASBackgroundLayoutSpec(child: avatarButtonSizeLayout, background: avatarSizeLayout)
             

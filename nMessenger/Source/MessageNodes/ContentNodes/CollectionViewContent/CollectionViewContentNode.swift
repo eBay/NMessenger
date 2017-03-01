@@ -219,7 +219,8 @@ open class CollectionViewContentNode: ContentNode,ASCollectionDelegate,ASCollect
         }
         
         self.collectionViewMessageNode.style.preferredSize = CGSize(width: width, height: height)
-        let tmpSizeSpec = ASStaticLayoutSpec()
+        let tmpSizeSpec = ASAbsoluteLayoutSpec()
+        tmpSizeSpec.sizing = .sizeToFit
         tmpSizeSpec.children = [self.collectionViewMessageNode]
         return tmpSizeSpec
     }

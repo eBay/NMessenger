@@ -113,7 +113,8 @@ open class CustomContentNode: ContentNode {
         customContentMessageNode.style.maxWidth = max.width
         customContentMessageNode.style.maxHeight = max.height
         
-        let customContentSpec = ASStaticLayoutSpec()
+        let customContentSpec = ASAbsoluteLayoutSpec()
+        customContentSpec.sizing = .sizeToFit
         customContentSpec.children = [customContentMessageNode]
         return ASInsetLayoutSpec(insets: insets, child: customContentSpec)
     }

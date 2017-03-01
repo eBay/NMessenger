@@ -70,9 +70,10 @@ open class TypingIndicatorContent: ContentNode {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let staticLayoutSpec = ASStaticLayoutSpec()
-        staticLayoutSpec.children = [self.gifNode]
-        return staticLayoutSpec
+        let absLayoutSpec = ASAbsoluteLayoutSpec()
+        absLayoutSpec.sizing = .sizeToFit
+        absLayoutSpec.children = [self.gifNode]
+        return absLayoutSpec
     }
     
 }

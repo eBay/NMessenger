@@ -164,7 +164,8 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
         textMessageNode.style.maxWidth = ASDimension(unit: .points, value: width)
         textMessageNode.style.maxHeight = ASDimension(unit: .fraction, value: 1)
         
-        let textMessageSize = ASStaticLayoutSpec()
+        let textMessageSize = ASAbsoluteLayoutSpec()
+        textMessageSize.sizing = .sizeToFit
         textMessageSize.children = [self.textMessageNode]
         
         return  ASInsetLayoutSpec(insets: insets, child: textMessageSize)
