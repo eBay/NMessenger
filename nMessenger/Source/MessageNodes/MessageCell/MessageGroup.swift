@@ -146,7 +146,8 @@ open class MessageGroup: GeneralMessengerCell {
         
         //get the size of every message in the group to calculate height
         for message in messages {
-            let newSize = ASSizeRange(min: constrainedSize.min, max: CGSize(width: tableWidth, height: constrainedSize.max.height))
+            let newSize = ASSizeRange(min: CGSize(width: tableWidth, height: 0), max: CGSize(width: tableWidth, height: constrainedSize.max.height))
+            
             let size = message.layoutThatFits(newSize).size
             print(size)
             elementHeight += size.height
