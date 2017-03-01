@@ -128,7 +128,7 @@ class ExampleMessengerViewController: NMessengerViewController {
     private func createAvatar()->ASImageNode {
         let avatar = ASImageNode()
         avatar.backgroundColor = UIColor.lightGray
-        avatar.preferredFrameSize = CGSize(width: 20, height: 20)
+        avatar.style.preferredSize = CGSize(width: 20, height: 20)
         avatar.layer.cornerRadius = 10
         return avatar
     }

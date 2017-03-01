@@ -161,10 +161,8 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let width = constrainedSize.max.width * 0.90 - self.insets.left - self.insets.right
         
-        let max = ASRelativeSizeMake(ASDimension(unit: .points, value: width), ASDimension(unit: .fraction, value: 1))
-        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), max)
-        
-        textMessageNode.sizeRange = tmp
+        textMessageNode.style.maxWidth = ASDimension(unit: .points, value: width)
+        textMessageNode.style.maxHeight = ASDimension(unit: .fraction, value: 1)
         
         let textMessageSize = ASStaticLayoutSpec()
         textMessageSize.children = [self.textMessageNode]

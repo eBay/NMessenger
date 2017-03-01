@@ -59,7 +59,7 @@ open class TypingIndicatorContent: ContentNode {
         imageView.startAnimating()
         
         self.gifNode.view.addSubview(imageView)
-        self.gifNode.preferredFrameSize = imageView.frame.size
+        self.gifNode.style.preferredSize = imageView.frame.size
         self.addSubnode(self.gifNode)
         self.setNeedsLayout()
     }
