@@ -32,11 +32,11 @@ Built-in support for:
 ## Installation for [Cocoapods](https://cocoapods.org)
 
 ```ruby
-# For latest release in cocoapods - 1.0.81 (Swift 3, ASDK 2.X)
+# For latest release in cocoapods - 1.0.80 (Swift 3, ASDK 2.X)
 pod 'NMessenger'
 
 # For ASDK 1.9
-pod 'NMessenger', '1.0.80'
+pod 'NMessenger', '1.0.79'
 
 # For Swift 2.3 support
 pod 'NMessenger', '1.0.76'
