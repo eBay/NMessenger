@@ -19,7 +19,7 @@ open class MessageGroup: GeneralMessengerCell {
     
     /** Used for current state of new/old messages*/
     public enum MessageGroupState {
-        case added
+        case added(index: IndexPath)
         case removed
         case replaced
         case none
@@ -59,19 +59,6 @@ open class MessageGroup: GeneralMessengerCell {
     /** ASDisplayNode as the avatar of the cell*/
     open var avatarNode: ASDisplayNode?
         {
-        willSet{
-            if let avatarNode = newValue {
-                if let oldAvatar = self.avatarNode {
-                    self.insertSubnode(avatarNode, aboveSubnode: oldAvatar)
-                    self.insertSubnode(self.avatarButtonNode, aboveSubnode: avatarNode)
-                    oldAvatar.removeFromSupernode()
-                    self.avatarButtonNode.removeFromSupernode()
-                } else {
-                    self.addSubnode(avatarNode)
-                    self.addSubnode(self.avatarButtonNode)
-                }
-            }
-        }
         didSet {
             self.setNeedsLayout()
         }
@@ -104,6 +91,7 @@ open class MessageGroup: GeneralMessengerCell {
         super.init()
         self.setupTable()
         self.setupAvatarButton()
+        self.automaticallyManagesSubnodes = true
     }
     
     /** Initializes the ASTableNode for a group of messages*/
@@ -114,8 +102,6 @@ open class MessageGroup: GeneralMessengerCell {
         self.messageTable.view.separatorStyle = .none
         self.messageTable.view.isScrollEnabled = false
         self.messageTable.view.showsVerticalScrollIndicator = false
-        
-        self.addSubnode(self.messageTable)
     }
     
     /** Creates a listener for the avatar button */
@@ -149,7 +135,6 @@ open class MessageGroup: GeneralMessengerCell {
             let newSize = ASSizeRange(min: CGSize(width: tableWidth, height: 0), max: CGSize(width: tableWidth, height: constrainedSize.max.height))
             
             let size = message.layoutThatFits(newSize).size
-            print(size)
             elementHeight += size.height
         }
         self.messageTable.style.preferredSize = CGSize(width: tableWidth, height: elementHeight)
@@ -194,7 +179,7 @@ open class MessageGroup: GeneralMessengerCell {
     override open func animateLayoutTransition(_ context: ASContextTransitioning) {
         if let state = self.state {
             switch(state) {
-            case .added:
+            case .added(let indexPath):
                 if let _ = self.avatarNode {
                     self.avatarNode?.frame = context.initialFrame(for: self.avatarNode!)
                 }
@@ -206,18 +191,24 @@ open class MessageGroup: GeneralMessengerCell {
                 }) { (finished) in
                     //complete transition
                     context.completeTransition(finished)
+                    self.callLayoutCompletionBlock()
                 }
+                
+                self.messageTable.frame = context.initialFrame(for: self.messageTable)
+                
+                //Need to set height in cell node as of ASDK 2.x
+                self.frame.size.height = context.finalFrame(for: self.messageTable).size.height + self.cellPadding.bottom + self.cellPadding.top
                 
                 //wait for layout animation
                 let dispatchTime: DispatchTime = DispatchTime.now() + Double(Int64(self.animationDelay)*1000 * Int64(NSEC_PER_MSEC)) / Double(NSEC_PER_SEC)
                 DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
-                    //layout to reflect changes
-                    self.setNeedsLayout()
+                    self.messageTable.frame = context.finalFrame(for: self.messageTable)
                     let time: DispatchTime = DispatchTime.now() + Double(Int64(self.tableviewAnimationDelay)*1000 * Int64(NSEC_PER_MSEC)) / Double(NSEC_PER_SEC)
                     DispatchQueue.main.asyncAfter(deadline: time) {
-                        let tableView = self.messageTable.view
-                        tableView.endUpdates()
-                        self.callLayoutCompletionBlock()
+                        self.messageTable.performBatch(animated: true, updates: {
+                            self.messageTable.insertRows(at: [indexPath], with: .fade)
+                        }, completion: { (finished) in
+                        })
                     }
                 }
                 break
@@ -226,10 +217,18 @@ open class MessageGroup: GeneralMessengerCell {
                     self.avatarNode?.frame = context.initialFrame(for: self.avatarNode!)
                 }
                 
+                //self.messageTable.frame = context.initialFrame(for: self.messageTable)
+                
                 UIView.animate(withDuration: self.tableviewAnimationDelay, delay: 0, options: [], animations: {
                     if let _ = self.avatarNode {
                         self.avatarNode?.frame = context.finalFrame(for: self.avatarNode!)
                     }
+                    
+                    self.messageTable.frame = context.finalFrame(for: self.messageTable)
+                    
+                    //Need to set height in cell node as of ASDK 2.x
+                    self.frame.size.height = context.finalFrame(for: self.messageTable).size.height + self.cellPadding.bottom + self.cellPadding.top
+                    
                 }) { (finished) in
                     //call completion block and reset
                     self.callLayoutCompletionBlock()
@@ -242,27 +241,26 @@ open class MessageGroup: GeneralMessengerCell {
                     self.avatarNode?.frame = context.initialFrame(for: self.avatarNode!)
                 }
                 
-                UIView.animate(withDuration: self.avatarAnimationSpeed, delay: self.tableviewAnimationDelay, options: [], animations: {
+                self.messageTable.frame = context.initialFrame(for: self.messageTable)
+                
+                UIView.animate(withDuration: self.tableviewAnimationDelay, delay: 0, options: [], animations: {
                     if let _ = self.avatarNode {
                         self.avatarNode?.frame = context.finalFrame(for: self.avatarNode!)
                     }
+                    
+                    self.messageTable.frame = context.finalFrame(for: self.messageTable)
+                    
+                    //Need to set height in cell node as of ASDK 2.x
+                    self.frame.size.height = context.finalFrame(for: self.messageTable).size.height + self.cellPadding.bottom + self.cellPadding.top
                 }) { (finished) in
+                    //call completion block and reset
+                    self.callLayoutCompletionBlock()
                     //complete transition
                     context.completeTransition(finished)
                 }
                 
-                //layout to reflect changes
-                self.setNeedsLayout()
-                let time: DispatchTime = DispatchTime.now() + Double(Int64(self.tableviewAnimationDelay)*1000 * Int64(NSEC_PER_MSEC)) / Double(NSEC_PER_SEC)
-                DispatchQueue.main.asyncAfter(deadline: time) {
-                    let tableView = self.messageTable.view
-                    tableView.endUpdates()
-                    self.callLayoutCompletionBlock()
-                }
-                
                 break
             default:
-                //no animation
                 context.completeTransition(true)
             }
         }
@@ -289,14 +287,11 @@ open class MessageGroup: GeneralMessengerCell {
         
         //if the component is already on the screen
         if self.hasLaidOut {
-            //set state
-            self.state = .added
-            //update table
-            let tableView = self.messageTable.view
-            tableView.beginUpdates()
             let indexPath = IndexPath(row: self.messages.count, section:0)
+            //set state
+            self.state = .added(index: indexPath)
+            //update table DS
             self.messages.append(message)
-            tableView.insertRows(at: [indexPath], with: .fade)
             //transition avatar + tableview cells
             self.transitionLayout(withAnimation: true, shouldMeasureAsync: false, measurementCompletion: nil)
         } else {
@@ -317,21 +312,21 @@ open class MessageGroup: GeneralMessengerCell {
                 self.layoutCompletionBlock = completion
                 message.currentTableNode = nil
                 
-                //make sure the group has been laid out so that animations will work
+                //Make sure the group has been laid out so that animations will work
                 if self.hasLaidOut {
+                    let indexPath = IndexPath(row: index, section:0)
+                    
                     //set state
                     self.state = .replaced
                     
-                    //update table
-                    let tableView = self.messageTable.view
-                    tableView.beginUpdates()
+                    //update table DS
                     self.messages[index] = newMessage
-                    let indexPath = IndexPath(row: index, section:0)
-                    tableView.reloadRows(at: [indexPath], with: .fade)
                     
                     let time: DispatchTime = DispatchTime.now() + Double(Int64(self.animationDelay)*1000 * Int64(NSEC_PER_MSEC)) / Double(NSEC_PER_SEC)
                     DispatchQueue.main.asyncAfter(deadline: time) {
-                        tableView.endUpdates(animated: true, completion: { (done) in
+                        self.messageTable.performBatch(animated: true, updates: {
+                            self.messageTable.reloadRows(at: [indexPath], with: .fade)
+                        }, completion: { (finished) in
                             self.transitionLayout(withAnimation: true, shouldMeasureAsync: false, measurementCompletion:nil)
                         })
                     }
@@ -361,11 +356,7 @@ open class MessageGroup: GeneralMessengerCell {
                     self.state = .removed
                     
                     //update table
-                    let tableView = self.messageTable.view
-                    tableView.beginUpdates()
                     self.messages.remove(at: index)
-                    let indexPath = IndexPath(row: index, section:0)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
                     
                     //use a special animation if it is the last message
                     if isLastMessage && self.avatarNode != nil {
@@ -380,7 +371,10 @@ open class MessageGroup: GeneralMessengerCell {
                     
                     let time: DispatchTime = DispatchTime.now() + Double(Int64(extraDelay + self.animationDelay)*1000 * Int64(NSEC_PER_MSEC)) / Double(NSEC_PER_SEC)
                     DispatchQueue.main.asyncAfter(deadline: time) {
-                        tableView.endUpdates(animated: true, completion: { (done) in
+                        self.messageTable.performBatch(animated: true, updates: { 
+                            let indexPath = IndexPath(row: index, section:0)
+                            self.messageTable.deleteRows(at: [indexPath], with: .fade)
+                        }, completion: { (finished) in
                             self.transitionLayout(withAnimation: true, shouldMeasureAsync: false, measurementCompletion:nil)
                         })
                     }
