@@ -217,7 +217,7 @@ open class MessageGroup: GeneralMessengerCell {
                     self.avatarNode?.frame = context.initialFrame(for: self.avatarNode!)
                 }
                 
-                //self.messageTable.frame = context.initialFrame(for: self.messageTable)
+                self.messageTable.frame = context.initialFrame(for: self.messageTable)
                 
                 UIView.animate(withDuration: self.tableviewAnimationDelay, delay: 0, options: [], animations: {
                     if let _ = self.avatarNode {
