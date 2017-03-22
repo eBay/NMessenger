@@ -76,9 +76,12 @@ open class ImageContentNode: ContentNode {
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = UIScreen.main.bounds.width/3*2
-        
-        imageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
-        return ASStaticLayoutSpec(children: [self.imageMessageNode])
+        self.imageMessageNode.style.width = ASDimension(unit: .points, value: width)
+        self.imageMessageNode.style.height = ASDimension(unit: .points, value: width/4*3)
+        let absLayout = ASAbsoluteLayoutSpec()
+        absLayout.sizing = .sizeToFit
+        absLayout.children = [self.imageMessageNode]
+        return absLayout
     }
     
     // MARK: UILongPressGestureRecognizer Selector Methods

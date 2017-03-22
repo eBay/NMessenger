@@ -73,8 +73,12 @@ open class NetworkImageContentNode: ContentNode,ASNetworkImageNodeDelegate {
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = UIScreen.main.bounds.width/3*2
-        self.networkImageMessageNode.sizeRange = ASRelativeSizeRangeMakeWithExactCGSize(CGSize(width: width, height: width/4*3))
-        return ASStaticLayoutSpec(children: [self.networkImageMessageNode])
+        self.networkImageMessageNode.style.width = ASDimension(unit: .points, value: width)
+        self.networkImageMessageNode.style.height = ASDimension(unit: .points, value: width/4*3)
+        let absLayoutSpec = ASAbsoluteLayoutSpec()
+        absLayoutSpec.sizing = .sizeToFit
+        absLayoutSpec.children = [self.networkImageMessageNode]
+        return absLayoutSpec
     }
     
     // MARK: ASNetworkImageNodeDelegate

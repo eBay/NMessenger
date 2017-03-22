@@ -201,18 +201,15 @@ open class NMessengerViewController: UIViewController, UITextViewDelegate, NMess
             let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
             if endFrame?.origin.y >= UIScreen.main.bounds.size.height {
                 self.inputBarBottomSpacing.constant = 0
-                let bottomInset = inputBarView.frame.height
                 self.isKeyboardIsShown = false
             } else {
                 if self.inputBarBottomSpacing.constant==0{
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
-                    let bottomInset = (endFrame?.size.height ?? 0) + inputBarView.frame.height
                 }
                 else
                 {
                     self.inputBarBottomSpacing.constant = 0
                     self.inputBarBottomSpacing.constant -= endFrame?.size.height ?? 0.0
-                    let bottomInset = (endFrame?.size.height ?? 0) + inputBarView.frame.height
                 }
                 self.isKeyboardIsShown = true
             }

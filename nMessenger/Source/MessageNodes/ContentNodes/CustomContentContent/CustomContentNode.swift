@@ -81,7 +81,7 @@ open class CustomContentNode: ContentNode {
         self.customView = customView
         DispatchQueue.main.async {
             self.customContentMessageNode.view.addSubview(customView)
-            self.customContentMessageNode.preferredFrameSize = customView.frame.size
+            self.customContentMessageNode.style.preferredSize = customView.frame.size
         }
         self.addSubnode(customContentMessageNode)
     }
@@ -107,11 +107,16 @@ open class CustomContentNode: ContentNode {
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let width = constrainedSize.max.width
-        let tmp = ASRelativeSizeRangeMake(ASRelativeSizeMakeWithCGSize(CGSize.zero), ASRelativeSizeMake(ASRelativeDimensionMakeWithPoints(width),ASRelativeDimensionMakeWithPercent(1)))
         
-        customContentMessageNode.sizeRange = tmp
-        let customContetntSpec = ASStaticLayoutSpec(children: [customContentMessageNode])
-        return ASInsetLayoutSpec(insets: insets, child: customContetntSpec)
+        let max = ASLayoutSize(width: ASDimension(unit: .points, value: width), height: ASDimension(unit: .fraction, value: 1))
+        
+        customContentMessageNode.style.maxWidth = max.width
+        customContentMessageNode.style.maxHeight = max.height
+        
+        let customContentSpec = ASAbsoluteLayoutSpec()
+        customContentSpec.sizing = .sizeToFit
+        customContentSpec.children = [customContentMessageNode]
+        return ASInsetLayoutSpec(insets: insets, child: customContentSpec)
     }
     
 }

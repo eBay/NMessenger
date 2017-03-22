@@ -105,12 +105,12 @@ open class NMessenger: UIView {
     fileprivate func setupView() {
         
         self.messengerNode.view.keyboardDismissMode = .onDrag
-        self.addSubview((messengerNode.view)!)
+        self.addSubview((messengerNode.view))
         
         messengerNode.delegate = self
         messengerNode.dataSource = self
         
-        messengerNode.view.setTuningParameters(ASRangeTuningParameters(leadingBufferScreenfuls: 2, trailingBufferScreenfuls: 1), for: .display)
+        messengerNode.setTuningParameters(ASRangeTuningParameters(leadingBufferScreenfuls: 2, trailingBufferScreenfuls: 1), for: .display)
         
         messengerNode.view.separatorStyle = UITableViewCellSeparatorStyle.none
         messengerNode.view.allowsSelection = false
@@ -256,7 +256,7 @@ open class NMessenger: UIView {
             DispatchQueue.main.async {
                 var indexPaths = [IndexPath]()
                 for message in messages {
-                    if let indexPath = self.messengerNode.view.indexPath(for: message) {
+                    if let indexPath = self.messengerNode.indexPath(for: message) {
                         indexPaths.append(indexPath)
                     }
                     //remove current table node
@@ -297,7 +297,7 @@ open class NMessenger: UIView {
     open func scrollToMessage(_ message: GeneralMessengerCell, atPosition position: UITableViewScrollPosition, animated: Bool) {
         waitForMessageLock {
             DispatchQueue.main.async {
-                if let indexPath = self.messengerNode.view.indexPath(for: message) {
+                if let indexPath = self.messengerNode.indexPath(for: message) {
                     self.scrollToIndex((indexPath as NSIndexPath).row, inSection: (indexPath as NSIndexPath).section, atPosition: position, animated: animated)
                 }
                 //unlock the semaphore
@@ -320,9 +320,9 @@ open class NMessenger: UIView {
                 let set = IndexSet(integer: NMessengerSection.typingIndicator.rawValue)
                 CATransaction.begin()
                 CATransaction.setCompletionBlock(completion)
-                self.messengerNode.view.beginUpdates()
-                self.messengerNode.view.reloadSections(set, with: .left)
-                self.messengerNode.view.endUpdates(animated: true, completion: { (completed: Bool) -> Void in
+                self.messengerNode.performBatch(animated: true, updates: { 
+                    self.messengerNode.reloadSections(set, with: .left)
+                }, completion: { (finished) in
                     if scrollsToLast {
                         if let indexPath = self.pickLastIndexPath() {
                             self.scrollToIndex((indexPath as NSIndexPath).row, inSection: (indexPath as NSIndexPath).section, atPosition: .bottom, animated: true)
@@ -362,9 +362,9 @@ open class NMessenger: UIView {
                     let set = IndexSet(integer: NMessengerSection.typingIndicator.rawValue)
                     CATransaction.begin()
                     CATransaction.setCompletionBlock(completion)
-                    self.messengerNode.view.beginUpdates()
-                    self.messengerNode.view.reloadSections(set, with: .fade)
-                    self.messengerNode.view.endUpdates(animated: true, completion: { (completed: Bool) -> Void in
+                    self.messengerNode.performBatch(animated: true, updates: { 
+                        self.messengerNode.reloadSections(set, with: .fade)
+                    }, completion: { (finished) in
                         if scrollsToLast {
                             if let indexPath = self.pickLastIndexPath() {
                                 self.scrollToIndex((indexPath as NSIndexPath).row, inSection: (indexPath as NSIndexPath).section, atPosition: .bottom, animated: true)
@@ -394,7 +394,7 @@ open class NMessenger: UIView {
      - returns: A Bool indicating whether or not the cell exists in the messenger
      */
     open func hasMessage(_ message: GeneralMessengerCell) -> Bool {
-        let hasNode = (self.messengerNode.view.indexPath(for: message) != nil)
+        let hasNode = (self.messengerNode.indexPath(for: message) != nil)
         return hasNode
     }
     
@@ -504,7 +504,7 @@ open class NMessenger: UIView {
      */
     fileprivate func scrollToIndex(_ index: Int, inSection section: Int, atPosition position: UITableViewScrollPosition, animated: Bool) {
         let indexPath = (IndexPath(row: index, section: section))
-        self.messengerNode.view.scrollToRow(at: indexPath, at: position, animated: animated)
+        self.messengerNode.scrollToRow(at: indexPath, at: position, animated: animated)
     }
     
     /**
@@ -560,16 +560,15 @@ open class NMessenger: UIView {
             //update the state
             self.state.itemCount -= indexes.count
             
-            //remove rows
-            let tableView = self.messengerNode.view
-            tableView?.beginUpdates()
-            tableView?.deleteRows(at: indexes, with: animation)
-            
             //done animating
             let animated = animation != .none
-            tableView?.endUpdates(animated: animated) { (success) in
+            
+            //remove rows
+            self.messengerNode.performBatch(animated: animated, updates: { 
+                self.messengerNode.deleteRows(at: indexes, with: animation)
+            }, completion: { (finised) in
                 completion?()
-            }
+            })
         }
     }
     
@@ -581,26 +580,25 @@ open class NMessenger: UIView {
      - parameter completion: Closure which notifies that the table is done adding cells
      */
     fileprivate func renderDiff(_ oldState: NMessengerState, startIndex: Int, animation: UITableViewRowAnimation, completion: (()->Void)?) {
-        let tableView = messengerNode.view
-        tableView?.beginUpdates()
-        
-        // Add or remove items
-        let rowCountChange = state.itemCount - oldState.itemCount
-        if rowCountChange > 0 {
-            let indexPaths = (startIndex..<startIndex + rowCountChange).map { index in
-                IndexPath(row: index, section: NMessengerSection.messenger.rawValue)
-            }
-            tableView?.insertRows(at: indexPaths, with: animation)
-        } else if rowCountChange < 0 {
-            let indexPaths = (startIndex..<startIndex - rowCountChange).map { index in
-                IndexPath(row: index, section: NMessengerSection.messenger.rawValue)
-            }
-            tableView?.deleteRows(at: indexPaths, with: animation)
-        }
         
         //done animating
         let animated = animation != .none
-        tableView?.endUpdates(animated: animated) { (success) in
+        
+        self.messengerNode.performBatch(animated: animated, updates: { 
+            // Add or remove items
+            let rowCountChange = state.itemCount - oldState.itemCount
+            if rowCountChange > 0 {
+                let indexPaths = (startIndex..<startIndex + rowCountChange).map { index in
+                    IndexPath(row: index, section: NMessengerSection.messenger.rawValue)
+                }
+                self.messengerNode.insertRows(at: indexPaths, with: animation)
+            } else if rowCountChange < 0 {
+                let indexPaths = (startIndex..<startIndex - rowCountChange).map { index in
+                    IndexPath(row: index, section: NMessengerSection.messenger.rawValue)
+                }
+                self.messengerNode.deleteRows(at: indexPaths, with: animation)
+            }
+        }) { (finished) in
             completion?()
         }
     }
@@ -736,7 +734,7 @@ extension NMessenger {
 }
 
 //MARK: ASTableView Delegates/DataSource
-extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
+extension NMessenger: ASTableDelegate, ASTableDataSource {
     
     //MARK: footer
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -776,7 +774,7 @@ extension NMessenger: ASTableViewDelegate, ASTableViewDataSource {
             if (indexPath as NSIndexPath).row >= self.state.cellBufferStartIndex {
                 return self.state.cellBuffer[(indexPath as NSIndexPath).row - self.state.cellBufferStartIndex]
             }
-            return tableView.nodeForRow(at: indexPath)
+            return tableView.nodeForRow(at: indexPath)!
         case NMessengerSection.typingIndicator.rawValue:
             return self.state.typingIndicators[(indexPath as NSIndexPath).row]
         default: //should never come here

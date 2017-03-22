@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "NMessenger"
-  s.version      = "1.0.79"
+  s.version      = "1.0.81"
   s.summary      = "A fast, lightweight messenger component built on AsyncDisplaykit and written in Swift"
 
   # This description is used to generate tags and improve search results.
@@ -133,5 +133,5 @@ NMessenger is a fast, lightweight messenger component built on AsyncDisplaykit a
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency "AsyncDisplayKit", "1.9.92"
+  s.dependency "AsyncDisplayKit", "2.2"
 end
