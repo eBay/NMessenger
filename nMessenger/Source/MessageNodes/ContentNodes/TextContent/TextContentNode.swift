@@ -159,7 +159,7 @@ open class TextContentNode: ContentNode,ASTextNodeDelegate {
      Overriding layoutSpecThatFits to specifiy relatiohsips between elements in the cell
      */
     override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let width = constrainedSize.max.width * 0.90 - self.insets.left - self.insets.right
+        let width = constrainedSize.max.width - self.insets.left - self.insets.right
         
         textMessageNode.style.maxWidth = ASDimension(unit: .points, value: width)
         textMessageNode.style.maxHeight = ASDimension(unit: .fraction, value: 1)

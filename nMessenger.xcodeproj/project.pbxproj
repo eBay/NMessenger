@@ -989,7 +989,7 @@
 			children = (
 				F1FC871B1D63813700F3C21C /* CollectionViewContent */,
 				F1FC871E1D63813700F3C21C /* ContentNode.swift */,
-				F1FC871F1D63813700F3C21C /* CustomContentContent */,
+				F1FC871F1D63813700F3C21C /* CustomContent */,
 				F1FC87211D63813700F3C21C /* ImageContent */,
 				F1FC87231D63813700F3C21C /* NetworkImageContent */,
 				F1FC87251D63813700F3C21C /* TextContent */,
@@ -1007,11 +1007,12 @@
 			path = CollectionViewContent;
 			sourceTree = "<group>";
 		};
-		F1FC871F1D63813700F3C21C /* CustomContentContent */ = {
+		F1FC871F1D63813700F3C21C /* CustomContent */ = {
 			isa = PBXGroup;
 			children = (
 				F1FC87201D63813700F3C21C /* CustomContentNode.swift */,
 			);
+			name = CustomContent;
 			path = CustomContentContent;
 			sourceTree = "<group>";
 		};
