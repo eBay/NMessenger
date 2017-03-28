@@ -21,37 +21,14 @@ open class MessageNode: GeneralMessengerCell {
     open weak var delegate: MessageCellProtocol?
     
     /** ASDisplayNode as the content of the cell*/
-    open var contentNode: ContentNode?
-        {
-        willSet{
-            if let contentNode = newValue {
-                if let oldContent = self.contentNode {
-                    self.insertSubnode(contentNode, aboveSubnode: oldContent)
-                    oldContent.removeFromSupernode()
-                } else {
-                    addSubnode(contentNode)
-                }
-            }
-        }
-        
+    open var contentNode: ContentNode? {
         didSet {
             self.setNeedsLayout()
         }
     }
     
     /** ASDisplayNode as the avatar of the cell*/
-    open var avatarNode: ASDisplayNode?
-        {
-        willSet{
-            if let avatarNode = newValue {
-                if let oldAvatar = self.avatarNode {
-                    self.insertSubnode(avatarNode, aboveSubnode: oldAvatar)
-                    oldAvatar.removeFromSupernode()
-                } else {
-                    self.addSubnode(avatarNode)
-                }
-            }
-        }
+    open var avatarNode: ASDisplayNode? {
         didSet {
             self.setNeedsLayout()
         }
@@ -59,18 +36,7 @@ open class MessageNode: GeneralMessengerCell {
     }
     
     /** ASDisplayNode as the header of the cell*/
-    open var headerNode: ASDisplayNode?
-        {
-        willSet{
-            if let headerNode = newValue {
-                if let oldHeader = self.headerNode {
-                    self.insertSubnode(headerNode, aboveSubnode: oldHeader)
-                    oldHeader.removeFromSupernode()
-                } else {
-                    self.addSubnode(headerNode)
-                }
-            }
-        }
+    open var headerNode: ASDisplayNode? {
         didSet {
             self.setNeedsLayout()
         }
@@ -78,19 +44,9 @@ open class MessageNode: GeneralMessengerCell {
     
     /** ASDisplayNode as the footer of the cell*/
     open var footerNode: ASDisplayNode? {
-            willSet{
-                if let footerNode = newValue {
-                    if let oldFooter = self.footerNode {
-                        self.insertSubnode(footerNode, aboveSubnode: oldFooter)
-                        oldFooter.removeFromSupernode()
-                    } else {
-                        self.addSubnode(footerNode)
-                    }
-                }
-            }
-            didSet {
-                self.setNeedsLayout()
-            }
+        didSet {
+            self.setNeedsLayout()
+        }
     }
     
     /**
@@ -118,6 +74,21 @@ open class MessageNode: GeneralMessengerCell {
     
     /** Spacing above the footer. Defaults to 10*/
     open var footerSpacing: CGFloat = 10 {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    /** Message width in relation to the NMessenger container size. **Warning:** Raises a fatal error if this value is not within the range. Defaults to 2/3*/
+    open var maxWidthRatio: CGFloat = 2/3 {
+        didSet {
+            if self.maxWidthRatio > 1 || self.maxWidthRatio < 0 {fatalError("maxWidthRatio expects a value between 0 and 1!")}
+            self.setNeedsLayout()
+        }
+    }
+    
+    /** Max message height. Defaults to 100000.0 */
+    open var maxHeight: CGFloat = 10000.0 {
         didSet {
             self.setNeedsLayout()
         }
@@ -156,15 +127,15 @@ open class MessageNode: GeneralMessengerCell {
         self.avatarButtonNode.isExclusiveTouch = true
         
         self.contentNode = content
-        
+        self.automaticallyManagesSubnodes = true
     }
     
     // MARK: Override AsycDisaplyKit Methods
     
     func createSpacer() -> ASLayoutSpec{
         let spacer = ASLayoutSpec()
-        spacer.style.flexGrow = 1
-        spacer.style.flexShrink = 1
+        spacer.style.flexGrow = 0
+        spacer.style.flexShrink = 0
         spacer.style.minHeight = ASDimension(unit: .points, value: 0)
         return spacer
     }
@@ -195,8 +166,8 @@ open class MessageNode: GeneralMessengerCell {
             
             let width = constrainedSize.max.width - tmpSizeMeasure.size.width - self.cellPadding.left - self.cellPadding.right - avatarInsets.left - avatarInsets.right - self.messageOffset
 
-            contentNode?.style.maxWidth = ASDimension(unit: .points, value: width * (2/3))
-            contentNode?.style.maxHeight = ASDimension(unit: .points, value: 100000)
+            contentNode?.style.maxWidth = ASDimension(unit: .points, value: width * self.maxWidthRatio)
+            contentNode?.style.maxHeight = ASDimension(unit: .points, value: self.maxHeight)
             
             let contentSizeLayout = ASAbsoluteLayoutSpec()
             contentSizeLayout.sizing = .sizeToFit
@@ -210,9 +181,9 @@ open class MessageNode: GeneralMessengerCell {
             contentSizeLayout.style.flexShrink = 1
         } else {
             let width = constrainedSize.max.width - self.cellPadding.left - self.cellPadding.right - self.messageOffset
-        
-            contentNode?.style.maxWidth = ASDimension(unit: .points, value: width * (2/3))
-            contentNode?.style.maxHeight = ASDimension(unit: .points, value: 100000)
+            
+            contentNode?.style.maxWidth = ASDimension(unit: .points, value: width * self.maxWidthRatio)
+            contentNode?.style.maxHeight = ASDimension(unit: .points, value: self.maxHeight)
         
             contentNode?.style.flexGrow = 1
         
@@ -233,7 +204,7 @@ open class MessageNode: GeneralMessengerCell {
             layoutSpecs = ASStackLayoutSpec(direction: .vertical, spacing: self.footerSpacing, justifyContent: .start, alignItems: isIncomingMessage ? .start : .end, children: [layoutSpecs, footerNode])
         }
         
-        let cellOrientation = isIncomingMessage ? [layoutSpecs!, createSpacer()] : [createSpacer(), layoutSpecs!]
+        let cellOrientation = isIncomingMessage ? [createSpacer(), layoutSpecs!] : [layoutSpecs!, createSpacer()]
         let layoutSpecs2 = ASStackLayoutSpec(direction: .horizontal, spacing: self.messageOffset, justifyContent: justifyLocation, alignItems: .end, children: cellOrientation)
         return ASInsetLayoutSpec(insets: self.cellPadding, child: layoutSpecs2)
     }
